@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Novante-Regular';
+    src: url('../assets/fonts/Novante-Regular.woff2') format('woff2'),
+         url('../assets/fonts/Novante-Regular.woff') format('woff'),
+         url('../assets/fonts/Novante-Regular.ttf') format('truetype'),
+         url('../assets/fonts/Novante-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Novante-Regular', sans-serif;
+    font-size: 100px;
+}
