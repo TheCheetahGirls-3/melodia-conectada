@@ -9,3 +9,4 @@ class MusicoGenero extends Model
 {
     use HasFactory;
 }
+?>
