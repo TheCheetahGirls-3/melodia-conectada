@@ -54,5 +54,15 @@ class Musico extends Model
                     ->withPivot('fecha_inicio', 'fecha_fin');
     }
 
+     /**
+     * The roles that belong to the Local
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function locales()
+    {
+        return $this->belongsToMany(Local::class, 'mensaje', 'id_usuario_musico', 'id_usuario_local')
+                    ->withPivot('contenido', 'fecha_hora', 'id_emisor', 'es_leido');
+    }
 
 }

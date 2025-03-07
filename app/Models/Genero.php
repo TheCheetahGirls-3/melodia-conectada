@@ -18,7 +18,7 @@ class Genero extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function musicos(): BelongsToMany
+    public function musicos()
     {
         return $this->belongsToMany(Musico::class, 'musico_genero', 'id_genero', 'id_usuario');
     }

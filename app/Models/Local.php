@@ -42,4 +42,15 @@ class Local extends Model
     {
         return $this->hasMany(Evento::class, 'id_usuario');
     }
+
+    /**
+     * The roles that belong to the Local
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function musicos(): BelongsToMany
+    {
+        return $this->belongsToMany(Musico::class, 'mensaje', 'id_usuario_local', 'id_usuario_musico')
+                    ->withPivot('contenido', 'fecha_hora', 'id_emisor', 'es_leido');
+    }
 }
