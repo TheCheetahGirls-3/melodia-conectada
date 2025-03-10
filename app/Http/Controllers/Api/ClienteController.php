@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ClienteResource;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 
@@ -45,6 +46,7 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        $clientes = Cliente::all();
+        return ClienteResource::collection($clientes);
     }
 }

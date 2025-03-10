@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\InstrumentoResource;
 use App\Models\Instrumento;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class InstrumentoController extends Controller
      */
     public function index()
     {
-        //
+        $instrumentos = Instrumento::all();
+        return InstrumentoResource::collection($instrumentos);
     }
 
     /**

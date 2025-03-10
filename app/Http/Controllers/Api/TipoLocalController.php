@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TipoLocaResource;
 use App\Models\TipoLocal;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class TipoLocalController extends Controller
      */
     public function index()
     {
-        //
+        $tipoLocales = TipoLocal::all();
+        return TipoLocaResource::collection($tipoLocales);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MusicoResource;
 use App\Models\Musico;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class MusicoController extends Controller
      */
     public function index()
     {
-        //
+        $musicos = Musico::all();
+        return MusicoResource::collection($musicos);
     }
 
     /**

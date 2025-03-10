@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TipoMultimediaResource;
 use App\Models\TipoMultimedia;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class TipoMultimediaController extends Controller
      */
     public function index()
     {
-        //
+        $tipoMultimedias = TipoMultimedia::all();
+        return TipoMultimediaResource::collection($tipoMultimedias);
     }
 
     /**

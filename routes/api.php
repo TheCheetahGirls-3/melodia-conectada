@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\MultimediaController;
 use App\Http\Controllers\Api\MusicoController;
 use App\Http\Controllers\Api\TipoLocalController;
 use App\Http\Controllers\Api\TipoMultimediaController;
+use App\Http\Controllers\Api\TipoUsuarioController;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\ClienteController;
 use App\Http\Controllers\Api\TipoUsuarioController;
