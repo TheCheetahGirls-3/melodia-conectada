@@ -11,7 +11,6 @@ use App\Http\Controllers\Api\TipoMultimediaController;
 use App\Http\Controllers\Api\TipoUsuarioController;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\ClienteController;
-use App\Http\Controllers\Api\TipoUsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
