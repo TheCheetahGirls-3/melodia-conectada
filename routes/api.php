@@ -1,5 +1,16 @@
 <?php
 
+use App\Http\Controllers\Api\EventoController;
+use App\Http\Controllers\Api\GeneroController;
+use App\Http\Controllers\Api\InstrumentoController;
+use App\Http\Controllers\Api\LocalController;
+use App\Http\Controllers\Api\MultimediaController;
+use App\Http\Controllers\Api\MusicoController;
+use App\Http\Controllers\Api\TipoLocalController;
+use App\Http\Controllers\Api\TipoMultimediaController;
+use App\Http\Controllers\Api\UsuarioController;
+use App\Http\Controllers\ClienteController;
+use App\Models\TipoUsuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +28,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('cliente', ClienteController::class);
+Route::apiResource('evento', EventoController::class);
+Route::apiResource('genero', GeneroController::class);
+Route::apiResource('instrumento', InstrumentoController::class);
+Route::apiResource('local', LocalController::class);
+Route::apiResource('multimedia', MultimediaController::class);
+Route::apiResource('musico', MusicoController::class);
+Route::apiResource('tipo_local', TipoLocalController::class);
+Route::apiResource('tipo_multimedia', TipoMultimediaController::class);
+Route::apiResource('tipo_usuario', TipoUsuario::class);
+Route::apiResource('usuario', UsuarioController::class);
