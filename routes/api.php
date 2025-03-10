@@ -9,8 +9,8 @@ use App\Http\Controllers\Api\MusicoController;
 use App\Http\Controllers\Api\TipoLocalController;
 use App\Http\Controllers\Api\TipoMultimediaController;
 use App\Http\Controllers\Api\UsuarioController;
-use App\Http\Controllers\ClienteController;
-use App\Models\TipoUsuario;
+use App\Http\Controllers\Api\ClienteController;
+use App\Http\Controllers\Api\TipoUsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,5 +38,5 @@ Route::apiResource('multimedia', MultimediaController::class);
 Route::apiResource('musico', MusicoController::class);
 Route::apiResource('tipo_local', TipoLocalController::class);
 Route::apiResource('tipo_multimedia', TipoMultimediaController::class);
-Route::apiResource('tipo_usuario', TipoUsuario::class);
+Route::apiResource('tipo_usuario', TipoUsuarioController::class);
 Route::apiResource('usuario', UsuarioController::class);
