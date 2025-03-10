@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TipoUsuarioResource;
 use App\Models\TipoUsuario;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class TipoUsuarioController extends Controller
      */
     public function index()
     {
-        //
+        $tipoUsuarios = TipoUsuario::all();
+        return TipoUsuarioResource::collection($tipoUsuarios);
     }
 
     /**

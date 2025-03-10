@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GeneroResource;
 use App\Models\Genero;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class GeneroController extends Controller
      */
     public function index()
     {
-        //
+        $generos = Genero::all();
+        return GeneroResource::collection($generos);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\LocalResource;
 use App\Models\Local;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class LocalController extends Controller
      */
     public function index()
     {
-        //
+        $locales = Local::all();
+        return LocalResource::collection($locales);
     }
 
     /**

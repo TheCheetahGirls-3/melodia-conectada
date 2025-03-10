@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MultimediaResource;
 use App\Models\Multimedia;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,8 @@ class MultimediaController extends Controller
      */
     public function index()
     {
-        //
+        $multimedias = Multimedia::all();
+        return MultimediaResource::collection($multimedias);
     }
 
     /**
