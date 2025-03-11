@@ -47,7 +47,6 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        $clientes = Cliente::all();
-        return ClienteResource::collection($clientes);
+        //
     }
 }
