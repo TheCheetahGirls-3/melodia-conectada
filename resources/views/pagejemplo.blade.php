@@ -4,6 +4,6 @@
     VUE
 @endsection
 
-@section('content')
+{{-- @section('content')
     <ejemplo></ejemplo>
-@endsection
+@endsection --}}
