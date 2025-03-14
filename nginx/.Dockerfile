@@ -1,2 +1,2 @@
 FROM nginx
-COPY static-html-directory /usr/share/nginx/html
+COPY melodia-conectada /usr/share/nginx/html
