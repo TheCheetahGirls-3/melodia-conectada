@@ -15,8 +15,6 @@
                                 <form class="float-right ml-1"
                                     action="{{ action([App\Http\Controllers\Api\InstrumentoController::class, 'destroy'], ['instrumento' => $instrumento->id]) }}"
                                     method="POST">
-                                    @csrf
-                                    @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger">
                                         <i class="fa fa-trash" aria-hidden="true"></i> Esborrar
                                     </button>
