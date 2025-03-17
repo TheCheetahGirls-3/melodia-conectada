@@ -1,5 +1,3 @@
-create database db_chillgig;
-
 use db_chillgig;
 
 create table tipo_usuario (
