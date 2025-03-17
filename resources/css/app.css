@@ -1,0 +1,8 @@
+.navbar-nav .nav-link.active {
+    color: white !important;
+    background-color: #406767 !important;
+}
+
+.buscador {
+    height: 100vh;
+}
