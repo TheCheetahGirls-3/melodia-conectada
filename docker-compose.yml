@@ -28,6 +28,38 @@ services:
             - db
         networks:
             - my_network
+
+    app:
+        build:
+            context: 'app'
+            dockerfile: '.Dockerfile'
+        container_name: chillgig_app
+        environment:
+            - APP_ENV=production
+        volumes:
+            - .:/var/www
+        ports:
+            - "9000:9000"
+        networks:
+            - my_network
+
+    nginx:
+        build:
+            context: ./nginx
+            dockerfile: '.Dockerfile'
+        container_name: nginx_proxy
+        environment:
+            - NGINX_HOST=chillgig.ainhoablanco.me
+            - NGINX_PORT=8080
+        ports:
+            - "8080:80"
+        volumes:
+            - ./app:/var/www
+        depends_on:
+            - app
+        networks:
+            - my_network
+
 networks:
   my_network:
     driver: bridge
