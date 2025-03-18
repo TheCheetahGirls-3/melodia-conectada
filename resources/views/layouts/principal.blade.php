@@ -48,7 +48,7 @@
                         @if(Auth::check())
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ Auth::user()->nombre }} {{ Auth::user()->apellidos }}
+                                {{ Auth::user()->correo }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -56,6 +56,10 @@
                             </div>
                         </li>
                         @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/signin') }}"><i class="fa fa-sign-in" aria-hidden="true"></i>
+                            Signin</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i>
                             Login</a>

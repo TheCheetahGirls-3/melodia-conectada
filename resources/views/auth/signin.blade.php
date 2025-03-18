@@ -5,10 +5,10 @@
     {{-- @include('partials.mensajes') --}}
     <div class="card">
         <div class="card-header bg-secondary text-light">
-                Login
+                SignIn
         </div>
         <div class="card-body">
-            <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'login']) }}" method="POST">
+            <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'store']) }}" method="POST">
                 @csrf
                 <div class="row mb-3">
                     <label for="correo" class="col-sm-2 col-form-label">Correo</label>
@@ -24,6 +24,13 @@
                         <input type="password" class="form-control" id="contrasenya" name="contrasenya"
                         value="{{ old('contrasenya') }}">
                     </div>
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="2" value="2" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="2">Soy Musico</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="3" value="3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="3">Soy Local</label>
                 </div>
 
                 <div class="row mb-3">

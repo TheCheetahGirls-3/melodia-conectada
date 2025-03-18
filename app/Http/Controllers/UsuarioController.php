@@ -13,15 +13,23 @@ class UsuarioController extends Controller
     public function showLogin()
     {
 
+        // $usuario = new Usuario();
+
+        // $usuario->correo = 'vpoglo@mail.com';
+        // $usuario->contrasenya = \bcrypt('pepe');
+        // $usuario->id_tipo_usuario = 1;
+
+        // $usuario->save();
+
         return view('auth.login');
     }
 
     public function login(Request $request)
     {
-        $username = $request->input('username');
+        $correo = $request->input('correo');
         $contrasenya = $request->input('contrasenya');
 
-        $user = Usuario::where('username', $username)->first();
+        $user = Usuario::where('correo', $correo)->first();
 
         if ($user != null && Hash::check($contrasenya, $user->contrasenya)){
             Auth::login($user);
@@ -51,7 +59,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.signin');
     }
 
     /**
@@ -59,7 +67,17 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $usuario = new Usuario();
+
+        $usuario->correo = $request->input('correo');
+        $usuario->contrasenya = \bcrypt($request->input('contrasenya'));
+        $usuario->id_tipo_usuario = $request->input('btnradio');
+
+        $usuario->save();
+
+        $response = redirect('/login');
+
+        return $response;
     }
 
     /**
