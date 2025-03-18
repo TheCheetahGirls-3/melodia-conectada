@@ -31,7 +31,7 @@ class InstrumentoController extends Controller
      */
     public function show(Instrumento $instrumento)
     {
-        //
+        return new InstrumentoResource($instrumento);
     }
 
     /**

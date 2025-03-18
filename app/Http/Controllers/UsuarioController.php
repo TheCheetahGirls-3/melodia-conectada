@@ -2,11 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use Hash;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
 {
+
+    public function showLogin()
+    {
+
+        // $usuario = new Usuario();
+
+        // $usuario->correo = 'vpoglo@mail.com';
+        // $usuario->contrasenya = \bcrypt('pepe');
+        // $usuario->id_tipo_usuario = 1;
+
+        // $usuario->save();
+
+        return view('auth.login');
+    }
+
+    public function login(Request $request)
+    {
+        $correo = $request->input('correo');
+        $contrasenya = $request->input('contrasenya');
+
+        $user = Usuario::where('correo', $correo)->first();
+
+        if ($user != null && Hash::check($contrasenya, $user->contrasenya)){
+            Auth::login($user);
+            $response = redirect('/home');
+        }else {
+            $request->session()->flash('error', 'usuario o contraseña incorrecta');
+            $response = redirect('/login')->withInput();
+        }
+
+        return $response;
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +59,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.signin');
     }
 
     /**
@@ -28,7 +67,17 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $usuario = new Usuario();
+
+        $usuario->correo = $request->input('correo');
+        $usuario->contrasenya = \bcrypt($request->input('contrasenya'));
+        $usuario->id_tipo_usuario = $request->input('btnradio');
+
+        $usuario->save();
+
+        $response = redirect('/login');
+
+        return $response;
     }
 
     /**
