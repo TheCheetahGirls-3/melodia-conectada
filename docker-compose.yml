@@ -1,61 +1,65 @@
-version: '3.8'
+# no hace falta poner la versión en si tenemos la v2
 
 services:
-  app:
-    build:
-      context: ./app
-      dockerfile: Dockerfile
-    container_name: laravel_app
-    restart: always
-    working_dir: /var/www
-    volumes:
-      - ./app:/var/www
-    environment:
-      - APP_ENV=local
-    networks:
-      - app_network
+    db:
+        image: mysql:latest
+        container_name: server
+        environment:
+            MYSQL_ROOT_PASSWORD: mysql
+            MYSQL_DATABASE: db_chillgig
+            MYSQL_USER: chillgig
+            MYSQL_PASSWORD: mysql
+        ports:
+            - "5432:3306"
+        volumes:
+            - ./data:/var/lib/mysql
+            - ./initdb:/docker-entrypoint-initdb.d
+        networks:
+            - my_network
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            PMA_HOST: db
+            MYSQL_ROOT_PASSWORD: mysql
+        ports:
+            - "5050:80"
+        depends_on:
+            - db
+        networks:
+            - my_network
 
-  nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    container_name: nginx_proxy
-    restart: always
-    ports:
-      - "8080:8080"
-    depends_on:
-      - app
-    networks:
-      - app_network
+    app:
+        build:
+            context: 'app'
+            dockerfile: '.Dockerfile'
+        container_name: chillgig_app
+        environment:
+            - APP_ENV=production
+        volumes:
+            - .:/var/www
+        ports:
+            - "9000:9000"
+        networks:
+            - my_network
 
-  db:
-    image: mysql:8
-    container_name: mysql_db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: melodia
-    volumes:
-      - db_data:/var/lib/mysql
-    networks:
-      - app_network
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    restart: always
-    ports:
-      - "5050:80"
-    environment:
-      PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: rootpassword
-    depends_on:
-      - db
-    networks:
-      - app_network
+    nginx:
+        build:
+            context: ./nginx
+            dockerfile: '.Dockerfile'
+        container_name: nginx_proxy
+        environment:
+            - NGINX_HOST=chillgig.ainhoablanco.me
+            - NGINX_PORT=8080
+        ports:
+            - "8080:80"
+        volumes:
+            - ./app:/var/www
+        depends_on:
+            - app
+        networks:
+            - my_network
 
 networks:
-  app_network:
-
-volumes:
-  db_data:
+  my_network:
+    driver: bridge

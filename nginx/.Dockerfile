@@ -1,10 +1,11 @@
-# Utilitzem la imatge oficial de NGINX
-FROM nginx:alpine
+# Imagen base
+FROM nginx:latest
 
-# Copiem la configuració personalitzada
-COPY nginx.conf /etc/nginx/nginx.conf
+# Instalar gettext (para usar envsubst)
+RUN apt-get update && apt-get install -y gettext
 
-# Exposem el port 8080
-EXPOSE 8080
+# Copiar plantilla de configuración de Nginx
+COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
-CMD ["nginx", "-g", "daemon off;"]
+# Reemplazar variables de entorno en la plantilla y moverla a nginx.conf
+CMD envsubst '$NGINX_HOST $NGINX_PORT' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && nginx -g 'daemon off;'
