@@ -1,0 +1,54 @@
+.navbar-nav .nav-link.active {
+    color: white !important;
+    background-color: #406767 !important;
+}
+
+.buscador {
+    height: 100vh;
+}
+
+.navbar-principal {
+    height: 4.5rem;
+}
+
+.navbar-movil {
+    display: none !important;
+
+}
+
+#movilBoton {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .navbar-principal {
+        display: none;
+        visibility: hidden;
+    }
+
+    .navbar-movil {
+        display: block !important;
+        height: 4.5rem !important;
+    }
+
+    .buscador {
+
+        height: 92.4vh;
+    }
+
+    header {
+        height: 0;
+    }
+
+    .listado {
+        display: none;
+        visibility: hidden;
+    }
+
+    #movilBoton {
+        display: block !important;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+    }
+}
