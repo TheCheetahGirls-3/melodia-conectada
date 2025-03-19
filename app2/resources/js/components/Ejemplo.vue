@@ -42,7 +42,7 @@ export default {
     created() {
         const me = this;
         axios
-            .get('/melodia-conectada/public/api/instrumento')
+            .get('/melodia-conectada/app2/public/api/instrumento')
             .then(response => {
                 me.instrumentos = response.data;
             })

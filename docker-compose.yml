@@ -31,7 +31,7 @@ services:
 
     app:
         build:
-            context: 'app'
+            context: 'app2'
             dockerfile: '.Dockerfile'
         container_name: chillgig_app
         environment:
