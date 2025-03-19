@@ -43,7 +43,7 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
+                <div class="d-flex" role="search">
                     <ul class="navbar-nav" me-auto mb-2 mb.lg-0>
                         @if(Auth::check())
                         @php
@@ -80,7 +80,7 @@
                         </li>
                     </ul>
                     @endif
-                </form>
+                </div>
             </div>
         </div>
     </nav>
