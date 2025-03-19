@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('layouts.inicio');
 });
 
 Route::get('/login', [UsuarioController::class, 'showLogin'])->name('login');
