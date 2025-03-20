@@ -109,6 +109,10 @@ class UsuarioController extends Controller
      */
     public function destroy(Usuario $usuario)
     {
-        //
+
+        $usuario->delete();
+        Auth::logout();
+
+        return redirect('/')->with('success', 'Usuario eliminado correctamente');
     }
 }

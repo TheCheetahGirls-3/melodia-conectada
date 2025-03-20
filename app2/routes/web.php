@@ -26,6 +26,12 @@ Route::get('/logout', [UsuarioController::class, 'logout']);
 Route::get('/signin', [UsuarioController::class, 'create']);
 Route::post('/signin', [UsuarioController::class, 'store']);
 
+Route::delete('/usuario/{usuario}', [UsuarioController::class, 'destroy'])->name('usuario.destroy');
+
+
+
+
+
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', function () {
         $user = Auth::user();
