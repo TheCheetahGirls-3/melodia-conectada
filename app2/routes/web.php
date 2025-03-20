@@ -33,3 +33,15 @@ Route::middleware(['auth'])->group(function (){
         return view('home', compact('user'));
     });
 });
+
+Route::get('/chat', function () {
+    return view('chat');
+});
+
+Route::get('/index', function () {
+    return view('index');
+});
+
+Route::get('/perfil', function () {
+    return view('perfil');
+});

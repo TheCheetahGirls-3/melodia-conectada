@@ -21,6 +21,15 @@
 }
 
 @media (max-width: 768px) {
+
+    .contenido {
+        display: none;
+    }
+
+    .contenido.activo {
+        display: block;
+    }
+
     .navbar-principal {
         display: none;
         visibility: hidden;
@@ -32,17 +41,11 @@
     }
 
     .buscador {
-
         height: 92.4vh;
     }
 
     header {
         height: 0;
-    }
-
-    .listado {
-        display: none;
-        visibility: hidden;
     }
 
     #movilBoton {
