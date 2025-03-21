@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layouts.inicio');
+    return view('portada');
 });
 
 Route::get('/login', [UsuarioController::class, 'showLogin'])->name('login');
@@ -50,4 +50,8 @@ Route::get('/index', function () {
 
 Route::get('/perfil', function () {
     return view('perfil');
+});
+
+Route::get('/login', function () {
+    return view('login');
 });

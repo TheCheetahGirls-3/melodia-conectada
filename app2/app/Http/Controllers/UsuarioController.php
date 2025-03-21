@@ -33,7 +33,7 @@ class UsuarioController extends Controller
 
         if ($user != null && Hash::check($contrasenya, $user->contrasenya)){
             Auth::login($user);
-            $response = redirect('/home');
+            $response = redirect('/index');
         }else {
             $request->session()->flash('error', 'usuario o contraseña incorrecta');
             $response = redirect('/login')->withInput();
@@ -75,7 +75,8 @@ class UsuarioController extends Controller
 
         $usuario->save();
 
-        $response = redirect('/login');
+        // $response = redirect('/login');
+        $response = redirect('/index');
 
         return $response;
     }
