@@ -1,4 +1,4 @@
-@extends('layouts.principal')
+@extends('layouts.navbar')
 
 @section('title')
     VUE

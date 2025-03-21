@@ -1,18 +1,18 @@
-@extends('layouts.inicio')
+@extends('layouts.navbar')
 
-@section('listado')
-<h1>listado</h1>
+@section('title')
+    Chat
 @endsection
 
-@section('mapa')
-<h1>mapa</h1>
+@section('content')
+    <h1>Esto es el chat</h1>
 @endsection
+
 
 
 <style>
     h1 {
         padding-top: 300px;
         color: black;
-
     }
 </style>
