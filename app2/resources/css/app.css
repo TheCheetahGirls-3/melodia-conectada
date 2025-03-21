@@ -1,3 +1,8 @@
+:root {
+    --gray: #d9d9d9;
+    --red: #7C0023;
+}
+
 .navbar-nav .nav-link.active {
     color: white !important;
     background-color: #406767 !important;
@@ -54,4 +59,71 @@
         top: 10px;
         right: 10px;
     }
+}
+
+/*PORTADA DE LA APP*/
+
+#introDiv {
+    position: absolute;
+    background-color: var(--gray);
+    height: 100vh;
+    width: 40%;
+    margin-left: 45%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#logoDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+#textPart {
+    width: 60%;
+    text-align: center;
+}
+
+.buttonWidth {
+    width: 170px;
+}
+
+#logo1 img {
+    height: 5.5rem;
+}
+
+#logo2 img {
+    height: 5rem;
+}
+
+.whiteButton {
+    background-color: white;
+    color: var(--red);
+}
+
+#imagenPortada {
+    display: block;
+    z-index: -1;
+    height: 100vh;
+}
+
+/* PÁGINAS DE REGISTRO E INICIO DE SESIÓN */
+.registerDiv {
+    width: 30%;
+}
+
+.registerDiv img {
+    width: 80%; /* Set a smaller width, adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px; /* Space below the image */
+
+}
+
+.centeredPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
