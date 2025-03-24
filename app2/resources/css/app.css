@@ -3,6 +3,18 @@
     --red: #7C0023;
 }
 
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.center {
+    text-align: center;
+}
+
 .navbar-nav .nav-link.active {
     color: white !important;
     background-color: #406767 !important;
@@ -115,15 +127,20 @@
 }
 
 .registerDiv img {
-    width: 80%; /* Set a smaller width, adjust as needed */
+    width: 70%; /* Set a smaller width, adjust as needed */
     height: auto; /* Maintain aspect ratio */
     margin-bottom: 20px; /* Space below the image */
 
 }
 
-.centeredPage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+.roleButton {
+    height: 12rem;
+    width: 9rem;
+    margin: 1rem;
+    box-shadow: 2px 2px 2px 2px rgba(80, 80, 80, 0.089);
+}
+
+.roleButton .roleIcon {
+    width: 60px;
+    padding-top: 6px;
 }
