@@ -59,3 +59,11 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('register');
 });
+
+Route::get('/musico', function () {
+    return view('index');
+});
+
+Route::get('/local', function () {
+    return view('index');
+});

@@ -1,7 +1,10 @@
 @extends('layouts.inicio')
 
 @section('listado')
-<h1>listado</h1>
+<div id="app">
+    <listado></listado>
+</div>
+
 @endsection
 
 @section('mapa')
