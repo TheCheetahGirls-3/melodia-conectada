@@ -52,3 +52,13 @@ Route::get('/perfil', function () {
     return view('perfil');
 });
 
+
+
+Route::get('/musico', function () {
+    return view('index');
+});
+
+Route::get('/local', function () {
+    return view('index');
+});
+

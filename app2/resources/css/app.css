@@ -144,3 +144,14 @@
     width: 60px;
     padding-top: 6px;
 }
+
+
+#roleIconM:hover{
+    border: solid #406767 6px;
+}
+
+
+#roleIconL:hover {
+    border: solid #7C0023 6px;
+}
+
