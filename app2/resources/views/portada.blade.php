@@ -24,8 +24,8 @@
             <p class="">Chillgig conecta a músicos con espacios que buscan telento en vivo. Ya no
                 necesitas esperar a que el público te descubra, ¡tú llevas la música a donde más se disfruta!
             </p>
-            <a href="{{ url('/login') }}"><button class="btn btn-primary rounded-pill p-2 m-2 buttonWidth" type="submit">Iniciar Sesión</button></a>
-            <button class="btn rounded-pill p-2 m-2 whiteButton buttonWidth" href="{{ url('/signin') }}" type="submit">Registrarse</button>
+            <a href="{{ url('/login') }}"><button class="btn btn-primary rounded-pill p-2 m-2 buttonWidth">Iniciar Sesión</button></a>
+            <a href="{{ url('/signin') }}"><button class="btn rounded-pill p-2 m-2 whiteButton buttonWidth">Registrarse</button>
         </div>
     </div>
     <img id="imagenPortada" src="{{asset('images/imagen_portada.png')}}" alt="imagen de fondo la portada">

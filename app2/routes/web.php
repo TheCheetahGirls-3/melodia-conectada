@@ -52,13 +52,7 @@ Route::get('/perfil', function () {
     return view('perfil');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
 
-Route::get('/register', function () {
-    return view('register');
-});
 
 Route::get('/musico', function () {
     return view('index');
@@ -67,3 +61,4 @@ Route::get('/musico', function () {
 Route::get('/local', function () {
     return view('index');
 });
+
