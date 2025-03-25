@@ -23,10 +23,10 @@
             </div>
             <div class="center">
                 <p>Elige quien eres</p>
-                <button class="roleButton btn btn-secondary rounded-4">
-                    <img class="roleIcon" src="images/icono_musico.png" alt="icono de músico">
+                <button class="roleButton btn btn-secondary rounded-4" id="roleIconM">
+                    <img class="roleIcon"  src="images/icono_musico.png" alt="icono de músico">
                 </button>
-                <button class="roleButton btn btn-secondary rounded-4">
+                <button class="roleButton btn btn-secondary rounded-4" id="roleIconL" >
                     <img class="roleIcon" src="images/icono_local.png" alt="icono de local">
                 </button>
             </div>

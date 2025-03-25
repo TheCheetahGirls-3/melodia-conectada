@@ -1,0 +1,12 @@
+node_modules
+vendor
+storage
+*.log
+*.tmp
+*.swp
+.DS_Store
+.idea
+.vscode
+.env
+.git
+.gitignore
