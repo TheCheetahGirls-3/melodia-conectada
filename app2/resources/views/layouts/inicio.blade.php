@@ -19,9 +19,7 @@
     background-color: rgb(215, 240, 255);
 }
 
-.columna2 {
-    background-color: rgb(161, 245, 172);
-}
+
 </style>
 
 

@@ -1,14 +1,18 @@
 @extends('layouts.inicio')
 
 @section('listado')
+
+
+
+=======
 <div id="app">
     <listado :usuario="{{ json_encode(Auth::user()) }}"></listado>
-</div>
 
+</div>
 @endsection
 
 @section('mapa')
-<h1>mapa</h1>
+    <Mapa></Mapa>
 @endsection
 
 
