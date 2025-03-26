@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.css' rel='stylesheet' />
     @vite(['resources/css/app.css', 'resources/css/app.scss', 'resources/js/app.js'])
     <title>
         @yield('title')
@@ -68,7 +69,7 @@
         </nav>
     </header>
 
-    <div class="container-fluid">
+    <div class="container-fluid" id="app">
         @yield('content')
         {{-- <ejemplo></ejemplo> --}}
     </div>
