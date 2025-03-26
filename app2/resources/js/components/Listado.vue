@@ -2,25 +2,29 @@
     <div id="app" class="container mt-4">
         <h1>Listado de clientes</h1>
 
-        <div v-for="usuario in listado" :key="usuario.id_usuario" class="usuario-card">
-            <div v-if="usuario.clientes">
-                <p><strong>Nombre:</strong> {{ usuario.clientes.nombre }}</p>
-                <p><strong>Ubicación:</strong> {{ usuario.clientes.ubicacion }}</p>
-                <p><strong>Descripción:</strong> {{ usuario.clientes.descripcion || 'Sin descripción' }}</p>
-                <p><strong>Teléfono:</strong> {{ usuario.clientes.telefono || 'No disponible' }}</p>
-                <div v-if="usuario.clientes.foto_perfil">
-                    <img :src="usuario.clientes.foto_perfil" alt="Foto de perfil" class="foto-perfil">
+        <div v-for="cliente in resultado" :key="cliente.id_usuario" class="usuario-card">
+                <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+                <p><strong>Ubicación:</strong> {{ cliente.ubicacion }}</p>
+                <p><strong>Descripción:</strong> {{ cliente.descripcion || 'Sin descripción' }}</p>
+                <p><strong>Teléfono:</strong> {{ cliente.telefono || 'No disponible' }}</p>
+                <div v-if="cliente.foto_perfil">
+                    <img :src="cliente.foto_perfil" alt="Foto de perfil" class="foto-perfil">
                 </div>
-            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
+    props: {
+        usuario: {
+            type: Object
+        }
+    },
     data() {
         return {
             listado: [],
+            resultado:[],
         };
     },
     mounted() {
@@ -28,10 +32,15 @@ export default {
     },
     methods: {
         fetchListado() {
-            const url = "/melodia-conectada/app2/public/api/usuario";
+            const url = "/melodia-conectada/app2/public/api/cliente";
             axios.get(url)
                 .then(response => {
                     this.listado = response.data;
+                    for(const cliente of this.listado){
+                        if (cliente.usuario.id_tipo_usuario !== this.usuario.id_tipo_usuario){
+                            this.resultado.push(cliente);
+                        }
+                    }
                 })
                 .catch(error => {
                     console.error("Error obteniendo el listado:", error);
