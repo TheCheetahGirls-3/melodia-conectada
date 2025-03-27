@@ -38,7 +38,7 @@ class Musico extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function intrumentos()
+    public function instrumentos()
     {
         return $this->belongsToMany(Instrumento::class, 'musico_instrumento', 'id_usuario', 'id_instrumento');
     }
