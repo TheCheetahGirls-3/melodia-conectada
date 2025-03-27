@@ -68,7 +68,6 @@
             </div>
         </nav>
     </header>
-
     <div class="container-fluid" id="app">
         @yield('content')
         {{-- <ejemplo></ejemplo> --}}
