@@ -76,7 +76,7 @@ class UsuarioController extends Controller
         $usuario->save();
 
         // $response = redirect('/login');
-        $response = redirect('/index');
+        $response = redirect('/signin-ubicacion');
 
         return $response;
     }
