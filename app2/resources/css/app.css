@@ -3,6 +3,10 @@
     --red: #7C0023;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 .centered {
     display: flex;
     flex-direction: column;
