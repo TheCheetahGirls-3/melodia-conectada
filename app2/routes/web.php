@@ -30,8 +30,6 @@ Route::delete('/usuario/{usuario}', [UsuarioController::class, 'destroy'])->name
 
 
 
-
-
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', function () {
         $user = Auth::user();
@@ -47,12 +45,12 @@ Route::get('/chat', function () {
 Route::get('/index', function () {
     return view('index');
 });
-
+Route::get('/pruebaFiltro', function () {
+    return view('pruebaFiltro');
+});
 Route::get('/perfil', function () {
     return view('perfil');
 });
-
-
 
 Route::get('/musico', function () {
     return view('index');

@@ -3,9 +3,7 @@
 @section('listado')
 
 <div>
-
-
-    <listado :usuario="{{ json_encode(Auth::user()) }}"></listado>
+    <prueba-filtro :usuario="{{ json_encode(Auth::user()) }}"></prueba-filtro>
 
 </div>
 @endsection
