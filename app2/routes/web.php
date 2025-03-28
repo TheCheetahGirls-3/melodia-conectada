@@ -28,7 +28,9 @@ Route::post('/signin', [UsuarioController::class, 'store']);
 
 Route::delete('/usuario/{usuario}', [UsuarioController::class, 'destroy'])->name('usuario.destroy');
 
-
+Route::get('/signin-ubicacion', function () {
+    return view('layouts/signin-ubicacion');
+});
 
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', function () {

@@ -14,16 +14,12 @@
 
 
 <style>
-
-.columna1 {
-    background-color: rgb(215, 240, 255);
-}
-
-
+    .columna1 {
+        background-color: rgb(215, 240, 255);
+    }
 </style>
 
 
 {{-- @section('script')
     /resources/js/scriptInicio.js
 @endsection --}}
-

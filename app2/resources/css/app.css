@@ -6,6 +6,10 @@ body{
     overflow-x: hidden;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 .centered {
     display: flex;
     flex-direction: column;
@@ -15,7 +19,10 @@ body{
 }
 
 .center {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar-nav .nav-link.active {
@@ -129,32 +136,44 @@ body{
     width: 30%;
 }
 
-.registerDiv img {
-    width: 70%; /* Set a smaller width, adjust as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 20px; /* Space below the image */
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.registerDiv img {
+    width: 70%;
+    height: auto;
 }
 
 .roleButton {
     height: 12rem;
-    width: 9rem;
-    margin: 1rem;
     box-shadow: 2px 2px 2px 2px rgba(80, 80, 80, 0.089);
+    padding: 1rem;
+}
+
+.roleIcon {
+    height: 10rem;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .roleButton .roleIcon {
-    width: 60px;
-    padding-top: 6px;
+    height: 10rem;
+    width: auto;
+    display: flex;
 }
 
-
-#roleIconM:hover{
-    border: solid #406767 6px;
+#buttonMusico:hover{
+    outline: 4px solid #406767;
+    content:url("/public/images/icono_musico_color.png");
 }
 
-
-#roleIconL:hover {
-    border: solid #7C0023 6px;
+#buttonLocal:hover {
+    outline: 4px solid #7C0023;
+    content:url("/public/images/icono_local_color.png");
 }
 

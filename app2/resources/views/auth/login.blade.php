@@ -28,7 +28,7 @@
                 </div>
                 <div class="center">
                     <button type="submit" class="btn btn-primary rounded-pill p-2 m-2 buttonWidth center">Entrar</button>
-                    <p class="center">¿No tienes cuenta? <a href="{{ url('/signin') }}">Regístrate</a></p>
+                    <p>¿No tienes cuenta?<a class="ms-2" href="{{ url('/signin') }}">Regístrate</a></p>
                 </div>
             </form>
         </div>

@@ -26,17 +26,17 @@
                 <div id="passwordHelpBlock" class="form-text">
                 Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                 </div>
-                <div class="btn-group center" role="group" aria-label="Basic radio toggle button group">
-                    <p>Elige quien eres</p>
+                <p class="pb-0 pt-4 center">Elige quien eres</p>
+                <div class="buttonGroup" role="group" aria-label="Basic radio toggle button group">
 
                     <input type="radio" class="btn-check" name="btnradio" id="2" value="2" autocomplete="off" checked>
-                    <label class="roleButton btn btn-secondary rounded-4" for="2">
+                    <label id="buttonMusico" class="roleButton btn btn-secondary rounded-4 mx-2 mb-4" for="2">
                         <img class="roleIcon" src="images/icono_musico.png" alt="icono de músico">
                     </label>
 
                     <input type="radio" class="btn-check" name="btnradio" id="3" value="3" autocomplete="off">
-                    <label class="roleButton btn btn-secondary rounded-4" for="3">
-                        <img class="roleIcon" src="images/icono_local.png" alt="icono de músico">
+                    <label id="buttonLocal" class="roleButton btn btn-secondary rounded-4 mx-2 mb-4" for="3">
+                        <img class="roleIcon" src="images/icono_local.png" alt="icono de local">
                     </label>
                 </div>
                 <div class="center">

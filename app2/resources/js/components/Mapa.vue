@@ -21,8 +21,8 @@
       new mapboxgl.Map({
         container: 'map', // ID del contenedor
         style: 'mapbox://styles/mapbox/streets-v11', // Estilo del mapa
-        center: [-74.5, 40], // Posición inicial [lng, lat]
-        zoom: 9, // Nivel de zoom inicial
+        center: [2.1769, 41.3847], // Posición inicial [lng, lat] !!!! AQUI TIENE QUE IR LA LAT Y LNG DEL USUARIO!!!!
+        zoom: 15, // Nivel de zoom inicial
       });
     }
   };
