@@ -1,22 +1,19 @@
 <template>
     <div class="container">
         <h1>Aqui hay un filtro</h1>
-        <button class="filtro" @click="abrirModal">F</button>
-        <div v-if="mostrarModal" class="modal-overlay">
+        <button class="filtro" @click="abrirModal">Filtro</button>
+        <div v-if="mostrarModal" class="modal-container">
             <div class="modal">
                 <h5>Instrumentos</h5>
                 <select id="instrumento" v-model="selectedInstrumento">
                     <option v-for="instrumento in instrumentos" :key="instrumento.id_instrumento" :value="instrumento.nombre">
-                        {{ instrumentos.nombre }}
+                        {{ instrumento.nombre }}
                     </option>
                 </select>
+                <button @click="cerrarModal">Cerrar</button>
             </div>
-            <h5></h5>
         </div>
     </div>
-
-
-
 </template>
 
 <script>
@@ -40,6 +37,7 @@ export default {
     methods: {
         abrirModal() {
             this.mostrarModal = true;
+            console.log("Se ha abierto el modal ueeee", this.mostrarModal);
         },
         cerrarModal() {
             this.mostrarModal = false;
@@ -59,7 +57,7 @@ export default {
 </script>
 
 <style scoped>
-.modal-overlay {
+.modal-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -69,6 +67,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .modal {
@@ -77,8 +76,8 @@ export default {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 300px;
-    border: 2px solid red; /* Borde temporal para depuración */
+    width: 400px;
+    height: 300px;
 }
 
 button {
