@@ -5,7 +5,10 @@
 @endsection
 
 @section('content')
-    <h1>Esto es el perfil</h1>
+    <div class="banner container">
+        <div class="profilePic"></div>
+        <div class="profileName"></div>
+    </div>
 @endsection
 
 
