@@ -9,22 +9,26 @@
 
           <div class="info-cliente">
             <h4><strong> {{ cliente.nombre }} </strong></h4>
-            <p> {{ cliente.ubicacion }}</p>
-            <p> {{ cliente.descripcion || 'Sin descripción' }}</p>
-            <p> {{ cliente.telefono || 'No disponible' }}</p>
 
-            <div v-if="cliente.musicos && cliente.musicos.instrumentos.length > 0">
-              <p><strong>Instrumentos:</strong></p>
-              <ul>
-                <li v-for="instrumento in cliente.musicos.instrumentos" :key="instrumento.id_instrumento">
+            <div v-if="cliente.musicos">
+                <p> {{ cliente.descripcion }}</p>
+              <ul class="m-0 p-0">
+                <div class="instrumento">
+                    <li v-for="instrumento in cliente.musicos.instrumentos" :key="instrumento.id_instrumento">
                   {{ instrumento.nombre }}
-                </li>
+                    </li>
+                </div>
               </ul>
             </div>
 
-            <!-- Si es local, mostrar el tipo de local -->
-            <div v-if="cliente.locales && cliente.locales.tipo_local">
-              <p><strong>Tipo de local:</strong> {{ cliente.locales.tipo_local.nombre }}</p>
+            <div v-if="cliente.locales">
+                <p> {{ cliente.ubicacion }}</p>
+                <p> {{ cliente.telefono }}</p>
+                <p> {{ cliente.locales.horario }}</p>
+                <div class="tipo-local">
+                   <p> {{ cliente.locales.tipo_local.nombre }}</p>
+                </div>
+
             </div>
           </div>
         </div>
@@ -74,12 +78,10 @@
     overflow-y: scroll;
   }
 
-  /* ocultar el scroll en navegadores webkit */
   .usuario-lista::-webkit-scrollbar {
     display: none;
   }
 
-  /* ocultar el scroll en Firefox */
   .usuario-lista {
     scrollbar-width: none;
   }
@@ -100,8 +102,8 @@
   }
 
   .foto-perfil {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height:150px;
     border-radius: 10px;
     object-fit: cover;
   }
@@ -111,4 +113,24 @@
     font-size: 14px;
     line-height: 1.5;
   }
+
+  .instrumento {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .instrumento li, .tipo-local p {
+    background: #7C0023;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+    text-decoration: none;
+    list-style: none;
+    display: inline-block;
+    margin: 2px;
+    }
+
+
   </style>
