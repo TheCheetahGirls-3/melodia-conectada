@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <h1>Aqui hay un filtro</h1>
         <button class="filtro" @click="abrirModal">Filtro</button>
         <div v-if="mostrarModal" class="modal-container">
             <div class="modal">
@@ -9,6 +8,12 @@
                     <option v-for="instrumento in instrumentos" :key="instrumento.id_instrumento" :value="instrumento.nombre">
                         {{ instrumento.nombre }}
                     </option>
+                </select>
+                <h5>Géneros</h5>
+                <select id="genero" v-model="selectedGeneros">
+                <option v-for="genero in generos" :key="genero.id_genero" :value="genero.nombre">
+                    {{ genero.nombre }}
+                </option>
                 </select>
                 <button @click="cerrarModal">Cerrar</button>
             </div>
@@ -29,10 +34,13 @@ export default {
             mostrarModal: false,
             instrumentos: [],
             selectedInstrumento: "",
+            generos: [],
+            selectedGeneros: "",
         };
     },
     created(){
         this.fetchInstrumentos();
+        this.fetchGeneros();
     },
     methods: {
         abrirModal() {
@@ -50,6 +58,15 @@ export default {
                 .catch((error) => {
                     console.error("Error al cargar los juegos", error);
                 });
+        },
+        fetchGeneros(){
+            axios.get("genero")
+            .then((response) => {
+                    this.generos = response.data;
+                })
+                .catch((error) => {
+                    console.error("Error al cargar los juegos", error);
+                });
         }
     },
 
@@ -59,15 +76,16 @@ export default {
 <style scoped>
 .modal-container {
     position: fixed;
-    top: 0;
+    top: 70px;
     left: 0;
-    width: 100%;
+    width: 35% !important;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
-    justify-content: center;
-    align-items: center;
-
+    justify-content: start;
+    align-items: start;
+    padding-top: 50px;
+    z-index: 1030;
 }
 
 .modal {
@@ -76,12 +94,23 @@ export default {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 400px;
-    height: 300px;
+    width: 30% !important;
+    height: auto;
+    border: 2px solid red;
+    z-index: 10000 !important; /* Aún más arriba */
+    display: block !important;
+    margin-left: 30px;
+    top:40%;
+}
+
+select {
+  width: 100%;
+  margin: 10px 0;
+  padding: 5px;
 }
 
 button {
     cursor: pointer;
-    margin: 5px;
+    margin-top: 10px;
 }
 </style>
