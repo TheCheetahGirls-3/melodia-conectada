@@ -13,7 +13,7 @@
             <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'store']) }}" method="POST">
                 @csrf
                 <div class="center">
-                    <img src="{{asset('images/logo_chillgig.png')}}" alt="logo2">
+                    <img class="registerLogo" src="{{asset('images/logo_chillgig.png')}}" alt="logo2">
                 </div>
                 <div class="mb-3">
                     <label for="correo" class="form-label">Email address</label>
@@ -26,21 +26,16 @@
                 <div id="passwordHelpBlock" class="form-text">
                 Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                 </div>
-                <div class="btn-group center" role="group" aria-label="Basic radio toggle button group">
-                    <p>Elige quien eres</p>
-
+                <p class="pb-0 pt-4 center">Elige quien eres</p>
+                <div class="buttonGroup" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" class="btn-check" name="btnradio" id="2" value="2" autocomplete="off" checked>
-                    <label class="roleButton btn btn-secondary rounded-4" for="2">
-                        <img class="roleIcon" src="images/icono_musico.png" alt="icono de músico">
-                    </label>
+                    <label id="buttonMusico" class="roleButton btn btn-secondary rounded-4 mx-2 pb-2" for="2"></label>
 
                     <input type="radio" class="btn-check" name="btnradio" id="3" value="3" autocomplete="off">
-                    <label class="roleButton btn btn-secondary rounded-4" for="3">
-                        <img class="roleIcon" src="images/icono_local.png" alt="icono de músico">
-                    </label>
+                    <label id="buttonLocal" class="roleButton btn btn-secondary rounded-4 mx-2 pb-2" for="3"></label>
                 </div>
                 <div class="center">
-                    <button class="btn btn-primary rounded-pill p-2 m-2 buttonWidth" type="submit">Siguiente</button>
+                    <button class="btn btn-primary rounded-pill p-2 m-2 mt-5 buttonWidth" type="submit">Siguiente</button>
                     <p>¿Ya tienes cuenta? <a href="{{ url('/login') }}">Inicia sesión</a></p>
                 </div>
             </form>

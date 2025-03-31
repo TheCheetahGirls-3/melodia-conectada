@@ -14,8 +14,9 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::with('usuario')->get();;
+        $clientes = Cliente::with('usuario', 'musicos.instrumentos', 'locales.tipo_local')->get();
         return ClienteResource::collection($clientes);
+
     }
 
     /**

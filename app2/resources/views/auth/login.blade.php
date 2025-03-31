@@ -14,7 +14,7 @@
             <form action="{{ action([App\Http\Controllers\UsuarioController::class, 'login']) }}" method="POST">
                 @csrf
                 <div class="center">
-                    <img src="{{asset('images/logo_chillgig.png')}}" alt="logo2">
+                    <img class="registerLogo" src="{{asset('images/logo_chillgig.png')}}" alt="logo2">
                 </div>
                 <div class="mb-3">
                     <label for="correo" class="form-label">Email address</label>
@@ -27,8 +27,8 @@
                 Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
                 </div>
                 <div class="center">
-                    <button type="submit" class="btn btn-primary rounded-pill p-2 m-2 buttonWidth center">Entrar</button>
-                    <p class="center">¿No tienes cuenta? <a href="{{ url('/signin') }}">Regístrate</a></p>
+                    <button type="submit" class="btn btn-primary rounded-pill p-2 m-2 mt-5 buttonWidth center">Entrar</button>
+                    <p>¿No tienes cuenta?<a class="ms-2" href="{{ url('/signin') }}">Regístrate</a></p>
                 </div>
             </form>
         </div>
