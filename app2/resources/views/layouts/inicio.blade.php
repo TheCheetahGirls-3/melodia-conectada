@@ -1,10 +1,10 @@
 @extends('layouts.navbar')
 
-@section('title')
+{{-- @section('title')
     Inicio
-@endsection
+@endsection --}}
 
-@section('content')
+@section('contenido')
     <button id="movilBoton">O</button>
     <div class="row buscador">
         <div id="listado" class="col-12 col-md-4 row-sm-1 columna1 contenido">@yield('listado')</div>
@@ -12,14 +12,3 @@
     </div>
 @endsection
 
-
-<style>
-    .columna1 {
-        background-color: rgb(215, 240, 255);
-    }
-</style>
-
-
-{{-- @section('script')
-    /resources/js/scriptInicio.js
-@endsection --}}

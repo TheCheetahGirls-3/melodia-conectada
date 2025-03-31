@@ -10,11 +10,3 @@
     <Mapa></Mapa>
 @endsection
 
-
-<style>
-    h1 {
-        padding-top: 300px;
-        color: black;
-
-    }
-</style>
