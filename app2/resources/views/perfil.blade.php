@@ -4,7 +4,7 @@
     Perfil
 @endsection
 
-@section('content')
+@section('contenido')
     <div class="container">
 
         <div class="banner">
@@ -35,6 +35,7 @@
         <h5 class="mt-5 redText">Galería</h5>
 
         {{-- GALLERY -------------------------------------------------------------------------------------}}
+        {{-- Referencia: https://codepen.io/TheMOZZARELLA/pen/oNpMxyy --}}
 
         <div id="mz-gallery-container">
 
@@ -198,6 +199,12 @@
         </div>
 
         {{-- GALLERY -------------------------------------------------------------------------------------}}
+
+        <h5 class="mt-5 redText">Estadísticas</h5>
+        <div class="estadisticasDiv">
+            <div class="estadistica">Estadística 1</div>
+            <div class="estadistica">Estadística 1</div>
+        </div>
 
     </div>
 
