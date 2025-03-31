@@ -70,7 +70,7 @@
         </nav>
     </header>
     <div>
-        @yield('content')
+        @yield('contenido')
     </div>
 
     <nav class="navbar navbar-expand-lg bg-body-secondary navbar-movil fixed-bottom">
@@ -90,4 +90,4 @@
     </nav>
 
     <script src="js/scriptInicio.js"></script>
-    @endsection
+@endsection
