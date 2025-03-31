@@ -1,5 +1,9 @@
 @extends('layouts.navbar')
 
+@section('title')
+    Inicio
+@endsection
+
 @section('content')
     <button id="movilBoton">O</button>
     <div class="row buscador">
