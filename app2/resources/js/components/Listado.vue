@@ -18,6 +18,11 @@
                   {{ instrumento.nombre }}
                     </li>
                 </div>
+                <div class="generos">
+                    <li v-for="genero in cliente.musicos.generos" :key="genero.id_genero">
+                  {{ genero.nombre }}
+                    </li>
+                </div>
               </ul>
             </div>
 
@@ -54,8 +59,7 @@
     },
     methods: {
       fetchListado() {
-        const url = "/melodia-conectada/app2/public/api/cliente";
-        axios.get(url)
+        axios.get('cliente')
           .then(response => {
             this.listado = response.data;
             for (const cliente of this.listado) {
@@ -114,7 +118,7 @@
     line-height: 1.5;
   }
 
-  .instrumento {
+  .instrumento, .generos {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
@@ -130,6 +134,18 @@
     list-style: none;
     display: inline-block;
     margin: 2px;
+    }
+
+    .generos li{
+        background: #406767;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: white;
+        font-size: 12px;
+        text-decoration: none;
+        list-style: none;
+        display: inline-block;
+        margin: 2px;
     }
 
 
