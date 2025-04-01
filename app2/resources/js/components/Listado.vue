@@ -1,5 +1,9 @@
 <template>
+
     <div class="usuario-lista container mt-4">
+        <div class="filtro">
+            <filtro :listado="listado"></filtro>
+        </div>
       <div class="div-general">
         <div v-for="cliente in resultado" :key="cliente.id_usuario" class="usuario-card">
 
@@ -42,7 +46,10 @@
   </template>
 
   <script>
-  export default {
+    import filtro from './Filtro.vue';
+
+    export default {
+    components: { filtro },
     props: {
       usuario: {
         type: Object
@@ -146,6 +153,10 @@
         list-style: none;
         display: inline-block;
         margin: 2px;
+    }
+
+    .filtro{
+        margin-top: 50px;
     }
 
 

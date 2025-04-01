@@ -3,6 +3,8 @@
         <button class="filtro" @click="abrirModal">Filtro</button>
         <div v-if="mostrarModal" class="modal-container">
             <div class="modal">
+                <!-- Si es local -->
+                <!-- <div v-if="cliente.musicos"> -->
                 <h5>Instrumentos</h5>
                 <select id="instrumento" v-model="selectedInstrumento">
                     <option v-for="instrumento in instrumentos" :key="instrumento.id_instrumento" :value="instrumento.nombre">
@@ -15,6 +17,12 @@
                     {{ genero.nombre }}
                 </option>
                 </select>
+                <!-- </div> -->
+
+                <!-- Si es múdico -->
+                <!-- <div v-if="cliente.musicos">
+
+                </div> -->
                 <button @click="cerrarModal">Cerrar</button>
             </div>
         </div>
@@ -31,6 +39,7 @@ export default {
     },
     data() {
         return {
+            resultado: [],
             mostrarModal: false,
             instrumentos: [],
             selectedInstrumento: "",
@@ -39,10 +48,27 @@ export default {
         };
     },
     created(){
+        this.fetchListado();
+        console.log(this.listado);
         this.fetchInstrumentos();
         this.fetchGeneros();
     },
+
     methods: {
+        fetchListado() {
+        axios.get('cliente')
+          .then(response => {
+            this.listado = response.data;
+            for (const cliente of this.listado) {
+              if (cliente.usuario.id_tipo_usuario !== this.usuario.id_tipo_usuario) {
+                this.resultado.push(cliente);
+              }
+            }
+          })
+          .catch(error => {
+            console.error("Error obteniendo el listado:", error);
+          });
+        },
         abrirModal() {
             this.mostrarModal = true;
             console.log("Se ha abierto el modal ueeee", this.mostrarModal);
@@ -54,6 +80,7 @@ export default {
             axios.get("instrumento")
             .then((response) => {
                     this.instrumentos = response.data;
+                    console.log(this.instrumentos);
                 })
                 .catch((error) => {
                     console.error("Error al cargar los juegos", error);
@@ -63,6 +90,7 @@ export default {
             axios.get("genero")
             .then((response) => {
                     this.generos = response.data;
+                    console.log(this.generos);
                 })
                 .catch((error) => {
                     console.error("Error al cargar los juegos", error);
