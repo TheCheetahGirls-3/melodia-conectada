@@ -1,6 +1,7 @@
 :root {
-    --gray: #d9d9d9;
+    --green: #406767;
     --red: #7C0023;
+    --gray: #d9d9d9;
 }
 body{
     overflow-x: hidden;
@@ -9,6 +10,10 @@ body{
 body {
     height: 100%;
     overflow-x: hidden;
+}
+
+#app {
+    height: 100vh;
 }
 
 .centered {
@@ -28,7 +33,7 @@ body {
 
 .navbar-nav .nav-link.active {
     color: white !important;
-    background-color: #406767 !important;
+    background-color: var(--green) !important;
 }
 
 .buscador {
@@ -226,31 +231,23 @@ body {
 
 
 #mz-gallery-container {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100%;
 }
 
 #mz-gallery {
-  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   width: calc(100% - 70px);
   height: calc(100% - 50px);
-  max-height: 670px;
-  max-width: 1900px;
-  margin: 35px 0px;
-  background-color: black;
-  background-image: radial-gradient(rgba(124, 252, 0, 0.4) 1px, black 1px);
-  background-size: 40px 40px;
-  border: 1px dotted rgba(124, 252, 0, 0.7);
-  outline: 1px dotted rgba(124, 252, 0, 0.7);
+  height: 30rem;
+  width: 100%;
+  background-color: white;
   outline-offset: 20px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -258,9 +255,9 @@ body {
   scroll-padding: 0 0 0 55px;
   scroll-behavior: smooth;
   /* firefox scrollbar */
-  scrollbar-color: lawngreen #222;
+  scrollbar-color: #c2c2c2 var(--gray);
   scrollbar-width: auto;
-  animation: background 300s linear infinite;
+
 }
 
 @keyframes background {
@@ -569,3 +566,22 @@ body {
 }
 
 /* GALLERY ************************************************************************************ */
+
+/* ESTADÍSTICAS */
+.estadisticasDiv {
+    background-color: pink;
+    height: 30rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 300px;
+}
+
+.estadistica {
+    background-color: #444;
+    height: 20rem;
+    width: 20rem;
+    margin: 2rem;
+}
