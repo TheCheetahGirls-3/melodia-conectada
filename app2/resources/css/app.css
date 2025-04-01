@@ -3,6 +3,9 @@
     --red: #7C0023;
     --gray: #d9d9d9;
 }
+body{
+    overflow-x: hidden;
+}
 
 body {
     height: 100%;
