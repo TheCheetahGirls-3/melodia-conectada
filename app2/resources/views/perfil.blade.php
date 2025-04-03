@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="bannerText ms-2">
-                    <h3>Pepita García</h3>
+                    <h3>Pepita García Muñoz</h3>
                     <p class="mb-0">Cantante - Guitarrista</p>
                     <p>Carrer d'Aragó</p>
                 </div>
