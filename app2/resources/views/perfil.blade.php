@@ -8,10 +8,11 @@
     <div class="container">
 
         <div class="banner">
+            <img class="bannerPic" src="{{asset('images/imagenes_perfil/bannerMusico.jpg')}}" alt="foto del banner">
             <div class="bannerContent">
                 <div class="profilePicDivBg m-5 rounded-circle">
                     <div class="profilePicDiv rounded-circle">
-                        <img class="profilePic" src="{{asset('images/imagenes_perfil/musico.jpg')}}" alt="logo1">
+                        <img class="profilePic" src="{{asset('images/imagenes_perfil/musico.jpg')}}" alt="foto de perfil">
                     </div>
                 </div>
                 <div class="bannerText ms-2">
