@@ -12,8 +12,20 @@ class LocalController extends Controller
      */
     public function index()
     {
-        //
-    }
+        // Obtén el parámetro de consulta 'es_accesible' (opcional)
+        $esAccesible = $request->query('es_accesible');
+
+        // Si se proporciona el parámetro, filtra los locales
+        if ($esAccesible !== null) {
+        $locales = Local::where('es_accesible', $esAccesible)->get();
+        } else {
+            // Si no se proporciona, devuelve todos los locales
+            $locales = Local::all();
+        }
+
+        // Retorna los locales como una colección de recursos
+        return LocalResource::collection($locales);
+        }
 
     /**
      * Show the form for creating a new resource.
