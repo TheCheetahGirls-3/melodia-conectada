@@ -40,3 +40,4 @@ Route::apiResource('tipo_local', TipoLocalController::class);
 Route::apiResource('tipo_multimedia', TipoMultimediaController::class);
 Route::apiResource('tipo_usuario', TipoUsuarioController::class);
 Route::apiResource('/usuario', UsuarioController::class);
+
