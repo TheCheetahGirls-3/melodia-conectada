@@ -32,8 +32,6 @@ Route::get('/signin-ubicacion', function () {
     return view('layouts/signin-ubicacion');
 });
 
-
-
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', function () {
         $user = Auth::user();
@@ -49,12 +47,12 @@ Route::get('/chat', function () {
 Route::get('/index', function () {
     return view('index');
 });
-
+Route::get('/pruebaFiltro', function () {
+    return view('pruebaFiltro');
+});
 Route::get('/perfil', function () {
     return view('perfil');
 });
-
-
 
 Route::get('/musico', function () {
     return view('index');
