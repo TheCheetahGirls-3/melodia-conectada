@@ -7,6 +7,6 @@
 @endsection
 
 @section('mapa')
-    <Mapa></Mapa>
+    <Mapa :usuario="{{ json_encode(Auth::user()) }}"></Mapa>
 @endsection
 

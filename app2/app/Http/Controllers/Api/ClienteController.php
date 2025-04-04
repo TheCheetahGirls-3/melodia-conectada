@@ -24,7 +24,26 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'id_usuario' => 'required|exists:usuario,id_usuario',  // Validar que el usuario existe
+            'ubicacion' => 'required|string',
+            'nombre' => 'required|string',
+            'telefono' => 'nullable|string',
+            'descripcion' => 'nullable|string',
+            'foto_perfil' => 'nullable|string',
+        ]);
+
+        // Crear un nuevo cliente
+        $cliente = new Cliente();
+        $cliente->id_usuario = $validated['id_usuario'];
+        $cliente->ubicacion = $validated['ubicacion'];
+        $cliente->nombre = $validated['nombre'];
+        $cliente->telefono = $validated['telefono'];
+        $cliente->descripcion = $validated['descripcion'];
+        $cliente->foto_perfil = $validated['foto_perfil'];
+        $cliente->save();
+
+        return response()->json($cliente, 201);
     }
 
     /**

@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user()->id_usuario;
 });
 
 Route::apiResource('cliente', ClienteController::class);
@@ -40,4 +40,6 @@ Route::apiResource('tipo_local', TipoLocalController::class);
 Route::apiResource('tipo_multimedia', TipoMultimediaController::class);
 Route::apiResource('tipo_usuario', TipoUsuarioController::class);
 Route::apiResource('/usuario', UsuarioController::class);
+
 Route::get('/musico/filtrar/{intrumento?}/{genero?}', [MusicoController::class, 'filtrar']);
+
