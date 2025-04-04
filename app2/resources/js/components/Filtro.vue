@@ -3,22 +3,27 @@
         <button class="filtro" @click="abrirModal">Filtro</button>
         <!-- Si estoy filtrando músicos -->
         <div v-if="tipus_user === 2">
+
             <div v-if="mostrarModal" class="modal-container">
                 <div class="modal">
+                    <form class="MiForm">
+                        <h5>Instrumentos</h5>
+                        <select id="instrumento" v-model="selectedInstrumento">
+                            <option v-for="instrumento in instrumentos" :key="instrumento.id_instrumento"
+                                :value="instrumento.id_instrumento">
+                                {{ instrumento.nombre }}
+                            </option>
+                        </select>
+                        <h5>Géneros</h5>
+                        <select id="genero" v-model="selectedGeneros">
+                            <option v-for="genero in generos" :key="genero.id_genero" :value="genero.id_genero">
+                                {{ genero.nombre }}
+                            </option>
+                        </select>
 
-                    <h5>Instrumentos</h5>
-                    <select id="instrumento" v-model="selectedInstrumento">
-                        <option v-for="instrumento in instrumentos" :key="instrumento.id_instrumento" :value="instrumento.id_instrumento">
-                            {{ instrumento.nombre }}
-                        </option>
-                    </select>
-                    <h5>Géneros</h5>
-                    <select id="genero" v-model="selectedGeneros">
-                    <option v-for="genero in generos" :key="genero.id_genero" :value="genero.id_genero">
-                        {{ genero.nombre }}
-                    </option>
-                    </select>
-                    <button @click="cerrarModal">Cerrar</button>
+                        <button @click="cerrarModal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" @click="submitForm">Buscar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -29,14 +34,15 @@
 
                     <h5>Tipo Local</h5>
                     <select id="tipoLocal" v-model="selectedTipoLocal">
-                        <option v-for="tipo_local in tipo_locales" :key="tipo_local.id_tipo_local" :value="tipo_local.id_tipo_local">
+                        <option v-for="tipo_local in tipo_locales" :key="tipo_local.id_tipo_local"
+                            :value="tipo_local.id_tipo_local">
                             {{ tipo_local.nombre }}
                         </option>
                     </select>
                     <h5>Es accesible</h5>
                     <select id="esAccesible" v-model="selectedEsAccesible">
-                    <option value="1">Sí</option>
-                    <option value="0">No</option>
+                        <option value="1">Sí</option>
+                        <option value="0">No</option>
 
                     </select>
                     <button @click="cerrarModal">Cerrar</button>
@@ -71,11 +77,11 @@ export default {
 
         };
     },
-    mounted(){
-            this.fetchInstrumentos();
-            this.fetchGeneros();
-            this.fetchTipoLocales();
-            this.fetchEsAccesible();
+    mounted() {
+        this.fetchInstrumentos();
+        this.fetchGeneros();
+        this.fetchTipoLocales();
+        this.fetchEsAccesible();
     },
 
     methods: {
@@ -87,9 +93,9 @@ export default {
         cerrarModal() {
             this.mostrarModal = false;
         },
-        fetchInstrumentos(){
+        fetchInstrumentos() {
             axios.get("instrumento")
-            .then((response) => {
+                .then((response) => {
                     this.instrumentos = response.data;
                     console.log(this.instrumentos);
                 })
@@ -97,9 +103,9 @@ export default {
                     console.error("Error al cargar los instrumentos", error);
                 });
         },
-        fetchGeneros(){
+        fetchGeneros() {
             axios.get("genero")
-            .then((response) => {
+                .then((response) => {
                     this.generos = response.data;
                     console.log(this.generos);
                 })
@@ -107,15 +113,15 @@ export default {
                     console.error("Error al cargar los generos", error);
                 });
         },
-        fetchTipoLocales(){
+        fetchTipoLocales() {
             axios.get("tipo_local")
-            .then((response) => {
-                this.tipo_locales = response.data;
-                console.log(this.tipo_locales);
-            })
-            .catch((error) => {
-                console.error("Error al cargar los tipos de locales", error)
-            })
+                .then((response) => {
+                    this.tipo_locales = response.data;
+                    console.log(this.tipo_locales);
+                })
+                .catch((error) => {
+                    console.error("Error al cargar los tipos de locales", error)
+                })
         },
         fetchEsAccesible() {
             axios.get(`/api/locales?es_accesible=${this.selectedEsAccesible}`)
@@ -126,7 +132,24 @@ export default {
                 .catch((error) => {
                     console.error("Error al cargar los locales:", error);
                 });
-        }
+        },
+        submitForm() {
+            // Emitir los filtros seleccionados al componente padre
+            // Define los filtros seleccionados
+
+            // Emitir los filtros seleccionados al componente padre
+
+            axios.get(`musico/filtrar/${this.selectedInstrumento}/${this.selectedGeneros}`)
+                .then((response) => {
+                    // Emitir los resultados filtrados al componente padre
+                    this.$emit('aplicar-filtros', response.data);
+                })
+                .catch((error) => {
+                    console.error('Error al filtrar músicos:', error);
+                });
+            this.cerrarModal();
+
+        },
 
     },
 
@@ -157,16 +180,17 @@ export default {
     width: 30% !important;
     height: auto;
     border: 2px solid red;
-    z-index: 10000 !important; /* Aún más arriba */
+    z-index: 10000 !important;
+    /* Aún más arriba */
     display: block !important;
     margin-left: 30px;
-    top:40%;
+    top: 40%;
 }
 
 select {
-  width: 100%;
-  margin: 10px 0;
-  padding: 5px;
+    width: 100%;
+    margin: 10px 0;
+    padding: 5px;
 }
 
 button {
