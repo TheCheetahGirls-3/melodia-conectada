@@ -1,10 +1,11 @@
 <template>
     <div class="container">
         <button class="filtro" @click="abrirModal">Filtro</button>
+        <!-- Si es local -->
+        <!-- <div v-if="cliente.musicos"> -->
         <div v-if="mostrarModal" class="modal-container">
             <div class="modal">
-                <!-- Si es local -->
-                <!-- <div v-if="cliente.musicos"> -->
+
                 <h5>Instrumentos</h5>
                 <select id="instrumento" v-model="selectedInstrumento">
                     <option v-for="instrumento in instrumentos" :key="instrumento.id_instrumento" :value="instrumento.nombre">
@@ -17,12 +18,26 @@
                     {{ genero.nombre }}
                 </option>
                 </select>
-                <!-- </div> -->
+                <button @click="cerrarModal">Cerrar</button>
+            </div>
+        </div>
+        <!-- Si es músico -->
+        <!-- <div v-if="cliente.locales"> -->
+        <div v-if="mostrarModal" class="modal-container">
+            <div class="modal">
 
-                <!-- Si es múdico -->
-                <!-- <div v-if="cliente.musicos">
+                <h5>Tipo Local</h5>
+                <select id="tipoLocal" v-model="selectedTipoLocal">
+                    <option v-for="tipo_local in tipo_locales" :key="tipo_local.id_tipo_local" :value="tipo_local.nombre">
+                        {{ tipo_local.nombre }}
+                    </option>
+                </select>
+                <h5>Es accesible</h5>
+                <select id="esAccesible" v-model="selectedEsAccesible">
+                <option value="1">Sí</option>
+                <option value="0">No</option>
 
-                </div> -->
+                </select>
                 <button @click="cerrarModal">Cerrar</button>
             </div>
         </div>
@@ -45,6 +60,10 @@ export default {
             selectedInstrumento: "",
             generos: [],
             selectedGeneros: "",
+            tipo_locales: [],
+            selectedtipoLocal: "",
+            selectedEsAccesible: "",
+
         };
     },
     created(){
@@ -52,6 +71,8 @@ export default {
         console.log(this.listado);
         this.fetchInstrumentos();
         this.fetchGeneros();
+        this.fetchTipoLocales();
+        this.fetchEsAccesible();
     },
 
     methods: {
@@ -83,7 +104,7 @@ export default {
                     console.log(this.instrumentos);
                 })
                 .catch((error) => {
-                    console.error("Error al cargar los juegos", error);
+                    console.error("Error al cargar los instrumentos", error);
                 });
         },
         fetchGeneros(){
@@ -93,9 +114,30 @@ export default {
                     console.log(this.generos);
                 })
                 .catch((error) => {
-                    console.error("Error al cargar los juegos", error);
+                    console.error("Error al cargar los generos", error);
+                });
+        },
+        fetchTipoLocales(){
+            axios.get("tipo_local")
+            .then((response) => {
+                this.tipo_locales = response.data;
+                console.log(this.tipo_locales);
+            })
+            .catch((error) => {
+                console.error("Error al cargar los tipos de locales", error)
+            })
+        },
+        fetchEsAccesible() {
+            axios.get(`/api/locales?es_accesible=${this.selectedEsAccesible}`)
+                .then((response) => {
+                    this.locales = response.data;
+                    console.log("Locales filtrados:", this.locales);
+                })
+                .catch((error) => {
+                    console.error("Error al cargar los locales:", error);
                 });
         }
+
     },
 
 };
