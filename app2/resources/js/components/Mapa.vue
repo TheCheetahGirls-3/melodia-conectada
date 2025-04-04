@@ -1,90 +1,93 @@
 <template>
     <div class="map-container">
-      <!-- Input de búsqueda (si lo necesitas) -->
-      <div class="search-container">
-        <input
-          v-model="ubicacion"
-          type="text"
-          placeholder="Introduce una ubicación"
-        />
-        <button @click="buscarUbicacion"><i class="bi bi-search"></i></button>
-      </div>
-      <!-- El mapa -->
-      <div id="map"></div>
+        <!-- Input de búsqueda (si lo necesitas) -->
+        <div class="search-container">
+            <input
+                v-model="ubicacion"
+                type="text"
+                placeholder="Introduce una ubicación"
+            />
+            <button @click="buscarUbicacion">
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+        <!-- El mapa -->
+        <div id="map"></div>
     </div>
-  </template>
+</template>
 
-  <script>
-  import mapboxgl from "mapbox-gl";
-  import axios from "axios";
+<script>
+import mapboxgl from "mapbox-gl";
+import axios from "axios";
 
-  export default {
+export default {
+    emits: ["ubicacionUsuario"],
     name: "Mapa",
     data() {
-      return {
-        map: null,
-        ubicacion: "",
-        marker: null,
-        latLng: null,  // Ubicación seleccionada
-      };
+        return {
+            map: null,
+            ubicacion: "",
+            marker: null,
+            latLng: null, // Ubicación seleccionada
+        };
     },
     mounted() {
-      mapboxgl.accessToken =
-        "pk.eyJ1IjoiY2hpbGxnaWciLCJhIjoiY204aHFjYWR2MDRyejJqczlmbGMxbHYwbyJ9.KJlPU8iYIehhkx-gFSwE0g";
+        mapboxgl.accessToken =
+            "pk.eyJ1IjoiY2hpbGxnaWciLCJhIjoiY204aHFjYWR2MDRyejJqczlmbGMxbHYwbyJ9.KJlPU8iYIehhkx-gFSwE0g";
 
-      // Inicializar el mapa
-      this.map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/mapbox/streets-v11",
-        center: [2.1769, 41.3847], // Ubicación inicial (Barcelona)
-        zoom: 12,
-      });
+        // Inicializar el mapa
+        this.map = new mapboxgl.Map({
+            container: "map",
+            style: "mapbox://styles/mapbox/streets-v11",
+            center: [2.1769, 41.3847], // Ubicación inicial (Barcelona)
+            zoom: 12,
+        });
 
-      // Agregar marcador
-      this.marker = new mapboxgl.Marker({ color: "purple" })
-        .setLngLat([2.1769, 41.3847])
-        .addTo(this.map);
+        // Agregar marcador
+        this.marker = new mapboxgl.Marker({ color: "purple" })
+            .setLngLat([2.1769, 41.3847])
+            .addTo(this.map);
 
-      // Evento de doble clic
-      this.map.on("dblclick", (e) => {
-        const { lng, lat } = e.lngLat;
-        this.marker.setLngLat([lng, lat]);
-        this.latLng = { lng, lat };  // Guardar la ubicación seleccionada
-      });
+        // Evento de doble clic
+        this.map.on("dblclick", (e) => {
+            const { lng, lat } = e.lngLat;
+            this.marker.setLngLat([lng, lat]);
+            this.latLng = { lng, lat }; // Guardar la ubicación seleccionada
+            this.$emit("ubicacionUsuario", lat, lng);
+        });
     },
     methods: {
-      async buscarUbicacion() {
-        if (!this.ubicacion.trim()) return;
+        async buscarUbicacion() {
+            if (!this.ubicacion.trim()) return;
 
-        try {
-          const response = await axios.get(
-            `https://api.mapbox.com/geocoding/v5/mapbox.places/${this.ubicacion}.json`,
-            {
-              params: {
-                access_token: mapboxgl.accessToken,
-                limit: 1,
-              },
+            try {
+                const response = await axios.get(
+                    `https://api.mapbox.com/geocoding/v5/mapbox.places/${this.ubicacion}.json`,
+                    {
+                        params: {
+                            access_token: mapboxgl.accessToken,
+                            limit: 1,
+                        },
+                    }
+                );
+
+                if (response.data.features.length > 0) {
+                    const [lng, lat] = response.data.features[0].center;
+
+                    // Mover el mapa y marcador
+                    this.map.flyTo({ center: [lng, lat], zoom: 15 });
+                    this.marker.setLngLat([lng, lat]);
+                    this.latLng = { lng, lat }; // Guardar la ubicación
+                } else {
+                    alert("Ubicación no encontrada");
+                }
+            } catch (error) {
+                console.error("Error al obtener la ubicación:", error);
             }
-          );
-
-          if (response.data.features.length > 0) {
-            const [lng, lat] = response.data.features[0].center;
-
-            // Mover el mapa y marcador
-            this.map.flyTo({ center: [lng, lat], zoom: 15 });
-            this.marker.setLngLat([lng, lat]);
-            this.latLng = { lng, lat };  // Guardar la ubicación
-          } else {
-            alert("Ubicación no encontrada");
-          }
-        } catch (error) {
-          console.error("Error al obtener la ubicación:", error);
-        }
-      },
+        },
     },
-  };
-  </script>
-
+};
+</script>
 
 <style scoped>
 .map-container {

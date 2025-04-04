@@ -74,7 +74,7 @@ class UsuarioController extends Controller
         $usuario->id_tipo_usuario = $request->input('btnradio');
 
         $usuario->save();
-
+        Auth::login($usuario);
         // $response = redirect('/login');
         $response = redirect('/signin-ubicacion');
 
@@ -116,12 +116,4 @@ class UsuarioController extends Controller
 
         return redirect('/')->with('success', 'Usuario eliminado correctamente');
     }
-
-    public function obtenerUltimoUsuario()
-{
-    // Obtener el último usuario registrado en la tabla usuarios
-    $ultimoUsuario = Usuario::latest('created_at')->first(); // Ordena por fecha de creación, el más reciente primero
-
-    return response()->json($ultimoUsuario);  // Devuelve el último usuario como JSON
-}
 }
