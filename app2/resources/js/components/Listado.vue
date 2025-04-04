@@ -2,40 +2,40 @@
 
     <div class="usuario-lista container mt-4">
         <div class="filtro">
-            <filtro :listado="listado"></filtro>
+            <filtro :resultado="resultado" :tipus_user="tipus_user"></filtro>
         </div>
       <div class="div-general">
-        <div v-for="cliente in resultado" :key="cliente.id_usuario" class="usuario-card">
+        <div v-for="user in resultado" :key="user.id_usuario" class="usuario-card">
 
           <div class="foto-perfil-container">
-            <img :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + cliente.foto_perfil" alt="Foto de perfil" class="foto-perfil">
+            <img :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + user.cliente.foto_perfil" alt="Foto de perfil" class="foto-perfil">
           </div>
 
           <div class="info-cliente">
-            <h4><strong> {{ cliente.nombre }} </strong></h4>
+            <h4><strong> {{ user.cliente.nombre }} </strong></h4>
 
-            <div v-if="cliente.musicos">
-                <p> {{ cliente.descripcion }}</p>
+            <div v-if="this.usuario.id_tipo_usuario === 3">
+                <p> {{ user.cliente.descripcion }}</p>
               <ul class="m-0 p-0">
                 <div class="instrumento">
-                    <li v-for="instrumento in cliente.musicos.instrumentos" :key="instrumento.id_instrumento">
+                    <li v-for="instrumento in user.instrumentos" :key="instrumento.id_instrumento">
                   {{ instrumento.nombre }}
                     </li>
                 </div>
                 <div class="generos">
-                    <li v-for="genero in cliente.musicos.generos" :key="genero.id_genero">
+                    <li v-for="genero in user.generos" :key="genero.id_genero">
                   {{ genero.nombre }}
                     </li>
                 </div>
               </ul>
             </div>
 
-            <div v-if="cliente.locales">
-                <p> {{ cliente.ubicacion }}</p>
-                <p> {{ cliente.telefono }}</p>
-                <p> {{ cliente.locales.horario }}</p>
+            <div v-if="this.usuario.id_tipo_usuario === 2">
+                <p> {{ user.cliente.ubicacion }}</p>
+                <p> {{ user.cliente.telefono }}</p>
+                <p> {{ user.horario }}</p>
                 <div class="tipo-local">
-                   <p> {{ cliente.locales.tipo_local.nombre }}</p>
+                   <p> {{ user.tipo_local.nombre }}</p>
                 </div>
 
             </div>
@@ -57,8 +57,8 @@
     },
     data() {
       return {
-        listado: [],
         resultado: [],
+        tipus_user: 0,
       };
     },
     mounted() {
@@ -66,18 +66,27 @@
     },
     methods: {
       fetchListado() {
-        axios.get('cliente')
+        if(this.usuario.id_tipo_usuario === 2) {
+            axios.get('local')
           .then(response => {
-            this.listado = response.data;
-            for (const cliente of this.listado) {
-              if (cliente.usuario.id_tipo_usuario !== this.usuario.id_tipo_usuario) {
-                this.resultado.push(cliente);
-              }
-            }
+            this.resultado = response.data;
+            this.tipus_user = 3;
+
           })
           .catch(error => {
             console.error("Error obteniendo el listado:", error);
           });
+        }
+        else if (this.usuario.id_tipo_usuario === 3) {
+            axios.get('musico')
+            .then(response => {
+                this.resultado = response.data;
+                this.tipus_user = 2;
+            })
+            .catch(error => {
+                console.error("Error obteniendo el listado:", error);
+            });
+        }
       }
     }
   }

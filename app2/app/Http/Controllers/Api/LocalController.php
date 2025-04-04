@@ -14,7 +14,7 @@ class LocalController extends Controller
      */
     public function index()
     {
-        $locales = Local::all();
+        $locales = Local::with(['tipo_local', 'cliente.usuario'])->get();
         return LocalResource::collection($locales);
     }
 

@@ -14,7 +14,37 @@ class MusicoController extends Controller
      */
     public function index()
     {
-        $musicos = Musico::all();
+        $musicos = Musico::with([
+            'cliente.usuario',
+            'instrumentos',
+            'generos'
+        ])->get();
+        return MusicoResource::collection($musicos);
+    }
+
+    public function filtrar(Request $request)
+    {
+        $query = Musico::with([
+            'cliente.usuario',
+            'instrumentos',
+            'generos'
+        ])->query();
+
+
+        if ($request->has('instrumentos') && $request->input('intrumentos') != '') {
+            $query->whereHas('intrumentos', function ($q) use ($request) {
+                $q->where('id_intrumentos', 'like', '%' . $request->input('instrumento') . '%');
+            });
+        }
+        if ($request->has('generos') && $request->input('generos') != '') {
+            $query->whereHas('generos', function ($q) use ($request) {
+                $q->where('id_genero', 'like', '%' . $request->input('genero') . '%');
+            });
+        }
+
+        $musicos = $query->get();
+
+
         return MusicoResource::collection($musicos);
     }
 
