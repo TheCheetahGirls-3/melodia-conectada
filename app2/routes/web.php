@@ -32,8 +32,6 @@ Route::get('/signin-ubicacion', function () {
     return view('layouts/signin-ubicacion');
 });
 
-Route::get('/ultimo-usuario', [UsuarioController::class, 'obtenerUltimoUsuario']);
-
 Route::middleware(['auth'])->group(function (){
     Route::get('/home', function () {
         $user = Auth::user();

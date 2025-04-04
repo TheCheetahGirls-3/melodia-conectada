@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('cliente', ClienteController::class);
+Route::get('cliente/{id}', [ClienteController::class, 'show']);
 Route::apiResource('evento', EventoController::class);
 Route::apiResource('genero', GeneroController::class);
 Route::apiResource('instrumento', InstrumentoController::class);

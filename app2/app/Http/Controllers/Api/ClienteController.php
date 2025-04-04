@@ -19,6 +19,7 @@ class ClienteController extends Controller
 
     }
 
+
     /**
      * Store a newly created resource in storage.
      */
@@ -26,33 +27,49 @@ class ClienteController extends Controller
     {
         $validated = $request->validate([
             'id_usuario' => 'required|exists:usuario,id_usuario',  // Validar que el usuario existe
-            'ubicacion' => 'required|string',
-            'nombre' => 'required|string',
-            'telefono' => 'nullable|string',
-            'descripcion' => 'nullable|string',
-            'foto_perfil' => 'nullable|string',
+            'latitud' => 'required',
+            'longitud' => 'required',
+            // 'nombre' => 'nullable|string',
+            // 'telefono' => 'nullable|string',
+            // 'descripcion' => 'nullable|string',
+            // 'foto_perfil' => 'nullable|string',
         ]);
 
         // Crear un nuevo cliente
         $cliente = new Cliente();
         $cliente->id_usuario = $validated['id_usuario'];
-        $cliente->ubicacion = $validated['ubicacion'];
-        $cliente->nombre = $validated['nombre'];
-        $cliente->telefono = $validated['telefono'];
-        $cliente->descripcion = $validated['descripcion'];
-        $cliente->foto_perfil = $validated['foto_perfil'];
+        $cliente->ubicacion = $validated['latitud'] . "," . $validated['longitud'];
+        // $cliente->nombre = $validated['nombre'];
+        // $cliente->telefono = $validated['telefono'];
+        // $cliente->descripcion = $validated['descripcion'];
+        // $cliente->foto_perfil = $validated['foto_perfil'];
         $cliente->save();
 
-        return response()->json($cliente, 201);
+        return response()->json([
+            'cliente' => $cliente  // si quieres devolver el cliente creado
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Cliente $cliente)
+    public function show($id)
     {
-        //
+        // Encuentra al cliente por su id_usuario
+        $cliente = Cliente::where('id_usuario', $id)->first();
+
+        // Verifica si el cliente existe
+        if (!$cliente) {
+            return response()->json(['error' => 'Cliente no encontrado'], 404);  // Respuesta 404 si no se encuentra
+        }
+
+        // Si quieres devolver solo un cliente con un recurso
+        return new ClienteResource($cliente);
+
+        // Si no usas un recurso, puedes devolver el cliente directamente
+        // return response()->json($cliente, 200);
     }
+
 
     /**
      * Update the specified resource in storage.
