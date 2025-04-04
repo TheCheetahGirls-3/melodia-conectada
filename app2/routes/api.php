@@ -41,3 +41,5 @@ Route::apiResource('tipo_multimedia', TipoMultimediaController::class);
 Route::apiResource('tipo_usuario', TipoUsuarioController::class);
 Route::apiResource('/usuario', UsuarioController::class);
 
+Route::get('/musico/filtrar/{intrumento?}/{genero?}', [MusicoController::class, 'filtrar']);
+

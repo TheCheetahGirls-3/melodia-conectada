@@ -22,23 +22,22 @@ class MusicoController extends Controller
         return MusicoResource::collection($musicos);
     }
 
-    public function filtrar(Request $request)
+    public function filtrar(?int  $instrumento = null, ?int $genero = null)
     {
         $query = Musico::with([
             'cliente.usuario',
             'instrumentos',
             'generos'
-        ])->query();
+        ]);
 
-
-        if ($request->has('instrumentos') && $request->input('intrumentos') != '') {
-            $query->whereHas('intrumentos', function ($q) use ($request) {
-                $q->where('id_intrumentos', 'like', '%' . $request->input('instrumento') . '%');
+        if ($instrumento != null && $instrumento != '') {
+            $query->whereHas('instrumentos', function ($q) use ($instrumento) {
+                $q->where('instrumento.id_instrumento', $instrumento);
             });
         }
-        if ($request->has('generos') && $request->input('generos') != '') {
-            $query->whereHas('generos', function ($q) use ($request) {
-                $q->where('id_genero', 'like', '%' . $request->input('genero') . '%');
+        if ($genero != null && $genero != '') {
+            $query->whereHas('generos', function ($q) use ($genero) {
+                $q->where('genero.id_genero', $genero);
             });
         }
 

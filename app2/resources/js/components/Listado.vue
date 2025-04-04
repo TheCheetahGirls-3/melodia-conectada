@@ -2,7 +2,7 @@
 
     <div class="usuario-lista container mt-4">
         <div class="filtro">
-            <filtro :resultado="resultado" :tipus_user="tipus_user"></filtro>
+            <filtro :resultado="resultado" :tipus_user="tipus_user" @aplicar-filtros="aplicarFiltros"></filtro>
         </div>
       <div class="div-general">
         <div v-for="user in resultado" :key="user.id_usuario" class="usuario-card">
@@ -88,6 +88,10 @@
             });
         }
       }
+    },
+    aplicarFiltros(filtros) {
+        console.log('Resultados filtrados:', filtros);
+        this.resultado = filtros; // Actualiza los resultados mostrados
     }
   }
   </script>
