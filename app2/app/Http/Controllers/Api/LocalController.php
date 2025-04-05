@@ -23,7 +23,19 @@ class LocalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'id_usuario' => 'required|exists:usuario,id_usuario',  // Validar que el usuario existe
+
+        ]);
+        // Crear un nuevo cliente
+        $local = new Local();
+        $local->id_usuario = $validated['id_usuario'];
+
+        $local->save();
+
+        return response()->json([
+            'cliente' => $local  // si quieres devolver el cliente creado
+        ], 201);
     }
 
     /**
