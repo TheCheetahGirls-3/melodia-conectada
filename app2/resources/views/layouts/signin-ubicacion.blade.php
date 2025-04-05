@@ -5,5 +5,5 @@
 @endsection
 
 @section('content')
-    <map-reg-cl :usuario-id = '{{Auth::user()->id_usuario}}'></map-reg-cl>
+    <map-reg-cl :usuario-id = '{{Auth::user()->id_usuario}}' :usuario="{{ json_encode(Auth::user()) }}"></map-reg-cl>
 @endsection

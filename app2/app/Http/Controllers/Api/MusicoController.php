@@ -52,7 +52,19 @@ class MusicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'id_usuario' => 'required|exists:usuario,id_usuario',  // Validar que el usuario existe
+
+        ]);
+        // Crear un nuevo cliente
+        $musico = new Musico();
+        $musico->id_usuario = $validated['id_usuario'];
+
+        $musico->save();
+
+        return response()->json([
+            'cliente' => $musico  // si quieres devolver el cliente creado
+        ], 201);
     }
 
     /**
