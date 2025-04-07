@@ -31,7 +31,7 @@ export default {
         // Hacer la llamada a la API para obtener la ubicación del cliente
         axios
             .get(
-                `http://localhost:80/melodia-conectada/app2/public/api/cliente/${this.usuarioId}`
+                `http://localhost:8080/melodia-conectada/app2/public/api/cliente/${this.usuarioId}`
             )
             .then((response) => {
                 const cliente = response.data;
@@ -74,64 +74,64 @@ export default {
             });
     },
 
-    methods: {
-        mostrarMarkerLocalMusico() {
-        const me = this;
+    // methods: {
+    //     mostrarMarkerLocalMusico() {
+    //     const me = this;
 
-        // Verificamos si el usuario es músico (id_tipo_usuario = 2) o local (id_tipo_usuario = 3)
-        if (this.usuario.id_tipo_usuario == 2) {
-            // Usuario es MÚSICO → Mostrar LOCALES
-            axios
-                .get("http://localhost:8080/melodia-conectada/app2/public/api/cliente")
-                .then((response) => {
-                    // Verifica que 'response.data.data' sea un array
-                    if (Array.isArray(response.data.data)) {
-                        const clientes = response.data.data;
+    //     // Verificamos si el usuario es músico (id_tipo_usuario = 2) o local (id_tipo_usuario = 3)
+    //     if (this.usuario.id_tipo_usuario == 2) {
+    //         // Usuario es MÚSICO → Mostrar LOCALES
+    //         axios
+    //             .get("http://localhost:8080/melodia-conectada/app2/public/api/cliente")
+    //             .then((response) => {
+    //                 // Verifica que 'response.data.data' sea un array
+    //                 if (Array.isArray(response.data.data)) {
+    //                     const clientes = response.data.data;
 
-                        // Itera sobre los clientes y agrega el marcador para los locales
-                        clientes.forEach((cliente) => {
-                            if (cliente.ubicacion && cliente.locales) {
-                                const [lat, lng] = cliente.ubicacion.split(",").map(parseFloat);
-                                new mapboxgl.Marker({ color: "green" })
-                                    .setLngLat([lng, lat])
-                                    .addTo(me.map);
-                            }
-                        });
-                    } else {
-                        console.log("La respuesta de la API no contiene un array válido de clientes.");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error al obtener los clientes:", error);
-                });
-        } else if (this.usuario.id_tipo_usuario == 3) {
-            // Usuario es LOCAL → Mostrar MÚSICOS
-            axios
-                .get("http://localhost:8080/melodia-conectada/app2/public/api/cliente")
-                .then((response) => {
-                    // Verifica que 'response.data.data' sea un array
-                    if (Array.isArray(response.data.data)) {
-                        const clientes = response.data.data;
+    //                     // Itera sobre los clientes y agrega el marcador para los locales
+    //                     clientes.forEach((cliente) => {
+    //                         if (cliente.ubicacion && cliente.locales) {
+    //                             const [lat, lng] = cliente.ubicacion.split(",").map(parseFloat);
+    //                             new mapboxgl.Marker({ color: "green" })
+    //                                 .setLngLat([lng, lat])
+    //                                 .addTo(me.map);
+    //                         }
+    //                     });
+    //                 } else {
+    //                     console.log("La respuesta de la API no contiene un array válido de clientes.");
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error al obtener los clientes:", error);
+    //             });
+    //     } else if (this.usuario.id_tipo_usuario == 3) {
+    //         // Usuario es LOCAL → Mostrar MÚSICOS
+    //         axios
+    //             .get("http://localhost:8080/melodia-conectada/app2/public/api/cliente")
+    //             .then((response) => {
+    //                 // Verifica que 'response.data.data' sea un array
+    //                 if (Array.isArray(response.data.data)) {
+    //                     const clientes = response.data.data;
 
-                        // Itera sobre los clientes y agrega el marcador para los músicos
-                        clientes.forEach((cliente) => {
-                            if (cliente.ubicacion && cliente.musicos) {
-                                const [lat, lng] = cliente.ubicacion.split(",").map(parseFloat);
-                                new mapboxgl.Marker({ color: "orange" }) // Usar otro color para los músicos
-                                    .setLngLat([lng, lat])
-                                    .addTo(me.map);
-                            }
-                        });
-                    } else {
-                        console.log("La respuesta de la API no contiene un array válido de clientes.");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error al obtener los clientes:", error);
-                });
-        }
-    },
-    },
+    //                     // Itera sobre los clientes y agrega el marcador para los músicos
+    //                     clientes.forEach((cliente) => {
+    //                         if (cliente.ubicacion && cliente.musicos) {
+    //                             const [lat, lng] = cliente.ubicacion.split(",").map(parseFloat);
+    //                             new mapboxgl.Marker({ color: "orange" }) // Usar otro color para los músicos
+    //                                 .setLngLat([lng, lat])
+    //                                 .addTo(me.map);
+    //                         }
+    //                     });
+    //                 } else {
+    //                     console.log("La respuesta de la API no contiene un array válido de clientes.");
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error al obtener los clientes:", error);
+    //             });
+    //     }
+    // },
+    // },
 };
 </script>
 
