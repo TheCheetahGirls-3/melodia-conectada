@@ -31,21 +31,23 @@
         <div v-if="tipus_user === 3">
             <div v-if="mostrarModal" class="modal-container">
                 <div class="modal">
+                    <form class="MiForm">
+                        <h5>Tipo Local</h5>
+                        <select id="tipoLocal" v-model="selectedTipoLocal">
+                            <option v-for="tipo_local in tipo_locales" :key="tipo_local.id_tipo_local"
+                                :value="tipo_local.id_tipo_local">
+                                {{ tipo_local.nombre }}
+                            </option>
+                        </select>
+                        <h5>Es accesible</h5>
+                        <select id="esAccesible" v-model="selectedEsAccesible">
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
 
-                    <h5>Tipo Local</h5>
-                    <select id="tipoLocal" v-model="selectedTipoLocal">
-                        <option v-for="tipo_local in tipo_locales" :key="tipo_local.id_tipo_local"
-                            :value="tipo_local.id_tipo_local">
-                            {{ tipo_local.nombre }}
-                        </option>
-                    </select>
-                    <h5>Es accesible</h5>
-                    <select id="esAccesible" v-model="selectedEsAccesible">
-                        <option value="1">Sí</option>
-                        <option value="0">No</option>
-
-                    </select>
-                    <button @click="cerrarModal">Cerrar</button>
+                        </select>
+                        <button @click="cerrarModal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" @click="submitForm">Buscar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -134,10 +136,6 @@ export default {
                 });
         },
         submitForm() {
-            // Emitir los filtros seleccionados al componente padre
-            // Define los filtros seleccionados
-
-            // Emitir los filtros seleccionados al componente padre
 
             axios.get(`musico/filtrar/${this.selectedInstrumento}/${this.selectedGeneros}`)
                 .then((response) => {

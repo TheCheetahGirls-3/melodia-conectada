@@ -87,12 +87,13 @@
                 console.error("Error obteniendo el listado:", error);
             });
         }
-      }
-    },
-    aplicarFiltros(filtros) {
+      },
+      aplicarFiltros(filtros) {
         console.log('Resultados filtrados:', filtros);
         this.resultado = filtros; // Actualiza los resultados mostrados
     }
+    },
+
   }
   </script>
 

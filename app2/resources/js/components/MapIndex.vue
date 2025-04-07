@@ -31,7 +31,7 @@ export default {
         // Hacer la llamada a la API para obtener la ubicación del cliente
         axios
             .get(
-                `http://localhost:8080/melodia-conectada/app2/public/api/cliente/${this.usuarioId}`
+                `http://localhost:80/melodia-conectada/app2/public/api/cliente/${this.usuarioId}`
             )
             .then((response) => {
                 const cliente = response.data;
