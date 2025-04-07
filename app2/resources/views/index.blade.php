@@ -7,6 +7,6 @@
 @endsection
 
 @section('mapa')
-    <Mapa :usuario="{{ json_encode(Auth::user()) }}"></Mapa>
+    {{-- <map-index :usuario-id = '{{Auth::user()->id_usuario}}' :usuario="{{ json_encode(Auth::user()) }}"></map-index> --}}
 @endsection
 

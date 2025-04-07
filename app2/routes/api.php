@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('cliente', ClienteController::class);
+Route::get('cliente/{id}', [ClienteController::class, 'show']);
 Route::apiResource('evento', EventoController::class);
 Route::apiResource('genero', GeneroController::class);
 Route::apiResource('instrumento', InstrumentoController::class);
@@ -40,4 +41,6 @@ Route::apiResource('tipo_local', TipoLocalController::class);
 Route::apiResource('tipo_multimedia', TipoMultimediaController::class);
 Route::apiResource('tipo_usuario', TipoUsuarioController::class);
 Route::apiResource('/usuario', UsuarioController::class);
+
+Route::get('/musico/filtrar/{intrumento?}/{genero?}', [MusicoController::class, 'filtrar']);
 

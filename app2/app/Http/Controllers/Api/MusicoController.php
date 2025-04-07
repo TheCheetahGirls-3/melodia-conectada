@@ -14,7 +14,36 @@ class MusicoController extends Controller
      */
     public function index()
     {
-        $musicos = Musico::all();
+        $musicos = Musico::with([
+            'cliente.usuario',
+            'instrumentos',
+            'generos'
+        ])->get();
+        return MusicoResource::collection($musicos);
+    }
+
+    public function filtrar(?int  $instrumento = null, ?int $genero = null)
+    {
+        $query = Musico::with([
+            'cliente.usuario',
+            'instrumentos',
+            'generos'
+        ]);
+
+        if ($instrumento != null && $instrumento != '') {
+            $query->whereHas('instrumentos', function ($q) use ($instrumento) {
+                $q->where('instrumento.id_instrumento', $instrumento);
+            });
+        }
+        if ($genero != null && $genero != '') {
+            $query->whereHas('generos', function ($q) use ($genero) {
+                $q->where('genero.id_genero', $genero);
+            });
+        }
+
+        $musicos = $query->get();
+
+
         return MusicoResource::collection($musicos);
     }
 
@@ -23,7 +52,19 @@ class MusicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'id_usuario' => 'required|exists:usuario,id_usuario',  // Validar que el usuario existe
+
+        ]);
+        // Crear un nuevo cliente
+        $musico = new Musico();
+        $musico->id_usuario = $validated['id_usuario'];
+
+        $musico->save();
+
+        return response()->json([
+            'cliente' => $musico  // si quieres devolver el cliente creado
+        ], 201);
     }
 
     /**
