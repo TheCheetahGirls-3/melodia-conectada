@@ -25,7 +25,6 @@
             </div>
         </div>
     </div>
-    <img id="imagenPortada" src="{{asset('images/imagen_portada.png')}}" alt="imagen de fondo la portada">
 
 </body>
 </html>

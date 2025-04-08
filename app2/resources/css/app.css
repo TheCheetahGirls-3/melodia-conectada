@@ -133,8 +133,8 @@ body {
 }
 
 #backgroundImg {
-    background-image: url('/public/images/imagen_portada.png');
-    max-height: 100%;
+    background-image: url('/public/images/imagen_portada.jpg');
+    background-size: sover;
 }
 
 /* PÁGINAS DE REGISTRO E INICIO DE SESIÓN ########################################################*/
