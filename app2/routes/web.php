@@ -33,7 +33,7 @@ Route::get('/signin-ubicacion', function () {
 });
 
 Route::middleware(['auth'])->group(function (){
-    Route::get('/home', function () {
+    Route::get('/index', function () {
         $user = Auth::user();
 
         return view('home', compact('user'));
