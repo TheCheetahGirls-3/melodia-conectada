@@ -15,4 +15,5 @@
         @yield('content')
     </div>
 </body>
+<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
 </html>
