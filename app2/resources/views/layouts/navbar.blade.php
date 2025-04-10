@@ -89,5 +89,5 @@
         </div>
     </nav>
 
-    <script src="js/scriptInicio.js"></script>
+    {{-- <script src="js/scriptInicio.js"></script> --}}
 @endsection
