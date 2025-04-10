@@ -6,6 +6,7 @@
 
             <div v-if="mostrarModal" class="modal-container">
                 <div class="modal">
+                    <button class="close-button" @click="cerrarModal">×</button>
                     <form class="MiForm">
                         <h5>Instrumentos</h5>
                         <select id="instrumento" v-model="selectedInstrumento">
@@ -20,8 +21,6 @@
                                 {{ genero.nombre }}
                             </option>
                         </select>
-
-                        <button @click="cerrarModal">Cerrar</button>
                         <button type="button" class="btn btn-secondary" @click="submitForm">Buscar</button>
                     </form>
                 </div>
@@ -45,7 +44,7 @@
                             <option value="0">No</option>
 
                         </select>
-                        <button @click="cerrarModal">Cerrar</button>
+                        <button class="close-button" @click="cerrarModal">×</button>
                         <button type="button" class="btn btn-secondary" @click="submitForm">Buscar</button>
                     </form>
                 </div>
@@ -177,12 +176,10 @@ export default {
     text-align: center;
     width: 30% !important;
     height: auto;
-    border: 2px solid red;
     z-index: 10000 !important;
-    /* Aún más arriba */
     display: block !important;
     margin-left: 30px;
-    top: 40%;
+    top: 25%;
 }
 
 select {
@@ -194,5 +191,67 @@ select {
 button {
     cursor: pointer;
     margin-top: 10px;
+}
+
+/* Encabezado */
+.modal h5 {
+  font-size: 18px;
+  color: #406767;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+/* Inputs */
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  background-color: white;
+  color: #406767;
+}
+
+/* Botón Confirmar */
+.btn-secondary {
+  background-color: #406767;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #305050;
+}
+
+/* Botón de cerrar (extra si usas una X arriba) */
+.modal .close-button {
+  position: absolute;
+  right: 10px;
+  font-size: 22px;
+  color: #a73c3c;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin: 0;
+}
+
+/* Botón "Filtro" */
+.filtro {
+  background-color: #406767;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
 }
 </style>
