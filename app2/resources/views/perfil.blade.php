@@ -8,7 +8,7 @@
     <div class="container">
 
         <div class="banner">
-            <img class="bannerPic" src="{{asset('images/imagenes_perfil/bannerMusico.jpg')}}" alt="foto del banner">
+            <img class="bannerPic" src="{{asset('images/imagenes_perfil/bannerMusico2.jpg')}}" alt="foto del banner">
             <div class="bannerContent">
                 <div class="profilePicDivBg m-5 rounded-circle">
                     <div class="profilePicDiv rounded-circle">
@@ -16,9 +16,9 @@
                     </div>
                 </div>
                 <div class="bannerText ms-2">
-                    <h3>Pepita García Muñoz</h3>
-                    <p class="mb-0">Cantante - Guitarrista</p>
-                    <p>Carrer d'Aragó</p>
+                    <h1>Pepita García Muñoz</h1>
+                    <h4 class="mb-0">Cantante - Guitarrista</h4>
+                    <h4>Carrer d'Aragó</h4>
                 </div>
             </div>
         </div>
