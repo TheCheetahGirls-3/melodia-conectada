@@ -22,6 +22,7 @@ export default {
             map: null,
             marker: null,
             latLng: null, // Ubicación seleccionada
+            popup: null,
         };
     },
     mounted() {
@@ -48,6 +49,8 @@ export default {
                         center: [lng, lat], // Usar la ubicación del cliente
                         zoom: 12,
                     });
+                    me.popup = new mapboxgl.Popup({ closeOnClick: true });
+                    console.log(this.popup);
 
                     // Agregar marcador inicial en la ubicación del cliente
                     me.marker = new mapboxgl.Marker({ color: "purple" })
@@ -61,8 +64,11 @@ export default {
                         this.latLng = { lng, lat };
                         this.$emit("ubicacionUsuario", lat, lng);
                     });
-                    this.mostrarMarkerMusico();
-                    this.mostrarMarkerLocal();
+                    if (this.usuario?.id_tipo_usuario === 2) {
+                        this.mostrarMarkerLocal();
+                    } else {
+                        this.mostrarMarkerMusico();
+                    }
                 } else {
                     console.log("No se encontró la ubicación del cliente");
                 }
@@ -104,14 +110,48 @@ export default {
                             );
 
                             if (!isNaN(lat) && !isNaN(lng)) {
-                                new mapboxgl.Marker({ color: "green" })
+                                const marker = new mapboxgl.Marker({
+                                    color: "#406767",
+                                })
                                     .setLngLat([lng, lat])
-                                    .setPopup(
-                                        new mapboxgl.Popup().setText(
-                                            musico.nombre_artistico || "Músico"
-                                        )
-                                    )
                                     .addTo(this.map);
+
+                                marker
+                                    .getElement()
+                                    .addEventListener("click", () => {
+                                        console.log("Cargando Popup..."); // Verifica que el evento de clic se dispara
+                                        console.log(
+                                            "Popup será mostrado en:",
+                                            lng,
+                                            lat
+                                        );
+                                        this.popup
+                                            .setLngLat([lng, lat])
+                                            .setHTML(
+                                                `<strong>${
+                                                    musico.nombre_artistico ||
+                                                    "Músico"
+                                                }</strong>`
+                                            )
+                                            .addTo(this.map);
+                                        this.popup._content.style.backgroundColor =
+                                            "white";
+                                        this.popup._content.style.padding =
+                                            "10px";
+                                        this.popup._content.style.borderRadius =
+                                            "5px";
+                                        this.popup._content.style.boxShadow =
+                                            "0 2px 10px rgba(0,0,0,0.5)";
+                                        console.log("Popup añadido al mapa.");
+                                    });
+                                // new mapboxgl.Marker({ color: "#406767" })
+                                //     .setLngLat([lng, lat])
+                                //     .setPopup(
+                                //         new mapboxgl.Popup().setText(
+                                //             musico.nombre_artistico || "Músico"
+                                //         )
+                                //     )
+                                //     .addTo(this.map);
                             } else {
                                 console.log(
                                     "Ubicación inválida para el músico",
@@ -173,19 +213,39 @@ export default {
                                 const feature = response.body.features[0];
 
                                 // Create a marker and add it to the map.
-
-                                new mapboxgl.Marker({ color: "red" })
+                                const marker = new mapboxgl.Marker({
+                                    color: "#7C0023",
+                                })
                                     .setLngLat(feature.center)
-                                    .setPopup(
-                                        new mapboxgl.Popup().setText(
-                                            local.nombre_artistico || "Local"
-                                        )
-                                    )
                                     .addTo(this.map);
-                                console.log(
-                                    "Ubicación del local",
-                                    local.ubicacion
-                                );
+
+                                marker
+                                    .getElement()
+                                    .addEventListener("click", () => {
+                                        this.popup
+                                            .setLngLat(feature.center)
+                                            .setHTML(
+                                                `<strong>${
+                                                    local.cliente?.nombre ||
+                                                    "Local"
+                                                }</strong>`
+                                            )
+                                            .addTo(this.map);
+                                    });
+
+                                // new mapboxgl.Marker({ color: "#7C0023" })
+                                //     .setLngLat(feature.center)
+                                //     .setPopup(
+                                //         new mapboxgl.Popup().setText(
+                                //             local.nombre_artistico || "Local"
+                                //         )
+                                //     )
+                                //     .addTo(this.map);
+                                //     console.log(
+                                //     "Ubicación del local",
+                                //     local.ubicacion
+
+                                // );
                             })
                             .catch((error) => {
                                 console.error(

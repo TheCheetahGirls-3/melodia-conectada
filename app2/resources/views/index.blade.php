@@ -2,7 +2,7 @@
 
 @section('listado')
     <div>
-        <listado :usuario="{{ json_encode(Auth::user()) }}"></listado>
+        {{-- <listado :usuario="{{ json_encode(Auth::user()) }}"></listado> --}}
     </div>
 @endsection
 
