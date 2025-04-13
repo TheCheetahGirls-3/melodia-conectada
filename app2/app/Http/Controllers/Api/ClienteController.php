@@ -78,21 +78,14 @@ class ClienteController extends Controller
                 'cliente.nombre as emisor_nombre',
                 'cliente.foto_perfil',
                 'mensaje.contenido as mensaje_texto',
-                'mensaje.fecha_hora',
-                'mensaje.id_emisor',
-                'mensaje.id_receptor'
+                'mensaje.fecha_hora'
             )
-            ->where(function ($query) use ($idUsuario) {
-                $query->where('mensaje.id_usuario_musico', $idUsuario)
-                    ->orWhere('mensaje.id_usuario_local', $idUsuario);
-            })
+            ->where('mensaje.id_receptor', $idUsuario)
             ->orderBy('mensaje.fecha_hora', 'desc')
             ->get()
-            ->groupBy(function ($chat) use ($idUsuario) {
-                return $chat->id_emisor == $idUsuario ? $chat->id_receptor : $chat->id_emisor;
-            })
+            ->groupBy('emisor_nombre')
             ->map(function ($group) {
-                return $group->first();
+                return $group->first(); // Seleccionar solo el último mensaje de cada emisor
             })
             ->values();
 
