@@ -2,19 +2,19 @@
 
     <div class="usuario-lista container mt-4">
         <div class="filtro-botones">
-            <filtro :resultado="resultado" :tipus_user="tipus_user" @aplicar-filtros="aplicarFiltros"></filtro>
-            <span
-                v-if="filtrosAplicados"
-                class="borrar-filtros"
-                @click="borrarFiltros">
-                ✖ Borrar filtros
-            </span>
+            <filtro :resultado="resultado" :tipus_user="tipus_user" @aplicar-filtros="aplicarFiltros"
+                @sin-resultados="mostrarMensajeSinResultados" />
+            <p v-if="filtrosAplicados || mensajeSinResultados" class="borrar-filtros" @click="borrarFiltros">
+                Borrar filtros
+            </p>
         </div>
 
+        <div v-if="mensajeSinResultados" class="alerta">
+            {{ textoMensajeSinResultados }}
+        </div>
 
         <div class="div-general">
             <div v-for="user in resultado" :key="user.id_usuario" class="usuario-card">
-
                 <div class="foto-perfil-container">
                     <img :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + user.cliente.foto_perfil"
                         alt="Foto de perfil" class="foto-perfil">
@@ -68,7 +68,9 @@ export default {
         return {
             resultado: [],
             tipus_user: 0,
-            filtrosAplicados: false, // Nuevo estado para controlar si hay filtros aplicados
+            filtrosAplicados: false,
+            mensajeSinResultados: false,
+            textoMensajeSinResultados: "",
         };
     },
     mounted() {
@@ -99,13 +101,20 @@ export default {
             }
         },
         aplicarFiltros(filtros) {
-            console.log('Resultados filtrados:', filtros);
             this.resultado = filtros;
-            this.filtrosAplicados = true; // Indicar que se han aplicado filtros
+            this.filtrosAplicados = true;
+            this.mensajeSinResultados = "";
         },
         borrarFiltros() {
             this.fetchListado();
-            this.filtrosAplicados = false; // Restablecer el estado de los filtros
+            this.filtrosAplicados = false;
+            this.mensajeSinResultados = false;
+            this.textoMensajeSinResultados = "";
+        },
+        mostrarMensajeSinResultados(tipo) {
+            this.resultado = [];
+            this.mensajeSinResultados = true;
+            this.textoMensajeSinResultados = `No hay ${tipo} con estos filtros.`;
         }
     },
 
@@ -192,22 +201,27 @@ export default {
 }
 
 .borrar-filtros {
-    color: white;
-    background-color: #c0392b;
-    padding: 8px 16px;
-    border-radius: 20px;
+    color: red;
     font-size: 14px;
-    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-block;
-    margin-left: 10px;
+    margin: 0px 15px 15px 15px;
 }
 
 .borrar-filtros:hover {
-    background-color: #e74c3c;
-    color: #fff;
     text-decoration: none;
     transform: scale(1.05);
+}
+
+.alerta {
+    background-color: #ffe0e0;
+    color: #a80000;
+    padding: 10px 15px;
+    margin: 15px;
+    border: 1px solid #ffb3b3;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
 }
 </style>
