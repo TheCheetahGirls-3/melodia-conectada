@@ -43,4 +43,4 @@ Route::apiResource('tipo_usuario', TipoUsuarioController::class);
 Route::apiResource('/usuario', UsuarioController::class);
 
 Route::get('/musico/filtrar/{intrumento?}/{genero?}', [MusicoController::class, 'filtrar']);
-
+Route::get('local/filtrar/{tipoLocal?}/{esAccesible?}', [LocalController::class, 'filtrar']);

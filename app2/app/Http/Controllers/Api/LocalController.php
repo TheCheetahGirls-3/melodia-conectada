@@ -34,9 +34,27 @@ class LocalController extends Controller
         $local->save();
 
         return response()->json([
-            'cliente' => $local  // si quieres devolver el cliente creado
+            'cliente' => $local
         ], 201);
     }
+
+    public function filtrar(?int $tipoLocal = null, ?int $esAccesible = null)
+    {
+        $query = Local::with(['tipo_local', 'cliente.usuario']);
+
+        if (!is_null($tipoLocal)) {
+            $query->where('id_tipo_local', $tipoLocal);
+        }
+
+        if (!is_null($esAccesible)) {
+            $query->where('es_accesible', $esAccesible);
+        }
+
+        $locales = $query->get();
+
+        return LocalResource::collection($locales);
+    }
+
 
     /**
      * Display the specified resource.
