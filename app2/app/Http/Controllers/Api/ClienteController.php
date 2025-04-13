@@ -70,6 +70,34 @@ class ClienteController extends Controller
         // return response()->json($cliente, 200);
     }
 
+    public function obtenerChats($idUsuario)
+    {
+        $chats = \DB::table('mensaje')
+            ->join('cliente', 'mensaje.id_emisor', '=', 'cliente.id_usuario')
+            ->select(
+                'cliente.nombre as emisor_nombre',
+                'cliente.foto_perfil',
+                'mensaje.contenido as mensaje_texto',
+                'mensaje.fecha_hora',
+                'mensaje.id_emisor',
+                'mensaje.id_receptor'
+            )
+            ->where(function ($query) use ($idUsuario) {
+                $query->where('mensaje.id_usuario_musico', $idUsuario)
+                    ->orWhere('mensaje.id_usuario_local', $idUsuario);
+            })
+            ->orderBy('mensaje.fecha_hora', 'desc')
+            ->get()
+            ->groupBy(function ($chat) use ($idUsuario) {
+                return $chat->id_emisor == $idUsuario ? $chat->id_receptor : $chat->id_emisor;
+            })
+            ->map(function ($group) {
+                return $group->first();
+            })
+            ->values();
+
+        return response()->json($chats);
+    }
 
     /**
      * Update the specified resource in storage.
