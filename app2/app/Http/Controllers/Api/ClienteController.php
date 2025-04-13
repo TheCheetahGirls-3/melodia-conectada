@@ -70,6 +70,27 @@ class ClienteController extends Controller
         // return response()->json($cliente, 200);
     }
 
+    public function obtenerChats($idUsuario)
+    {
+        $chats = \DB::table('mensaje')
+            ->join('cliente', 'mensaje.id_emisor', '=', 'cliente.id_usuario')
+            ->select(
+                'cliente.nombre as emisor_nombre',
+                'cliente.foto_perfil',
+                'mensaje.contenido as mensaje_texto',
+                'mensaje.fecha_hora'
+            )
+            ->where('mensaje.id_receptor', $idUsuario)
+            ->orderBy('mensaje.fecha_hora', 'desc')
+            ->get()
+            ->groupBy('emisor_nombre')
+            ->map(function ($group) {
+                return $group->first(); // Seleccionar solo el último mensaje de cada emisor
+            })
+            ->values();
+
+        return response()->json($chats);
+    }
 
     /**
      * Update the specified resource in storage.

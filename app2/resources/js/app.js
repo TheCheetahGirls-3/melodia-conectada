@@ -9,6 +9,8 @@ import Listado from './components/Listado.vue';
 import Mapa from './components/Mapa.vue';
 import MapaRegCliente from './components/MapaRegCliente.vue';
 import MapIndex from './components/MapIndex.vue';
+import Chat from './components/Chat.vue';
+import Chats from './components/Chats.vue';
 
 
 const app = createApp({});
@@ -17,7 +19,8 @@ app.component('listado', Listado);
 app.component('Mapa', Mapa);
 app.component('map-reg-cl', MapaRegCliente)
 app.component('map-index', MapIndex)
-
+app.component('chat', Chat);
+app.component('chats', Chats);
 
 app.mount('#app');
 

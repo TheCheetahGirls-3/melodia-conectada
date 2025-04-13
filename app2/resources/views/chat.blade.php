@@ -1,18 +1,9 @@
-@extends('layouts.navbar')
+@extends('layouts.chat')
 
-@section('title')
-    Chat
+@section('chats')
+    <chats :usuario-id = '{{Auth::user()->id_usuario}}' :usuario="{{ json_encode(Auth::user()) }}"></chats>
 @endsection
 
-@section('content')
-    <h1>Esto es el chat</h1>
+@section('chat')
+    <chat></chat>
 @endsection
-
-
-
-<style>
-    h1 {
-        padding-top: 300px;
-        color: black;
-    }
-</style>
