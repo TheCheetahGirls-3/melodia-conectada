@@ -21,7 +21,7 @@
                             <a class="nav-link p-4" aria-current="page" href="{{ url('/chat') }}">Chat</a>
                         </li>
                         <li class="nav-item ms-5">
-                            <a class="nav-link p-4" aria-current="page" href="{{ url('/perfil') }}">Perfil</a>
+                            <a class="nav-link p-4" aria-current="page" href="{{ url('/perfil/' . Auth::user()->id_usuario) }}">Perfil</a>
                         </li>
                     </ul>
                     <div class="d-flex" role="search">
@@ -83,7 +83,7 @@
                     <a class="nav-link me-5" aria-current="page" href="#">Chat</a>
                 </li>
                 <li class="">
-                    <a class="nav-link me-5" aria-current="page" href="#">Perfil</a>
+                    <a class="nav-link me-5" aria-current="page" href="{{ url('/perfil/' . Auth::user()->id_usuario) }}">Perfil</a>
                 </li>
             </ul>
         </div>

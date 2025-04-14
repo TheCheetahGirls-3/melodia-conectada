@@ -7,12 +7,15 @@
 @section('contenido')
     <div class="container">
 
-        <div class="banner">
-            <img class="bannerPic" src="{{asset('images/imagenes_perfil/bannerMusico2.jpg')}}" alt="foto del banner">
+      <perfil :id="{{ $id ?? 'null' }}"></perfil>
+      
+
+        <!-- <div class="banner">
+            <img class="bannerPic" src="{{asset('images/imagenes_perfil/bannerMusico.jpg')}}" alt="foto del banner">
             <div class="bannerContent">
                 <div class="profilePicDivBg m-5 rounded-circle">
                     <div class="profilePicDiv rounded-circle">
-                        <img class="profilePic" src="{{asset('images/imagenes_perfil/musico.jpg')}}" alt="foto de perfil">
+                      <img class="profilePic" src="{{asset('images/imagenes_perfil/musico.jpg')}}" alt="foto de perfil">
                     </div>
                 </div>
                 <div class="bannerText ms-2">
@@ -30,7 +33,7 @@
         </div>
 
         <h5 class="mt-5 redText">Teléfono</h5>
-        <h6>+34 634 50 50 50</h6>
+        <h6>+34 634 50 50 50</h6> -->
 
         <h5 class="mt-5 redText">Canciones</h5>
         <div class="musicDiv">
@@ -217,9 +220,3 @@
 @endsection
 
 
-<style>
-    h1 {
-        padding-top: 300px;
-        color: black;
-    }
-</style>
