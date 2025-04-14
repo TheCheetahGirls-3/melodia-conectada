@@ -1,9 +1,10 @@
-@extends('layouts.chat')
+@extends('layouts.navbar')
 
-@section('chats')
-    <chats :usuario-id = '{{Auth::user()->id_usuario}}' :usuario="{{ json_encode(Auth::user()) }}"></chats>
+@section('title')
+    Chat
 @endsection
 
-@section('chat')
-    <chat></chat>
+@section('contenido')
+    <chats :usuario-id="{{ Auth::user()->id_usuario }}"></chats>
 @endsection
+
