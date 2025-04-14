@@ -83,7 +83,6 @@ export default {
                     .then(response => {
                         this.resultado = response.data;
                         this.tipus_user = 3;
-
                     })
                     .catch(error => {
                         console.error("Error obteniendo el listado:", error);

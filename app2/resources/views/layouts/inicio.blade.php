@@ -1,8 +1,8 @@
 @extends('layouts.navbar')
 
-{{-- @section('title')
+@section('title')
     Inicio
-@endsection --}}
+@endsection
 
 @section('contenido')
     <button id="movilBoton">O</button>

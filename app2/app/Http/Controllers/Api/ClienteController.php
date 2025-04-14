@@ -70,6 +70,45 @@ class ClienteController extends Controller
         // return response()->json($cliente, 200);
     }
 
+    public function obtenerChats($idUsuario)
+    {
+        $chats = \DB::table('mensaje')
+            ->join('cliente', 'mensaje.id_emisor', '=', 'cliente.id_usuario')
+            ->select(
+                'cliente.id_usuario as id_emisor',
+                'cliente.nombre as emisor_nombre',
+                'cliente.foto_perfil',
+                'mensaje.contenido as mensaje_texto',
+                'mensaje.fecha_hora'
+            )
+            ->where('mensaje.id_receptor', $idUsuario)
+            ->orderBy('mensaje.fecha_hora', 'desc')
+            ->get()
+            ->groupBy('emisor_nombre')
+            ->map(function ($group) {
+                return $group->first(); // Seleccionar solo el último mensaje de cada emisor
+            })
+            ->values();
+
+        return response()->json($chats);
+    }
+
+    public function obtenerMensajesEntreUsuarios($idUsuario1, $idUsuario2)
+    {
+        $mensajes = \DB::table('mensaje')
+            ->where(function ($query) use ($idUsuario1, $idUsuario2) {
+                $query->where('id_emisor', $idUsuario1)
+                    ->where('id_receptor', $idUsuario2);
+            })
+            ->orWhere(function ($query) use ($idUsuario1, $idUsuario2) {
+                $query->where('id_emisor', $idUsuario2)
+                    ->where('id_receptor', $idUsuario1);
+            })
+            ->orderBy('fecha_hora', 'asc') // Ordenar por fecha ascendente
+            ->get();
+
+        return response()->json($mensajes);
+    }
 
     /**
      * Update the specified resource in storage.

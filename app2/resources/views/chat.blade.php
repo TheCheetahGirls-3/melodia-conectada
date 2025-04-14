@@ -4,15 +4,7 @@
     Chat
 @endsection
 
-@section('content')
-    <h1>Esto es el chat</h1>
+@section('contenido')
+    <chats :usuario-id="{{ Auth::user()->id_usuario }}"></chats>
 @endsection
 
-
-
-<style>
-    h1 {
-        padding-top: 300px;
-        color: black;
-    }
-</style>

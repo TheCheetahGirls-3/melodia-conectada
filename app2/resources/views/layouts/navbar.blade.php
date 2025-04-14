@@ -1,9 +1,5 @@
 @extends('layouts.principal')
 
-@section('title')
-    NavBar
-@endsection
-
 @section('content')
     <header>
         <nav class="col-12 navbar navbar-expand-lg bg-body-secondary p-0 navbar-principal fixed-top">
