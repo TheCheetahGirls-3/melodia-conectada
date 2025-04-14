@@ -42,6 +42,9 @@ Route::apiResource('tipo_multimedia', TipoMultimediaController::class);
 Route::apiResource('tipo_usuario', TipoUsuarioController::class);
 Route::apiResource('/usuario', UsuarioController::class);
 
+Route::get('/perfil/{id}', [UsuarioController::class, 'obtenerPerfil']);
+
+
 Route::get('/musico/filtrar/{intrumento?}/{genero?}', [MusicoController::class, 'filtrar']);
 Route::get('local/filtrar/{tipoLocal?}/{esAccesible?}', [LocalController::class, 'filtrar']);
 Route::get('/chats/{id}', [ClienteController::class, 'obtenerChats']);

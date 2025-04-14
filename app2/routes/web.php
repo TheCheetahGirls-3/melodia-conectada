@@ -50,9 +50,12 @@ Route::get('/index', function () {
 Route::get('/pruebaFiltro', function () {
     return view('pruebaFiltro');
 });
-Route::get('/perfil', function () {
-    return view('perfil');
+
+
+Route::get('/perfil/{id}', function ($id) {
+    return view('perfil', ['id' => $id]);
 });
+
 
 Route::get('/musico', function () {
     return view('index');
