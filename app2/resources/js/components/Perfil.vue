@@ -1,6 +1,13 @@
 <template>
     <div v-if="usuario">
         <banner-perfil :usuario="usuario" />
+
+        <!-- Muestra el reproductor de música solo si el usuario es un músico -->
+        <music-player v-if="usuario.id_tipo_usuario === 2" :multimedias="usuario.clientes.multimedias" />
+        
+        <!-- Muestra la galería de multimedia para todos los usuarios -->
+        <galeria-multimedia :multimedias="usuario.clientes.multimedias" />
+
     </div>
 </template>
 
@@ -9,19 +16,17 @@ export default {
     props: ['id'],
     data() {
         return {
-        usuario: null // ✅ coincide con el template
+            usuario: null
         };
     },
     mounted() {
-    this.obtenerDatosPerfil();
+        this.obtenerDatosPerfil();
     },
     methods: {
         async obtenerDatosPerfil() {
             try {
                 const response = await axios.get(`/perfil/${this.id}`);
-                console.log("Respuesta de la API:", response.data); // Depuración
 
-                // Asignar directamente response.data porque no hay un objeto "data" envolviendo los datos
                 if (response.data) {
                     this.usuario = response.data;
                 } else {
@@ -32,7 +37,5 @@ export default {
             }
         }
     }
-
-}
+};
 </script>
-  

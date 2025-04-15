@@ -35,7 +35,7 @@
         <h5 class="mt-5 redText">Teléfono</h5>
         <h6>+34 634 50 50 50</h6> -->
 
-        <h5 class="mt-5 redText">Canciones</h5>
+        <!-- <h5 class="mt-5 redText">Canciones</h5>
         <div class="musicDiv">
             <div class="musicPlayer rounded-pill">
                 <div class="songTitle">
@@ -55,10 +55,10 @@
                   Your browser does not support the audio element.
                 </audio>
             </div>
-        </div>
+        </div> -->
 
 
-        <h5 class="mt-5 redText">Galería</h5>
+        <!-- <h5 class="mt-5 redText">Galería</h5>
 
         {{-- GALLERY -------------------------------------------------------------------------------------}}
         {{-- Referencia: https://codepen.io/TheMOZZARELLA/pen/oNpMxyy --}}
@@ -69,143 +69,35 @@
 
               <figure>
                 <img src="{{asset('images/img_ejemplo/1.jpg')}}" alt="Statue of Liberty" width="700" height="700" alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
               </figure>
 
               <figure>
-                <img src="{{asset('images/img_ejemplo/2.jpg')}}" alt="Night Sky" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <img src="{{asset('images/imagen_portada.jpg')}}" alt="Night Sky" width="700" height="700"  alt="adasdasd">
               </figure>
 
               <figure>
-                <img src="{{asset('images/img_ejemplo/3.jpg')}}" alt="Ravine Between Rocks" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <img src="{{asset('images/cantando.png')}}" alt="Ravine Between Rocks" width="700" height="700"  alt="adasdasd">
               </figure>
 
               <figure>
-                <img src="{{asset('images/img_ejemplo/4.jpg')}}" alt="Wheat Farm" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <video src="{{asset('images/imagenes_perfil/video1.mp4')}}" alt="Wheat Farm" width="700" height="700"></video>
               </figure>
 
               <figure>
                 <img src="{{asset('images/img_ejemplo/5.jpg')}}" alt="City Street" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
               </figure>
 
               <figure>
                 <img src="{{asset('images/img_ejemplo/6.jpg')}}" alt="Crumbling Pier" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
               </figure>
 
               <figure>
                 <img src="{{asset('images/img_ejemplo/7.jpg')}}" alt="Foggy Mountains" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/8.jpg')}}" alt="Dense Forest" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/9.jpg')}}" alt="Sunset Over Mountains" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/10.jpg')}}" alt="SUV in Front of Building" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/11.jpg')}}" alt="Classic Vehicle" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/12.jpg')}}" alt="Stacked Rocks" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/13.jpg')}}" alt="Brick Wall" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/14.jpg')}}" alt="Waterfront" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/15.jpg')}}" alt="Overgrown Buildings" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/16.jpg')}}" alt="Dying Trees" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/17.jpg')}}" alt="Ocean View" width="700" height="700"  alt="adasdasd">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
               </figure>
 
             </div>
 
-        </div>
+        </div> -->
 
         {{-- GALLERY -------------------------------------------------------------------------------------}}
 
