@@ -49,7 +49,22 @@ export default {
                         center: [lng, lat], // Usar la ubicación del cliente
                         zoom: 12,
                     });
-                    me.popup = new mapboxgl.Popup({ closeOnClick: true });
+                    this.map.on("load", () => {
+                        console.log("Mapa cargado exitosamente.");
+
+                        // Llamar a la función para mostrar los marcadores después de que el mapa haya cargado
+                        if (this.usuario?.id_tipo_usuario === 2) {
+                            this.mostrarMarkerLocal();
+                        } else {
+                            this.mostrarMarkerMusico();
+                        }
+                    });
+                    const popup = new mapboxgl.Popup()
+                        .setLngLat([lng, lat]) // Asegúrate de que estas son las coordenadas correctas
+                        .setHTML("<div><strong>¡Hola Mundo!</strong></div>") // Asegúrate de tener contenido
+                        .addTo(this.map);
+
+                    me.popup = new mapboxgl.Popup();
                     console.log(this.popup);
 
                     // Agregar marcador inicial en la ubicación del cliente
@@ -65,9 +80,9 @@ export default {
                         this.$emit("ubicacionUsuario", lat, lng);
                     });
                     if (this.usuario?.id_tipo_usuario === 2) {
-                        this.mostrarMarkerLocal();
+                        this.mostrarMarkerLocal(this.popup);
                     } else {
-                        this.mostrarMarkerMusico();
+                        this.mostrarMarkerMusico(this.popup);
                     }
                 } else {
                     console.log("No se encontró la ubicación del cliente");
@@ -81,14 +96,14 @@ export default {
             });
     },
     methods: {
-        mostrarMarkerMusico() {
+        mostrarMarkerMusico(popup) {
             axios
                 .get(
                     "http://localhost:8080/melodia-conectada/app2/public/api/musico/"
                 )
                 .then((response) => {
                     const musicos = response.data;
-
+                    const me = this;
                     if (!musicos || musicos.length === 0) {
                         console.log("No hay músicos disponibles");
                         return;
@@ -114,7 +129,7 @@ export default {
                                     color: "#406767",
                                 })
                                     .setLngLat([lng, lat])
-                                    .addTo(this.map);
+                                    .addTo(me.map);
 
                                 marker
                                     .getElement()
@@ -125,23 +140,22 @@ export default {
                                             lng,
                                             lat
                                         );
-                                        this.popup
+                                        popup = new mapboxgl.Popup({
+                                            closeOnClick: true,
+                                        })
                                             .setLngLat([lng, lat])
                                             .setHTML(
-                                                `<strong>${
-                                                    musico.nombre_artistico ||
-                                                    "Músico"
-                                                }</strong>`
+                                                "<div><strong>¡Hola Mundo!</strong></div>"
                                             )
-                                            .addTo(this.map);
-                                        this.popup._content.style.backgroundColor =
-                                            "white";
-                                        this.popup._content.style.padding =
-                                            "10px";
-                                        this.popup._content.style.borderRadius =
-                                            "5px";
-                                        this.popup._content.style.boxShadow =
-                                            "0 2px 10px rgba(0,0,0,0.5)";
+                                            .addTo(me.map);
+                                        console.log("--------------");
+                                        console.log(me.popup);
+                                        console.log(
+                                            "Coordenadas del popup:",
+                                            lng,
+                                            lat
+                                        );
+                                        console.log("--------------");
                                         console.log("Popup añadido al mapa.");
                                     });
                                 // new mapboxgl.Marker({ color: "#406767" })
@@ -275,5 +289,10 @@ export default {
     height: 100%;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 </style>
