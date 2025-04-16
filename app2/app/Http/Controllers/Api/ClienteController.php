@@ -110,6 +110,35 @@ class ClienteController extends Controller
         return response()->json($mensajes);
     }
 
+    public function enviarMensaje(Request $request)
+    {
+        $validated = $request->validate([
+            'contenido' => 'required|string|max:255',
+            'id_emisor' => 'required|exists:usuario,id_usuario',
+            'id_receptor' => 'required|exists:usuario,id_usuario',
+            'es_leido' => 'required|boolean',
+            'tipo_usuario' => 'required|in:2,3', // 2 para músico, 3 para local
+        ]);
+
+        $mensaje = \DB::table('mensaje')->insertGetId([
+            'id_usuario_musico' => $validated['tipo_usuario'] == 2 ? $validated['id_emisor'] : $validated['id_receptor'],
+            'id_usuario_local' => $validated['tipo_usuario'] == 3 ? $validated['id_emisor'] : $validated['id_receptor'],
+            'contenido' => $validated['contenido'],
+            'fecha_hora' => now(),
+            'id_emisor' => $validated['id_emisor'],
+            'id_receptor' => $validated['id_receptor'],
+            'es_leido' => $validated['es_leido'],
+        ]);
+
+        return response()->json([
+            'id' => $mensaje,
+            'contenido' => $validated['contenido'],
+            'fecha_hora' => now(),
+            'id_emisor' => $validated['id_emisor'],
+            'id_receptor' => $validated['id_receptor'],
+        ], 201);
+    }
+
     /**
      * Update the specified resource in storage.
      */
