@@ -59,13 +59,6 @@ export default {
                             this.mostrarMarkerMusico();
                         }
                     });
-                    const popup = new mapboxgl.Popup()
-                        .setLngLat([lng, lat]) // Asegúrate de que estas son las coordenadas correctas
-                        .setHTML("<div><strong>¡Hola Mundo!</strong></div>") // Asegúrate de tener contenido
-                        .addTo(this.map);
-
-                    me.popup = new mapboxgl.Popup();
-                    console.log(this.popup);
 
                     // Agregar marcador inicial en la ubicación del cliente
                     me.marker = new mapboxgl.Marker({ color: "purple" })
@@ -96,7 +89,7 @@ export default {
             });
     },
     methods: {
-        mostrarMarkerMusico(popup) {
+        mostrarMarkerMusico() {
             axios
                 .get(
                     "http://localhost:8080/melodia-conectada/app2/public/api/musico/"
@@ -131,41 +124,15 @@ export default {
                                     .setLngLat([lng, lat])
                                     .addTo(me.map);
 
-                                marker
-                                    .getElement()
-                                    .addEventListener("click", () => {
-                                        console.log("Cargando Popup..."); // Verifica que el evento de clic se dispara
-                                        console.log(
-                                            "Popup será mostrado en:",
-                                            lng,
-                                            lat
-                                        );
-                                        popup = new mapboxgl.Popup({
-                                            closeOnClick: true,
-                                        })
-                                            .setLngLat([lng, lat])
-                                            .setHTML(
-                                                "<div><strong>¡Hola Mundo!</strong></div>"
-                                            )
-                                            .addTo(me.map);
-                                        console.log("--------------");
-                                        console.log(me.popup);
-                                        console.log(
-                                            "Coordenadas del popup:",
-                                            lng,
-                                            lat
-                                        );
-                                        console.log("--------------");
-                                        console.log("Popup añadido al mapa.");
-                                    });
-                                // new mapboxgl.Marker({ color: "#406767" })
-                                //     .setLngLat([lng, lat])
-                                //     .setPopup(
-                                //         new mapboxgl.Popup().setText(
-                                //             musico.nombre_artistico || "Músico"
-                                //         )
-                                //     )
-                                //     .addTo(this.map);
+                                const popup = new mapboxgl.Popup({ offset: 25 })
+                                    .setHTML(`
+                                <div>
+                                    <strong>${musico.nombre_artistico}</strong><br>
+                                    <a href="http://localhost:8080/melodia-conectada/app2/public/perfil/${musico.id_usuario}" target="_blank">Ver perfil</a>
+                                </div>
+                            `);
+
+                                marker.setPopup(popup);
                             } else {
                                 console.log(
                                     "Ubicación inválida para el músico",
@@ -232,34 +199,15 @@ export default {
                                 })
                                     .setLngLat(feature.center)
                                     .addTo(this.map);
+                                const popup = new mapboxgl.Popup({ offset: 25 })
+                                    .setHTML(`
+        <div>
+            <strong>${local.id_usuario}</strong><br>
+            <a href="http://localhost:8080/melodia-conectada/app2/public/perfil/${local.id_usuario}" target="_blank">Ver perfil</a>
+        </div>
+    `);
 
-                                marker
-                                    .getElement()
-                                    .addEventListener("click", () => {
-                                        this.popup
-                                            .setLngLat(feature.center)
-                                            .setHTML(
-                                                `<strong>${
-                                                    local.cliente?.nombre ||
-                                                    "Local"
-                                                }</strong>`
-                                            )
-                                            .addTo(this.map);
-                                    });
-
-                                // new mapboxgl.Marker({ color: "#7C0023" })
-                                //     .setLngLat(feature.center)
-                                //     .setPopup(
-                                //         new mapboxgl.Popup().setText(
-                                //             local.nombre_artistico || "Local"
-                                //         )
-                                //     )
-                                //     .addTo(this.map);
-                                //     console.log(
-                                //     "Ubicación del local",
-                                //     local.ubicacion
-
-                                // );
+                                marker.setPopup(popup);
                             })
                             .catch((error) => {
                                 console.error(
