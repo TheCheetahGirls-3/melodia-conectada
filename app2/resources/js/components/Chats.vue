@@ -1,7 +1,7 @@
 <template>
     <div class="contenedor-chat">
 
-        <div class="lista-chats" :class="{ ocultar: selectedChat }">
+        <div class="lista-chats">
             <h1 class="titulo-chat">Contactos</h1>
             <div v-if="chats.length > 0">
                 <div v-for="chat in chats" :key="chat.id_emisor" class="item-chat" @click="openChat(chat.id_emisor)">
@@ -20,28 +20,27 @@
             </div>
         </div>
 
-        <div class="detalles-chat" :class="{ mostrar: selectedChat }">
-            <div v-if="selectedChat">
-                <div class="encabezado-chat">
-                    <h1 class="nombre-contacto">{{ selectedChat.emisor_nombre }}</h1>
+        <div class="detalles-chat" v-if="selectedChat">
+
+            <div class="encabezado-chat">
+                <h1 class="nombre-contacto">{{ selectedChat.emisor_nombre }}</h1>
+            </div>
+
+            <div class="chat-completo">
+                <div class="contenedor-mensajes" ref="scrollMensajes">
+                    <ul>
+                        <li v-for="mensaje in mensajes" :key="mensaje.id"
+                            :class="['item-mensaje', mensaje.id_emisor === usuarioId ? 'mensaje-propio' : 'mensaje-otro']">
+                            <span class="burbuja-mensaje">{{ mensaje.contenido }}</span>
+                            <div class="hora-mensaje">{{ formatFecha(mensaje.fecha_hora) }}</div>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="chat-completo">
-                    <div class="contenedor-mensajes" ref="scrollMensajes">
-                        <ul>
-                            <li v-for="mensaje in mensajes" :key="mensaje.id"
-                                :class="['item-mensaje', mensaje.id_emisor === usuarioId ? 'mensaje-propio' : 'mensaje-otro']">
-                                <span class="burbuja-mensaje">{{ mensaje.contenido }}</span>
-                                <div class="hora-mensaje">{{ formatFecha(mensaje.fecha_hora) }}</div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="campo-escribir">
-                        <input type="text" v-model="nuevoMensaje" placeholder="Escribe un mensaje..."
-                            class="input-mensaje" />
-                        <button class="boton-enviar" @click="enviarMensaje">Enviar</button>
-                    </div>
+                <div class="campo-escribir">
+                    <input type="text" v-model="nuevoMensaje" placeholder="Escribe un mensaje..."
+                        class="input-mensaje" />
+                    <button class="boton-enviar" @click="enviarMensaje">Enviar</button>
                 </div>
             </div>
         </div>
@@ -336,53 +335,5 @@ export default {
 .encabezado-chat {
     padding-top: 75px;
     padding-left: 20px;
-}
-
-@media (max-width: 768px) {
-    .contenedor-chat {
-        flex-direction: column;
-    }
-
-    .lista-chats {
-        width: 100%;
-        height: 100vh;
-        display: block;
-    }
-
-    .lista-chats.ocultar {
-        display: none;
-    }
-
-    .detalles-chat {
-        display: none;
-        width: 100%;
-        height: 100vh;
-    }
-
-    .detalles-chat.mostrar {
-        display: flex;
-    }
-
-    .lista-chats{
-        padding: 0;
-    }
-
-    .titulo-chat {
-        padding: 10;
-    }
-
-    .encabezado-chat {
-        padding-top: 10px;
-        padding-left: 10px;
-    }
-
-    .campo-escribir {
-        position: absolute;
-        bottom: 80px;
-        width: 100%;
-        padding: 10px;
-        background-color: #f9f9f9;
-        border-top: 1px solid #ccc;
-    }
 }
 </style>
