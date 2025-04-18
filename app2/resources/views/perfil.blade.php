@@ -5,110 +5,16 @@
 @endsection
 
 @section('contenido')
-    <div class="container">
+  <div class="container">
+    <!-- Pasar el ID del usuario autenticado -->
+    <perfil :id="{{ $id }}" :usuario-autenticado-id="{{ Auth::id() }}"></perfil>
+  </div>
 
-      <perfil :id="{{ $id ?? 'null' }}"></perfil>
-      
-
-        <!-- <div class="banner">
-            <img class="bannerPic" src="{{asset('images/imagenes_perfil/bannerMusico.jpg')}}" alt="foto del banner">
-            <div class="bannerContent">
-                <div class="profilePicDivBg m-5 rounded-circle">
-                    <div class="profilePicDiv rounded-circle">
-                      <img class="profilePic" src="{{asset('images/imagenes_perfil/musico.jpg')}}" alt="foto de perfil">
-                    </div>
-                </div>
-                <div class="bannerText ms-2">
-                    <h1>Pepita García Muñoz</h1>
-                    <h4 class="mb-0">Cantante - Guitarrista</h4>
-                    <h4>Carrer d'Aragó</h4>
-                </div>
-            </div>
-        </div>
-
-        <p class="mt-4 mb-4">Cantante de pop con una voz cautivadora y un estilo único que transmite emoción en cada nota.</p>
-        <div class="tagRow">
-            <div class="badge text-bg-danger rounded-pill p-2 px-3 mx-1">Cantante</div>
-            <div class="badge text-bg-danger rounded-pill p-2 px-3 mx-1">Guitarrista</div>
-        </div>
-
-        <h5 class="mt-5 redText">Teléfono</h5>
-        <h6>+34 634 50 50 50</h6> -->
-
-        <!-- <h5 class="mt-5 redText">Canciones</h5>
-        <div class="musicDiv">
-            <div class="musicPlayer rounded-pill">
-                <div class="songTitle">
-                    <p>Canción tal tal</p>
-                </div>
-                <audio controls>
-                    <source src="{{asset('audio/purr.mp3')}}" type="audio/mpeg">
-                  Your browser does not support the audio element.
-                </audio>
-            </div>
-            <div class="musicPlayer rounded-pill">
-                <div class="songTitle">
-                    <p>Canción tal tal</p>
-                </div>
-                <audio controls>
-                    <source src="{{asset('audio/purr.mp3')}}" type="audio/mpeg">
-                  Your browser does not support the audio element.
-                </audio>
-            </div>
-        </div> -->
-
-
-        <!-- <h5 class="mt-5 redText">Galería</h5>
-
-        {{-- GALLERY -------------------------------------------------------------------------------------}}
-        {{-- Referencia: https://codepen.io/TheMOZZARELLA/pen/oNpMxyy --}}
-
-        <div id="mz-gallery-container">
-
-            <div id="mz-gallery">
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/1.jpg')}}" alt="Statue of Liberty" width="700" height="700" alt="adasdasd">
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/imagen_portada.jpg')}}" alt="Night Sky" width="700" height="700"  alt="adasdasd">
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/cantando.png')}}" alt="Ravine Between Rocks" width="700" height="700"  alt="adasdasd">
-              </figure>
-
-              <figure>
-                <video src="{{asset('images/imagenes_perfil/video1.mp4')}}" alt="Wheat Farm" width="700" height="700"></video>
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/5.jpg')}}" alt="City Street" width="700" height="700"  alt="adasdasd">
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/6.jpg')}}" alt="Crumbling Pier" width="700" height="700"  alt="adasdasd">
-              </figure>
-
-              <figure>
-                <img src="{{asset('images/img_ejemplo/7.jpg')}}" alt="Foggy Mountains" width="700" height="700"  alt="adasdasd">
-              </figure>
-
-            </div>
-
-        </div> -->
-
-        {{-- GALLERY -------------------------------------------------------------------------------------}}
-
-        <h5 class="mt-5 redText">Estadísticas</h5>
-        <div class="estadisticasDiv">
-            <div class="estadistica">Estadística 1</div>
-            <div class="estadistica">Estadística 1</div>
-        </div>
-
-    </div>
+  <h5 class="mt-5 redText">Estadísticas</h5>
+  <div class="estadisticasDiv">
+    <div class="estadistica">Estadística 1</div>
+    <div class="estadistica">Estadística 1</div>
+  </div>
 
 @endsection
-
 

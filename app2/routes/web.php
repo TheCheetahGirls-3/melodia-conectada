@@ -65,3 +65,8 @@ Route::get('/local', function () {
     return view('index');
 });
 
+Route::get('/editar-perfil/{id}', function ($id) {
+    return view('editarPerfil', ['id' => $id]);
+})->middleware('auth'); // Solo accesible para usuarios autenticados
+
+Route::post('/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil'])->middleware('auth');
