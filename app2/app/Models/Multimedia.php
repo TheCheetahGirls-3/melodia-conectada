@@ -13,6 +13,12 @@ class Multimedia extends Model
     protected $primaryKey = 'id_multimedia';
     public $timestamps = false;
 
+    protected $fillable = [
+        'id_usuario',
+        'ruta',
+        'id_tipo_multimedia',
+    ];
+
     /**
      * Get the user that owns the Multimedia
      *

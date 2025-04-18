@@ -15,6 +15,15 @@
                 <h4>{{ usuario.clientes.ubicacion }}</h4>
             </div>
         </div>
+
+        <!-- Botón de edición visible solo para el usuario autenticado -->
+        <button 
+            v-if="esUsuarioAutenticado" 
+            @click="editarPerfil" 
+            class="btn btn-primary edit-btn"
+        >
+            Editar perfil
+        </button>
     </div>
 
     <p class="mt-4 mb-4">{{ usuario.clientes.descripcion }}</p>
@@ -53,10 +62,28 @@
 <script>
 export default {
     props: {
-        usuarioId: Number,
         usuario: {
             type: Object,
+            required: true
         },
+        esUsuarioAutenticado: {
+            type: Boolean,
+            required: true
+        }
+    },
+    methods: {
+        // Redirige al usuario a la página de edición del perfil
+        editarPerfil() {
+            window.location.href = `/melodia-conectada/app2/public/editar-perfil/${this.usuario.id_usuario}`;
+        }
     }
 };
 </script>
+
+<style scoped>
+.edit-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+</style>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UsuarioResource;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use App\Models\Cliente;
 
 class UsuarioController extends Controller
 {
@@ -38,7 +39,6 @@ class UsuarioController extends Controller
         }
     }
     
-
     /**
      * Store a newly created resource in storage.
      */
