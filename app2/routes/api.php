@@ -52,5 +52,5 @@ Route::get('/musico/filtrar/{intrumento?}/{genero?}', [MusicoController::class, 
 Route::get('local/filtrar/{tipoLocal?}/{esAccesible?}', [LocalController::class, 'filtrar']);
 Route::get('/chats/{id}', [ClienteController::class, 'obtenerChats']);
 Route::get('/mensajes/{idUsuario1}/{idUsuario2}', [ClienteController::class, 'obtenerMensajesEntreUsuarios']);
-
+Route::post('/mensajes', [ClienteController::class, 'enviarMensaje']);
 Route::post('/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil']);

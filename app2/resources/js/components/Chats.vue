@@ -1,6 +1,6 @@
 <template>
     <div class="contenedor-chat">
-        <!-- Lista de chats a la izquierda -->
+
         <div class="lista-chats">
             <h1 class="titulo-chat">Contactos</h1>
             <div v-if="chats.length > 0">
@@ -20,11 +20,14 @@
             </div>
         </div>
 
-        <!-- Mensajes del chat seleccionado a la derecha -->
         <div class="detalles-chat" v-if="selectedChat">
+
+            <div class="encabezado-chat">
+                <h1 class="nombre-contacto">{{ selectedChat.emisor_nombre }}</h1>
+            </div>
+
             <div class="chat-completo">
-                <h2> {{ selectedChat.emisor_nombre }}</h2>
-                <div v-if="mensajes.length > 0" class="contenedor-mensajes">
+                <div class="contenedor-mensajes" ref="scrollMensajes">
                     <ul>
                         <li v-for="mensaje in mensajes" :key="mensaje.id"
                             :class="['item-mensaje', mensaje.id_emisor === usuarioId ? 'mensaje-propio' : 'mensaje-otro']">
@@ -33,14 +36,11 @@
                         </li>
                     </ul>
                 </div>
-                <div v-else>
-                    <p>No hay mensajes en este chat.</p>
-                </div>
 
-                <!-- Campo para escribir mensajes -->
                 <div class="campo-escribir">
-                    <input type="text" placeholder="Escribe un mensaje..." class="input-mensaje" />
-                    <button class="boton-enviar">Enviar</button>
+                    <input type="text" v-model="nuevoMensaje" placeholder="Escribe un mensaje..."
+                        class="input-mensaje" />
+                    <button class="boton-enviar" @click="enviarMensaje">Enviar</button>
                 </div>
             </div>
         </div>
@@ -54,12 +54,17 @@ export default {
             type: Number,
             required: true,
         },
+        tipoUsuario: {
+            type: Number,
+            required: true,
+        }
     },
     data() {
         return {
             chats: [],
             selectedChat: null,
             mensajes: [],
+            nuevoMensaje: "",
         };
     },
     mounted() {
@@ -85,6 +90,28 @@ export default {
                     console.error("Error al obtener los mensajes:", error);
                 });
         },
+        enviarMensaje() {
+            if (!this.nuevoMensaje.trim()) {
+                return;
+            }
+
+            const insertMensaje = {
+                contenido: this.nuevoMensaje,
+                id_emisor: this.usuarioId,
+                id_receptor: this.selectedChat.id_emisor,
+                es_leido: 0,
+                tipo_usuario: this.tipoUsuario,
+            };
+
+            axios.post(`/mensajes`, insertMensaje)
+                .then((response) => {
+                    this.mensajes.push(response.data);
+                    this.nuevoMensaje = "";
+                })
+                .catch((error) => {
+                    console.error("Error al enviar el mensaje:", error);
+                });
+        },
         formatFecha(fecha) {
             const date = new Date(fecha);
             const now = new Date();
@@ -93,14 +120,23 @@ export default {
             yesterday.setDate(now.getDate() - 1);
 
             if (date.toDateString() === yesterday.toDateString()) {
-                return `Ayer, ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
+                return `ayer, ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
             } else if (isToday) {
-                return `Hoy, ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
+                return `hoy, ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
             } else {
                 return `${date.toLocaleDateString([], { weekday: 'long' })}, ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
             }
         },
     },
+    scrollToBottom() {
+        this.$nextTick(() => {
+            const contenedor = this.$refs.scrollMensajes;
+            if (contenedor) {
+                contenedor.scrollTop = contenedor.scrollHeight;
+            }
+        });
+    }
+
 };
 </script>
 
@@ -111,7 +147,7 @@ export default {
     max-width: 100%;
     margin: 0 auto;
     font-family: Arial, sans-serif;
-    height: 100vh; /* Asegura que ocupe toda la altura de la pantalla */
+    height: 100vh;
 }
 
 .titulo-chat {
@@ -138,11 +174,12 @@ export default {
 }
 
 .chat-completo {
-    padding-top: 70px;
     display: flex;
     flex-direction: column;
     flex: 1;
+    overflow: hidden;
 }
+
 
 .item-chat {
     display: flex;
@@ -169,6 +206,8 @@ export default {
     flex: 1;
     display: flex;
     flex-direction: column;
+    max-width: calc(100% - 60px);
+    overflow: hidden;
 }
 
 .cabecera-chat {
@@ -197,6 +236,7 @@ export default {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .sin-chats {
@@ -209,8 +249,14 @@ export default {
     flex: 1;
     overflow-y: auto;
     display: flex;
-    flex-direction: column-reverse; /* Muestra los mensajes desde abajo */
+    flex-direction: column-reverse;
     padding: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.contenedor-mensajes::-webkit-scrollbar {
+    display: none;
 }
 
 .item-mensaje {
@@ -284,5 +330,10 @@ export default {
 
 .boton-enviar:hover {
     background-color: #245a54;
+}
+
+.encabezado-chat {
+    padding-top: 75px;
+    padding-left: 20px;
 }
 </style>
