@@ -18,6 +18,20 @@
             <p>No hay canciones disponibles.</p>
         </div>
     </div>
+
+    <!-- Botón para subir nuevos audios si el perfil pertenece al usuario autenticado -->
+    <button v-if="esUsuarioAutenticado" @click="abrirSelectorArchivos" class="btn btn-primary mt-3">
+        Subir audio
+    </button>
+
+    <!-- Input oculto para seleccionar archivos -->
+    <input
+        type="file"
+        ref="archivoInput"
+        style="display: none;"
+        @change="subirArchivo"
+        accept="audio/*"
+    />
 </template>
 
 <script>
@@ -26,12 +40,48 @@ export default {
         multimedias: {
             type: Array,
             required: true
+        },
+        esUsuarioAutenticado: {
+            type: Boolean,
+            required: true
         }
     },
     computed: {
         // Filtra solo los audios (id_tipo_multimedia === 2)
         audios() {
             return this.multimedias.filter(media => media.id_tipo_multimedia === 2);
+        }
+    },
+    methods: {
+        abrirSelectorArchivos() {
+            // Abre el selector de archivos
+            this.$refs.archivoInput.click();
+        },
+        async subirArchivo(event) {
+            const archivo = event.target.files[0];
+            if (!archivo) {
+                console.error("No se seleccionó ningún archivo.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('archivo', archivo);
+
+            try {
+                // Envía el archivo al servidor
+                const response = await axios.post('/api/multimedia', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+
+                console.log("Audio subido correctamente:", response.data);
+
+                // Notifica al padre para actualizar los datos
+                this.$emit('audio-subido', response.data);
+            } catch (error) {
+                console.error("Error subiendo audio:", error);
+            }
         }
     }
 };
