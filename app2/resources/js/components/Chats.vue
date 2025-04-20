@@ -262,9 +262,9 @@ export default {
 }
 
 .contenedor-mensajes ul {
-    margin: 0; /* Elimina el margen del ul */
-    padding: 0; /* Opcional: elimina el padding si es necesario */
-    list-style: none; /* Opcional: elimina los puntos de lista */
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .item-mensaje {
