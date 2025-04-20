@@ -73,10 +73,10 @@
         <div class="container d-flex justify-content-center">
             <ul class="d-flex gap-3" style="list-style: none">
                 <li class="">
-                    <a class="nav-link me-5" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link me-5" aria-current="page" href="{{ url('/index') }}">Inicio</a>
                 </li>
                 <li class="">
-                    <a class="nav-link me-5" aria-current="page" href="#">Chat</a>
+                    <a class="nav-link me-5" aria-current="page" href="{{ url('/chat') }}">Chat</a>
                 </li>
                 <li class="">
                     <a class="nav-link me-5" aria-current="page" href="{{ url('/perfil/' . Auth::user()->id_usuario) }}">Perfil</a>

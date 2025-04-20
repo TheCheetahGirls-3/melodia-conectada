@@ -1,7 +1,7 @@
 <template>
     <div class="contenedor-chat">
 
-        <div class="lista-chats">
+        <div class="lista-chats" :class="{ ocultar: selectedChat }">
             <h1 class="titulo-chat">Contactos</h1>
             <div v-if="chats.length > 0">
                 <div v-for="chat in chats" :key="chat.id_emisor" class="item-chat" @click="openChat(chat.id_emisor)">
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="detalles-chat" v-if="selectedChat">
+        <div class="detalles-chat" :class="{ mostrar: selectedChat }" v-if="selectedChat">
 
             <div class="encabezado-chat">
                 <h1 class="nombre-contacto">{{ selectedChat.emisor_nombre }}</h1>
@@ -40,7 +40,8 @@
                 <div class="campo-escribir">
                     <input type="text" v-model="nuevoMensaje" placeholder="Escribe un mensaje..."
                         class="input-mensaje" />
-                    <button class="boton-enviar" @click="enviarMensaje">Enviar</button>
+                    <button class="boton-enviar" @click="enviarMensaje"><img :src="`images/enviar.png`" alt="Enviar"
+                            class="icono-enviar"></button>
                 </div>
             </div>
         </div>
@@ -127,15 +128,16 @@ export default {
                 return `${date.toLocaleDateString([], { weekday: 'long' })}, ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
             }
         },
+        scrollToBottom() {
+            this.$nextTick(() => {
+                const contenedor = this.$refs.scrollMensajes;
+                if (contenedor) {
+                    contenedor.scrollTop = contenedor.scrollHeight;
+                }
+            });
+        }
     },
-    scrollToBottom() {
-        this.$nextTick(() => {
-            const contenedor = this.$refs.scrollMensajes;
-            if (contenedor) {
-                contenedor.scrollTop = contenedor.scrollHeight;
-            }
-        });
-    }
+
 
 };
 </script>
@@ -335,5 +337,70 @@ export default {
 .encabezado-chat {
     padding-top: 75px;
     padding-left: 20px;
+}
+
+.icono-enviar {
+    width: auto;
+    height: 15px;
+}
+
+@media (max-width: 768px) {
+    .contenedor-chat {
+        flex-direction: column;
+    }
+
+    .lista-chats {
+        width: 100%;
+        height: 100vh;
+        display: block;
+    }
+
+    .lista-chats.ocultar {
+        display: none;
+    }
+
+    .detalles-chat {
+        display: none;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .detalles-chat.mostrar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .titulo-chat {
+        padding: 10px;
+        font-size: 18px;
+    }
+
+    .encabezado-chat {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background-color: #ffffff;
+        padding: 10px;
+    }
+
+    .campo-escribir {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-top: 1px solid #ccc;
+        background-color: #f9f9f9;
+        position: fixed;
+        bottom: 70px;
+        width: 100%;
+        z-index: 10;
+    }
+
+    .lista-chats {
+        padding-top: 10px;
+    }
+
+    .contenedor-mensajes{
+        padding-bottom: 120px;
+    }
 }
 </style>
