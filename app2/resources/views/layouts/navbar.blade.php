@@ -10,15 +10,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item ms-5">
-                            <a class="nav-link active p-4 ps-4 pe-4" aria-current="page"
+                            <a class="nav-link p-4 {{ request()->is('index') ? 'active' : '' }}"
                                 href="{{ url('/index') }}">Inicio</a>
                         </li>
                         <li class="nav-item ms-5">
-                            <a class="nav-link p-4" aria-current="page" href="{{ url('/chat') }}">Chat</a>
+                            <a class="nav-link p-4 {{ request()->is('chat') ? 'active' : '' }}"
+                                href="{{ url('/chat') }}">Chat</a>
                         </li>
                         <li class="nav-item ms-5">
-                            <a class="nav-link p-4" aria-current="page" href="{{ url('/perfil/' . Auth::user()->id_usuario) }}">Perfil</a>
-                        </li>
+                            <a class="nav-link p-4 {{ request()->is('perfil/*') ? 'active' : '' }}"
+                                href="{{ url('/perfil/' . Auth::user()->id_usuario) }}">Perfil</a>
                     </ul>
                     <div class="d-flex" role="search">
                         <ul class="navbar-nav" me-auto mb-2 mb.lg-0>
@@ -79,7 +80,8 @@
                     <a class="nav-link me-5" aria-current="page" href="{{ url('/chat') }}">Chat</a>
                 </li>
                 <li class="">
-                    <a class="nav-link me-5" aria-current="page" href="{{ url('/perfil/' . Auth::user()->id_usuario) }}">Perfil</a>
+                    <a class="nav-link me-5" aria-current="page"
+                        href="{{ url('/perfil/' . Auth::user()->id_usuario) }}">Perfil</a>
                 </li>
             </ul>
         </div>
