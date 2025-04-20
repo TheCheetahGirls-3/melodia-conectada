@@ -156,7 +156,7 @@ export default {
     color: #000;
     text-align: left;
     padding: 20px 10px;
-    font-size: 22px;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -261,6 +261,12 @@ export default {
     display: none;
 }
 
+.contenedor-mensajes ul {
+    margin: 0; /* Elimina el margen del ul */
+    padding: 0; /* Opcional: elimina el padding si es necesario */
+    list-style: none; /* Opcional: elimina los puntos de lista */
+}
+
 .item-mensaje {
     display: flex;
     flex-direction: column;
@@ -337,6 +343,7 @@ export default {
 .encabezado-chat {
     padding-top: 75px;
     padding-left: 20px;
+    border-bottom: 1px solid #ccc;
 }
 
 .icono-enviar {
@@ -372,7 +379,7 @@ export default {
 
     .titulo-chat {
         padding: 10px;
-        font-size: 18px;
+        font-size: 25px;
     }
 
     .encabezado-chat {
@@ -399,8 +406,8 @@ export default {
         padding-top: 10px;
     }
 
-    .contenedor-mensajes{
-        padding-bottom: 120px;
+    .contenedor-mensajes {
+        padding-bottom: 130px;
     }
 }
 </style>
