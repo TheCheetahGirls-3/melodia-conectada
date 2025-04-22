@@ -16,13 +16,14 @@ services:
             - ./initdb:/docker-entrypoint-initdb.d
         networks:
             - my_network
+
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         container_name: phpmyadmin
         environment:
             PMA_HOST: db
             MYSQL_ROOT_PASSWORD: mysql
-            PMA_ABSOLUTE_URI: http//localhost:8080/php-my-admin/
+            PMA_ABSOLUTE_URI: http://localhost:5050/
         ports:
             - "5050:80"
         depends_on:
@@ -30,20 +31,31 @@ services:
         networks:
             - my_network
 
+    app:
+        build:
+            context: 'app2'
+            dockerfile: '.Dockerfile'
+        container_name: chillgig_app
+        ports:
+            - "9000:9000"
+        volumes:
+            - ./app2:/var/www
+        networks:
+            - my_network
     
     nginx:
         build:
             context: 'nginx'
             dockerfile: '.Dockerfile'
         container_name: nginx_proxy
-        environment:
-            - NGINX_HOST=chillgig.ainhoablanco.me
-            - NGINX_PORT=8080
         ports:
             - "8080:80"
         volumes:
-            - ./app:/var/www
-    
+            - ./app2:/var/www
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        depends_on:
+            - app
+            - phpmyadmin
         networks:
             - my_network
     
