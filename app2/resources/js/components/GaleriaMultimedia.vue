@@ -1,44 +1,46 @@
 <template>
-    <h5 class="mt-5 redText">Galería</h5>
+    <div>
+        <h5 class="mt-5 redText">Galería</h5>
 
-    <div v-if="imagenesYVideos.length > 0" id="mz-gallery-container">
-        <div id="mz-gallery">
-            <figure v-for="(media, index) in imagenesYVideos" :key="index">
-                <img
-                    v-if="media.id_tipo_multimedia === 1"
-                    :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + media.ruta"
-                    width="700"
-                    height="700"
-                    :alt="media.ruta"
-                />
-                <video
-                    v-else-if="media.id_tipo_multimedia === 3"
-                    :src="'/melodia-conectada/app2/public/images/videos_perfil/' + media.ruta"
-                    width="700"
-                    height="700"
-                    controls
-                >
-                    Tu navegador no soporta la reproducción de videos.
-                </video>
-            </figure>
+        <div v-if="imagenesYVideos.length > 0" id="mz-gallery-container">
+            <div id="mz-gallery">
+                <figure v-for="(media, index) in imagenesYVideos" :key="index">
+                    <img
+                        v-if="media.id_tipo_multimedia === 1"
+                        :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + media.ruta"
+                        width="700"
+                        height="700"
+                        :alt="media.ruta"
+                    />
+                    <video
+                        v-else-if="media.id_tipo_multimedia === 3"
+                        :src="'/melodia-conectada/app2/public/images/videos_perfil/' + media.ruta"
+                        width="700"
+                        height="700"
+                        controls
+                    >
+                        Tu navegador no soporta la reproducción de videos.
+                    </video>
+                </figure>
+            </div>
         </div>
+
+        <p v-else>No hay multimedia disponible.</p>
+
+        <!-- Botón para subir nuevos archivos si el perfil pertenece al usuario autenticado -->
+        <button v-if="esUsuarioAutenticado" @click="abrirSelectorArchivos" class="btn btn-primary mt-3">
+            Añadir foto/video
+        </button>
+
+        <!-- Input oculto para seleccionar archivos -->
+        <input
+            type="file"
+            ref="archivoInput"
+            style="display: none;"
+            @change="subirArchivo"
+            accept="image/*, video/*"
+        />
     </div>
-
-    <p v-else>No hay multimedia disponible.</p>
-
-    <!-- Botón para subir nuevos archivos si el perfil pertenece al usuario autenticado -->
-    <button v-if="esUsuarioAutenticado" @click="abrirSelectorArchivos" class="btn btn-primary mt-3">
-        Añadir foto/video
-    </button>
-
-    <!-- Input oculto para seleccionar archivos -->
-    <input
-        type="file"
-        ref="archivoInput"
-        style="display: none;"
-        @change="subirArchivo"
-        accept="image/*, video/*"
-    />
 </template>
 
 <script>

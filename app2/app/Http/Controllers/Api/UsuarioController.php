@@ -19,16 +19,36 @@ class UsuarioController extends Controller
         return UsuarioResource::collection($usuarios);
     }
 
+    // public function obtenerPerfil($id)
+    // {
+    //     // Obtener el usuario por ID
+    //     $usuario = Usuario::with(['clientes.multimedias'])->find($id);
+
+    //     if (!$usuario) {
+    //         return response()->json(['error' => 'Usuario no encontrado'], 404);
+    //     }
+
+    //     return response()->json($usuario);
+    // }
+
     public function obtenerPerfil($id)
     {
-        // Obtener el usuario por ID
-        $usuario = Usuario::with(['clientes.multimedias'])->find($id);
+        try {
+            $usuario = Usuario::with([
+                'clientes.multimedias',
+                'clientes.musicos.instrumentos',
+                'clientes.musicos.generos',
+                'clientes.locales.tipo_local',
+                // 'clientes.locales.eventos'
+            ])->findOrFail($id);
 
-        if (!$usuario) {
-            return response()->json(['error' => 'Usuario no encontrado'], 404);
+            return new UsuarioResource($usuario);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al cargar el perfil',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        return response()->json($usuario);
     }
 
     /**

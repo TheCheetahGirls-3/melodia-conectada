@@ -1,37 +1,37 @@
 <template>
-    <h5 class="mt-5 redText">Canciones</h5>
-    <div class="musicDiv">
-        <!-- Muestra solo canciones si hay audios disponibles -->
-        <div v-if="audios.length > 0">
-            <div v-for="(audio, index) in audios" :key="index" class="musicPlayer rounded-pill">
-                <div class="songTitle">
-                    <p>{{ audio.ruta }}</p>
+    <div>
+        <h5 class="mt-5 redText">Canciones</h5>
+        <div class="musicDiv">
+
+            <div v-if="audios.length > 0">
+                <div v-for="(audio, index) in audios" :key="index" class="musicPlayer rounded-pill">
+                    <div class="songTitle">
+                        <p>{{ audio.ruta }}</p>
+                    </div>
+                    <audio controls>
+                        <source :src="'/melodia-conectada/app2/public/audio/' + audio.ruta" type="audio/mpeg">
+                        Tu navegador no es compatible con el reproductor de música.
+                    </audio>
                 </div>
-                <audio controls>
-                    <source :src="'/melodia-conectada/app2/public/audio/' + audio.ruta" type="audio/mpeg">
-                    Tu navegador no es compatible con el reproductor de música.
-                </audio>
+            </div>
+
+            <div v-else>
+                <p>No hay canciones disponibles.</p>
             </div>
         </div>
-        <!-- Muestra mensaje si no hay audios disponibles -->
-        <div v-else>
-            <p>No hay canciones disponibles.</p>
-        </div>
+
+        <button v-if="esUsuarioAutenticado" @click="abrirSelectorArchivos" class="btn btn-primary mt-3">
+            Subir audio
+        </button>
+
+        <input
+            type="file"
+            ref="archivoInput"
+            style="display: none;"
+            @change="subirArchivo"
+            accept="audio/*"
+        />
     </div>
-
-    <!-- Botón para subir nuevos audios si el perfil pertenece al usuario autenticado -->
-    <button v-if="esUsuarioAutenticado" @click="abrirSelectorArchivos" class="btn btn-primary mt-3">
-        Subir audio
-    </button>
-
-    <!-- Input oculto para seleccionar archivos -->
-    <input
-        type="file"
-        ref="archivoInput"
-        style="display: none;"
-        @change="subirArchivo"
-        accept="audio/*"
-    />
 </template>
 
 <script>

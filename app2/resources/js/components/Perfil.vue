@@ -1,18 +1,22 @@
 <template>
     <div v-if="usuario">
-        <banner-perfil :usuario="usuario" 
+        <banner-perfil :usuario="usuario"
             :es-usuario-autenticado="esUsuarioAutenticado"
         />
 
         <!-- Muestra el reproductor de música solo si el usuario es un músico -->
-        <music-player v-if="usuario.id_tipo_usuario === 2" 
-            :multimedias="usuario.clientes.multimedias" 
+        <music-player v-if="usuario.id_tipo_usuario === 2"
+            :multimedias="usuario.clientes.multimedias"
             :es-usuario-autenticado="esUsuarioAutenticado"
         />
-        
-        <!-- Muestra la galería de multimedia para todos los usuarios -->
-        <galeria-multimedia 
-            :multimedias="usuario.clientes.multimedias" 
+
+        <!-- <eventos v-if="usuario.id_tipo_usuario === 3"
+            :eventos="usuario.clientes.locales.eventos"
+            :es-usuario-autenticado="esUsuarioAutenticado"
+        /> -->
+
+        <galeria-multimedia
+            :multimedias="usuario.clientes.multimedias"
             :es-usuario-autenticado="esUsuarioAutenticado"
         />
     </div>

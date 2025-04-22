@@ -13,13 +13,14 @@
                     <h4 class="mb-0">
                         {{ usuario.clientes.musicos?.instrumentos?.map(i => i.nombre).join(', ') || usuario.clientes.locales?.tipo_local?.nombre }}
                     </h4>
-                    <h4>{{ usuario.clientes.ubicacion }}</h4>
+                    <h4 v-if="usuario.id_tipo_usuario === 3">{{ usuario.clientes.ubicacion }}</h4>
                 </div>
                 <div class="bannerEnviarMensaje">
                     <!-- Botón "Enviar mensaje" -->
                     <button
                         v-if="!esUsuarioAutenticado" @click="enviarMensaje"
-                        class="btn btn-primary px-4"
+                        id="mensaje-btn"
+                        class="btn btn-secondary rounded-pill px-4"
                     >
                         Enviar mensaje
                     </button>
