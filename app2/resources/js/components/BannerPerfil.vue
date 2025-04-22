@@ -80,16 +80,47 @@ export default {
         esUsuarioAutenticado: {
             type: Boolean,
             required: true
+        },
+        usuarioAutenticadoId: {
+            type: Number,
+            required: true
         }
     },
+    mounted() {
+        console.log('Prop usuario:', this.usuario);
+        console.log('Prop esUsuarioAutenticado:', this.esUsuarioAutenticado);
+        console.log('Prop usuarioAutenticadoId:', this.usuarioAutenticadoId);
+    },
     methods: {
-        // Redirige al usuario a la página de edición del perfil
         editarPerfil() {
             window.location.href = `/melodia-conectada/app2/public/editar-perfil/${this.usuario.id_usuario}`;
         },
         enviarMensaje() {
-            // Redirige a la página de chat con el ID del usuario clicado
-            console.log('enviando mensaje');
+            const mensaje =
+                this.usuario.id_tipo_usuario === 3
+                    ? "Me gustaría participar en tu evento publicado."
+                    : "Me gustaría contratarte para algún evento futuro.";
+
+            const tipoUsuario = this.usuario.id_tipo_usuario === 2 ? 3 : 2;
+
+            const insertMensaje = {
+                contenido: mensaje,
+                id_usuario_musico: tipoUsuario === 2 ? this.usuarioAutenticadoId : this.usuario.id_usuario,
+                id_usuario_local: tipoUsuario === 3 ? this.usuarioAutenticadoId : this.usuario.id_usuario,
+                id_emisor: this.usuarioAutenticadoId,
+                id_receptor: this.usuario.id_usuario,
+                es_leido: 0,
+                tipo_usuario: tipoUsuario,
+            };
+
+            axios.post(`/mensajes`, insertMensaje)
+                .then((response) => {
+                    console.log('Mensaje enviado:', response.data);
+                    window.location.href = '/melodia-conectada/app2/public/chat';
+                })
+                .catch((error) => {
+                    console.error("Error al enviar el mensaje:", error);
+                });
         }
     }
 };
