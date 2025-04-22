@@ -4,11 +4,11 @@
         <div class="lista-chats" :class="{ ocultar: selectedChat }">
             <h1 class="titulo-chat">Contactos</h1>
             <div v-if="chats.length > 0">
-                <div v-for="chat in chats" :key="chat.id_emisor" class="item-chat" @click="openChat(chat.id_emisor)">
-                    <img :src="`images/imagenes_perfil/${chat.foto_perfil}`" alt="Foto de perfil" class="avatar-chat" />
+                <div v-for="chat in chats" :key="chat.id_contacto" class="item-chat" @click="openChat(chat.id_contacto)">
+                    <img :src="`images/imagenes_perfil/${chat.contacto_foto}`" alt="Foto de perfil" class="avatar-chat" />
                     <div class="contenido-chat">
                         <div class="cabecera-chat">
-                            <h3 class="nombre-chat">{{ chat.emisor_nombre }}</h3>
+                            <h3 class="nombre-chat">{{ chat.contacto_nombre }}</h3>
                             <span class="hora-chat">{{ formatFecha(chat.fecha_hora) }}</span>
                         </div>
                         <p class="mensaje-chat">{{ chat.mensaje_texto }}</p>
@@ -23,7 +23,7 @@
         <div class="detalles-chat" :class="{ mostrar: selectedChat }" v-if="selectedChat">
 
             <div class="encabezado-chat">
-                <h1 class="nombre-contacto">{{ selectedChat.emisor_nombre }}</h1>
+                <h1 class="nombre-contacto">{{ selectedChat.contacto_nombre }}</h1>
             </div>
 
             <div class="chat-completo">
@@ -85,7 +85,7 @@ export default {
             axios.get(`/mensajes/${this.usuarioId}/${chatId}`)
                 .then((response) => {
                     this.mensajes = response.data;
-                    this.selectedChat = this.chats.find(chat => chat.id_emisor === chatId);
+                    this.selectedChat = this.chats.find(chat => chat.id_contacto === chatId);
                 })
                 .catch((error) => {
                     console.error("Error al obtener los mensajes:", error);
@@ -99,7 +99,7 @@ export default {
             const insertMensaje = {
                 contenido: this.nuevoMensaje,
                 id_emisor: this.usuarioId,
-                id_receptor: this.selectedChat.id_emisor,
+                id_receptor: this.selectedChat.id_contacto,
                 es_leido: 0,
                 tipo_usuario: this.tipoUsuario,
             };
