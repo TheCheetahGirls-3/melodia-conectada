@@ -71,27 +71,36 @@ class ClienteController extends Controller
     }
 
     public function obtenerChats($idUsuario)
+    // Obtiene los últimos mensajes de cada chat del usuario logueado,
+    // mostrando el contacto (emisor o receptor contrario), su nombre, foto,
+    // el contenido del último mensaje y la fecha, agrupando por contacto.
+
     {
         $chats = \DB::table('mensaje')
-            ->join('cliente', 'mensaje.id_emisor', '=', 'cliente.id_usuario')
+            ->join('cliente as emisor', 'mensaje.id_emisor', '=', 'emisor.id_usuario')
+            ->join('cliente as receptor', 'mensaje.id_receptor', '=', 'receptor.id_usuario')
             ->select(
-                'cliente.id_usuario as id_emisor',
-                'cliente.nombre as emisor_nombre',
-                'cliente.foto_perfil',
+                \DB::raw("IF(mensaje.id_emisor = $idUsuario, mensaje.id_receptor, mensaje.id_emisor) as id_contacto"),
+                \DB::raw("IF(mensaje.id_emisor = $idUsuario, receptor.nombre, emisor.nombre) as contacto_nombre"),
+                \DB::raw("IF(mensaje.id_emisor = $idUsuario, receptor.foto_perfil, emisor.foto_perfil) as contacto_foto"),
                 'mensaje.contenido as mensaje_texto',
                 'mensaje.fecha_hora'
             )
-            ->where('mensaje.id_receptor', $idUsuario)
+            ->where(function ($query) use ($idUsuario) {
+                $query->where('mensaje.id_emisor', $idUsuario)
+                    ->orWhere('mensaje.id_receptor', $idUsuario);
+            })
             ->orderBy('mensaje.fecha_hora', 'desc')
             ->get()
-            ->groupBy('emisor_nombre')
+            ->groupBy('id_contacto')
             ->map(function ($group) {
-                return $group->first(); // Seleccionar solo el último mensaje de cada emisor
+                return $group->first();
             })
             ->values();
 
         return response()->json($chats);
     }
+
 
     public function obtenerMensajesEntreUsuarios($idUsuario1, $idUsuario2)
     {
