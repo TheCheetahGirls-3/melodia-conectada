@@ -18,8 +18,9 @@
                                 href="{{ url('/chat') }}">Chat</a>
                         </li>
                         <li class="nav-item ms-5">
-                            <a class="nav-link p-4 {{ request()->is('perfil/*') ? 'active' : '' }}"
-                                href="{{ url('/perfil/' . Auth::user()->id_usuario) }}">Perfil</a>
+                            <a class="nav-link p-4 {{ request()->is('perfil') ? 'active' : '' }}"
+                                href="{{ route('perfilpropio') }}">Perfil</a>
+                        </li>
                     </ul>
                     <div class="d-flex" role="search">
                         <ul class="navbar-nav" me-auto mb-2 mb.lg-0>
