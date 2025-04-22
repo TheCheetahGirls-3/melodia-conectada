@@ -52,6 +52,7 @@ body {
 
 #movilBoton {
     display: none !important;
+    z-index: 9999 !important;
 }
 
 @media (max-width: 768px) {
@@ -225,6 +226,10 @@ body {
     align-items: center;
     color: white;
     text-shadow: 2px 2px 8px var(--red);
+}
+
+.bannerEnviarMensaje {
+    margin-left: 10rem;
 }
 
 .profilePicDivBg {

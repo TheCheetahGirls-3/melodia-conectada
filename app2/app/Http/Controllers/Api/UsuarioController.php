@@ -21,24 +21,16 @@ class UsuarioController extends Controller
 
     public function obtenerPerfil($id)
     {
-        try {
-            $usuario = Usuario::with([
-                'clientes',
-                'clientes.musicos.instrumentos',
-                'clientes.musicos.generos',
-                'clientes.locales.tipo_local',
-                'clientes.multimedias'
-            ])->findOrFail($id);
+        // Obtener el usuario por ID
+        $usuario = Usuario::with(['clientes.multimedias'])->find($id);
 
-            return new UsuarioResource($usuario);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Error al cargar el perfil',
-                'error' => $e->getMessage()
-            ], 500);
+        if (!$usuario) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
         }
+
+        return response()->json($usuario);
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
