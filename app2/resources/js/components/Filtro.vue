@@ -1,11 +1,12 @@
 <template>
     <div class="container">
         <button class="filtro" @click="abrirModal">Filtro</button>
-        <!-- Si estoy filtrando músicos -->
+
         <div v-if="tipus_user === 2">
 
             <div v-if="mostrarModal" class="modal-container">
                 <div class="modal">
+                    <button class="close-button" @click="cerrarModal">×</button>
                     <form class="MiForm">
                         <h5>Instrumentos</h5>
                         <select id="instrumento" v-model="selectedInstrumento">
@@ -20,17 +21,16 @@
                                 {{ genero.nombre }}
                             </option>
                         </select>
-
-                        <button @click="cerrarModal">Cerrar</button>
                         <button type="button" class="btn btn-secondary" @click="submitForm">Buscar</button>
                     </form>
                 </div>
             </div>
         </div>
-        <!-- Si estoy filtrando locales -->
+
         <div v-if="tipus_user === 3">
             <div v-if="mostrarModal" class="modal-container">
                 <div class="modal">
+                    <button class="close-button" @click="cerrarModal">×</button>
                     <form class="MiForm">
                         <h5>Tipo Local</h5>
                         <select id="tipoLocal" v-model="selectedTipoLocal">
@@ -40,12 +40,13 @@
                             </option>
                         </select>
                         <h5>Es accesible</h5>
-                        <select id="esAccesible" v-model="selectedEsAccesible">
-                            <option value="1">Sí</option>
-                            <option value="0">No</option>
+                        <div class="selector">
+                            <label :class="{ active: selectedEsAccesible === '1' }"
+                                @click="selectedEsAccesible = '1'">Sí</label>
+                            <label :class="{ active: selectedEsAccesible === '0' }"
+                                @click="selectedEsAccesible = '0'">No</label>
+                        </div>
 
-                        </select>
-                        <button @click="cerrarModal">Cerrar</button>
                         <button type="button" class="btn btn-secondary" @click="submitForm">Buscar</button>
                     </form>
                 </div>
@@ -75,7 +76,7 @@ export default {
             selectedGeneros: "",
             tipo_locales: [],
             selectedtipoLocal: "",
-            selectedEsAccesible: "",
+            selectedEsAccesible: "1",
 
         };
     },
@@ -87,10 +88,12 @@ export default {
     },
 
     methods: {
-
         abrirModal() {
+            this.selectedInstrumento = "";
+            this.selectedGeneros = "";
+            this.selectedTipoLocal = "";
+            this.selectedEsAccesible = "1";
             this.mostrarModal = true;
-            console.log("Se ha abierto el modal ueeee", this.mostrarModal);
         },
         cerrarModal() {
             this.mostrarModal = false;
@@ -136,21 +139,42 @@ export default {
                 });
         },
         submitForm() {
+            if (this.tipus_user === 2) {
+                axios.get(`musico/filtrar/${this.selectedInstrumento}/${this.selectedGeneros}`)
+                    .then((response) => {
+                        if (response.data.length > 0) {
+                            this.$emit('aplicar-filtros', response.data);
+                        } else {
+                            this.$emit('sin-resultados', 'músicos');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error al filtrar músicos:', error);
+                    });
+            }
 
-            axios.get(`musico/filtrar/${this.selectedInstrumento}/${this.selectedGeneros}`)
-                .then((response) => {
-                    // Emitir los resultados filtrados al componente padre
-                    this.$emit('aplicar-filtros', response.data);
-                })
-                .catch((error) => {
-                    console.error('Error al filtrar músicos:', error);
-                });
+            if (this.tipus_user === 3) {
+                axios.get(`local/filtrar/${this.selectedTipoLocal}/${this.selectedEsAccesible}`)
+                    .then((response) => {
+                        if (response.data.length > 0) {
+                            this.$emit('aplicar-filtros', response.data);
+                        } else {
+                            this.$emit('sin-resultados', 'locales');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error al filtrar locales:', error);
+                    });
+            }
+
+            this.selectedInstrumento = "";
+            this.selectedGeneros = "";
+            this.selectedTipoLocal = "";
+            this.selectedEsAccesible = "1";
+
             this.cerrarModal();
-
-        },
-
+        }
     },
-
 };
 </script>
 
@@ -177,12 +201,10 @@ export default {
     text-align: center;
     width: 30% !important;
     height: auto;
-    border: 2px solid red;
     z-index: 10000 !important;
-    /* Aún más arriba */
     display: block !important;
     margin-left: 30px;
-    top: 40%;
+    top: 25%;
 }
 
 select {
@@ -194,5 +216,87 @@ select {
 button {
     cursor: pointer;
     margin-top: 10px;
+}
+
+.modal h5 {
+    font-size: 18px;
+    color: #406767;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    background-color: white;
+    color: #406767;
+}
+
+.btn-secondary {
+    background-color: #406767;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #305050;
+}
+
+.modal .close-button {
+    position: absolute;
+    right: 10px;
+    font-size: 22px;
+    color: #a73c3c;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin: 0;
+}
+
+.filtro {
+    background-color: #406767;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.selector {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.selector label {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    background-color: white;
+    color: #406767;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.selector label.active {
+    background-color: #406767;
+    color: white;
 }
 </style>

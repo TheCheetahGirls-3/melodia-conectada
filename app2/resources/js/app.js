@@ -9,6 +9,11 @@ import Listado from './components/Listado.vue';
 import Mapa from './components/Mapa.vue';
 import MapaRegCliente from './components/MapaRegCliente.vue';
 import MapIndex from './components/MapIndex.vue';
+import Chats from './components/Chats.vue';
+import Perfil from './components/Perfil.vue';
+import BannerPerfil from './components/BannerPerfil.vue';  
+import MusicPlayer from './components/MusicPlayer.vue'; 
+import GaleriaMultimedia from './components/GaleriaMultimedia.vue';   
 
 
 const app = createApp({});
@@ -17,7 +22,11 @@ app.component('listado', Listado);
 app.component('Mapa', Mapa);
 app.component('map-reg-cl', MapaRegCliente)
 app.component('map-index', MapIndex)
-
+app.component('chats', Chats);
+app.component('perfil', Perfil);
+app.component('banner-perfil', BannerPerfil);
+app.component('music-player', MusicPlayer);
+app.component('galeria-multimedia', GaleriaMultimedia);
 
 app.mount('#app');
 

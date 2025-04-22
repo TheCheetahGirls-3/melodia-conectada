@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UsuarioResource;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use App\Models\Cliente;
 
 class UsuarioController extends Controller
 {
@@ -16,6 +17,18 @@ class UsuarioController extends Controller
     {
         $usuarios = Usuario::with('clientes')->get();
         return UsuarioResource::collection($usuarios);
+    }
+
+    public function obtenerPerfil($id)
+    {
+        // Obtener el usuario por ID
+        $usuario = Usuario::with(['clientes.multimedias'])->find($id);
+
+        if (!$usuario) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        return response()->json($usuario);
     }
 
     /**

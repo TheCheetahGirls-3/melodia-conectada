@@ -33,7 +33,7 @@ Route::get('/signin-ubicacion', function () {
 });
 
 Route::middleware(['auth'])->group(function (){
-    Route::get('/home', function () {
+    Route::get('/index', function () {
         $user = Auth::user();
 
         return view('home', compact('user'));
@@ -50,9 +50,18 @@ Route::get('/index', function () {
 Route::get('/pruebaFiltro', function () {
     return view('pruebaFiltro');
 });
+
+
+// Ruta para el perfil del usuario autenticado
 Route::get('/perfil', function () {
-    return view('perfil');
-});
+    return view('perfilpropio');
+})->middleware('auth')->name('perfilpropio');
+
+// Ruta para el perfil de otros usuarios
+Route::get('/perfil/{id}', function ($id) {
+    return view('perfilotros', ['id' => $id]);
+})->name('perfilotros');
+
 
 Route::get('/musico', function () {
     return view('index');
@@ -62,3 +71,8 @@ Route::get('/local', function () {
     return view('index');
 });
 
+Route::get('/editar-perfil/{id}', function ($id) {
+    return view('editarPerfil', ['id' => $id]);
+})->middleware('auth'); // Solo accesible para usuarios autenticados
+
+Route::post('/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil'])->middleware('auth');

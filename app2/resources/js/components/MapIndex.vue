@@ -22,6 +22,7 @@ export default {
             map: null,
             marker: null,
             latLng: null, // Ubicación seleccionada
+            popup: null,
         };
     },
     mounted() {
@@ -31,7 +32,7 @@ export default {
         // Hacer la llamada a la API para obtener la ubicación del cliente
         axios
             .get(
-                `http://localhost:80/melodia-conectada/app2/public/api/cliente/${this.usuarioId}`
+                `http://localhost:8080/melodia-conectada/app2/public/api/cliente/${this.usuarioId}`
             )
             .then((response) => {
                 const cliente = response.data;
@@ -48,6 +49,16 @@ export default {
                         center: [lng, lat], // Usar la ubicación del cliente
                         zoom: 12,
                     });
+                    this.map.on("load", () => {
+                        console.log("Mapa cargado exitosamente.");
+
+                        // Llamar a la función para mostrar los marcadores después de que el mapa haya cargado
+                        if (this.usuario?.id_tipo_usuario === 2) {
+                            this.mostrarMarkerLocal();
+                        } else {
+                            this.mostrarMarkerMusico();
+                        }
+                    });
 
                     // Agregar marcador inicial en la ubicación del cliente
                     me.marker = new mapboxgl.Marker({ color: "purple" })
@@ -61,7 +72,11 @@ export default {
                         this.latLng = { lng, lat };
                         this.$emit("ubicacionUsuario", lat, lng);
                     });
-                    this.mostrarMarkerLocalMusico();
+                    if (this.usuario?.id_tipo_usuario === 2) {
+                        this.mostrarMarkerLocal(this.popup);
+                    } else {
+                        this.mostrarMarkerMusico(this.popup);
+                    }
                 } else {
                     console.log("No se encontró la ubicación del cliente");
                 }
@@ -73,64 +88,139 @@ export default {
                 );
             });
     },
-
     methods: {
-        mostrarMarkerLocalMusico() {
-        const me = this;
-
-        // Verificamos si el usuario es músico (id_tipo_usuario = 2) o local (id_tipo_usuario = 3)
-        if (this.usuario.id_tipo_usuario == 2) {
-            // Usuario es MÚSICO → Mostrar LOCALES
+        mostrarMarkerMusico() {
             axios
-                .get("http://localhost:8080/melodia-conectada/app2/public/api/cliente")
+                .get(
+                    "http://localhost:8080/melodia-conectada/app2/public/api/musico/"
+                )
                 .then((response) => {
-                    // Verifica que 'response.data.data' sea un array
-                    if (Array.isArray(response.data.data)) {
-                        const clientes = response.data.data;
+                    const musicos = response.data;
+                    const me = this;
+                    if (!musicos || musicos.length === 0) {
+                        console.log("No hay músicos disponibles");
+                        return;
+                    }
 
-                        // Itera sobre los clientes y agrega el marcador para los locales
-                        clientes.forEach((cliente) => {
-                            if (cliente.ubicacion && cliente.locales) {
-                                const [lat, lng] = cliente.ubicacion.split(",").map(parseFloat);
-                                new mapboxgl.Marker({ color: "green" })
+                    musicos.forEach((musico) => {
+                        const ubicacion = musico.cliente?.ubicacion;
+
+                        if (ubicacion && ubicacion.includes(",")) {
+                            const [lat, lng] = ubicacion
+                                .split(",")
+                                .map((coord) => parseFloat(coord.trim()));
+
+                            console.log(
+                                "Ubicación del músico",
+                                musico.nombre_artistico,
+                                lat,
+                                lng
+                            );
+
+                            if (!isNaN(lat) && !isNaN(lng)) {
+                                const marker = new mapboxgl.Marker({
+                                    color: "#406767",
+                                })
                                     .setLngLat([lng, lat])
                                     .addTo(me.map);
-                            }
-                        });
-                    } else {
-                        console.log("La respuesta de la API no contiene un array válido de clientes.");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error al obtener los clientes:", error);
-                });
-        } else if (this.usuario.id_tipo_usuario == 3) {
-            // Usuario es LOCAL → Mostrar MÚSICOS
-            axios
-                .get("http://localhost:8080/melodia-conectada/app2/public/api/cliente")
-                .then((response) => {
-                    // Verifica que 'response.data.data' sea un array
-                    if (Array.isArray(response.data.data)) {
-                        const clientes = response.data.data;
 
-                        // Itera sobre los clientes y agrega el marcador para los músicos
-                        clientes.forEach((cliente) => {
-                            if (cliente.ubicacion && cliente.musicos) {
-                                const [lat, lng] = cliente.ubicacion.split(",").map(parseFloat);
-                                new mapboxgl.Marker({ color: "orange" }) // Usar otro color para los músicos
-                                    .setLngLat([lng, lat])
-                                    .addTo(me.map);
+                                const popup = new mapboxgl.Popup({ offset: 25 })
+                                    .setHTML(`
+                                <div>
+                                    <strong>${musico.nombre_artistico}</strong><br>
+                                    <a href="http://localhost:8080/melodia-conectada/app2/public/perfil/${musico.id_usuario}" target="_blank">Ver perfil</a>
+                                </div>
+                            `);
+
+                                marker.setPopup(popup);
+                            } else {
+                                console.log(
+                                    "Ubicación inválida para el músico",
+                                    musico.nombre_artistico
+                                );
                             }
-                        });
-                    } else {
-                        console.log("La respuesta de la API no contiene un array válido de clientes.");
-                    }
+                        } else {
+                            console.log(
+                                "El músico no tiene una ubicación válida o no está en el formato adecuado",
+                                musico.nombre_artistico
+                            );
+                        }
+                    });
                 })
                 .catch((error) => {
-                    console.error("Error al obtener los clientes:", error);
+                    console.error("Error al obtener músicos:", error);
                 });
-        }
-    },
+        },
+
+        mostrarMarkerLocal() {
+            axios
+                .get(
+                    "http://localhost:8080/melodia-conectada/app2/public/api/local/"
+                )
+                .then((response) => {
+                    const locales = response.data;
+
+                    if (!locales || locales.length === 0) {
+                        console.log("No hay locales disponibles");
+                        return;
+                    }
+
+                    locales.forEach((local) => {
+                        const ubicacion = local.cliente?.ubicacion;
+                        mapboxgl.accessToken =
+                            "pk.eyJ1IjoiY2hpbGxnaWciLCJhIjoiY204aHFjYWR2MDRyejJqczlmbGMxbHYwbyJ9.KJlPU8iYIehhkx-gFSwE0g";
+                        const mapboxClient = mapboxSdk({
+                            accessToken: mapboxgl.accessToken,
+                        });
+
+                        mapboxClient.geocoding
+                            .forwardGeocode({
+                                query: ubicacion, // Esto se debe cambiar por la dirección correspondiente
+                                autocomplete: false,
+                                limit: 1,
+                            })
+                            .send()
+                            .then((response) => {
+                                if (
+                                    !response ||
+                                    !response.body ||
+                                    !response.body.features ||
+                                    !response.body.features.length
+                                ) {
+                                    console.error("Invalid response:");
+                                    console.error(response);
+                                    return;
+                                }
+                                const feature = response.body.features[0];
+
+                                // Create a marker and add it to the map.
+                                const marker = new mapboxgl.Marker({
+                                    color: "#7C0023",
+                                })
+                                    .setLngLat(feature.center)
+                                    .addTo(this.map);
+                                const popup = new mapboxgl.Popup({ offset: 25 })
+                                    .setHTML(`
+        <div>
+            <strong>${local.id_usuario}</strong><br>
+            <a href="http://localhost:8080/melodia-conectada/app2/public/perfil/${local.id_usuario}" target="_blank">Ver perfil</a>
+        </div>
+    `);
+
+                                marker.setPopup(popup);
+                            })
+                            .catch((error) => {
+                                console.error(
+                                    "Error al obtener geocodificación:",
+                                    error
+                                );
+                            });
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error al obtener locales:", error);
+                });
+        },
     },
 };
 </script>
@@ -147,5 +237,10 @@ export default {
     height: 100%;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 </style>

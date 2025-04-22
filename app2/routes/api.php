@@ -36,11 +36,21 @@ Route::apiResource('genero', GeneroController::class);
 Route::apiResource('instrumento', InstrumentoController::class);
 Route::apiResource('local', LocalController::class);
 Route::apiResource('multimedia', MultimediaController::class);
+
+Route::post('multimedia', [MultimediaController::class, 'store']);
+
 Route::apiResource('/musico', MusicoController::class);
 Route::apiResource('tipo_local', TipoLocalController::class);
 Route::apiResource('tipo_multimedia', TipoMultimediaController::class);
 Route::apiResource('tipo_usuario', TipoUsuarioController::class);
 Route::apiResource('/usuario', UsuarioController::class);
 
-Route::get('/musico/filtrar/{intrumento?}/{genero?}', [MusicoController::class, 'filtrar']);
+Route::get('/perfil/{id}', [UsuarioController::class, 'obtenerPerfil']);
 
+
+Route::get('/musico/filtrar/{intrumento?}/{genero?}', [MusicoController::class, 'filtrar']);
+Route::get('local/filtrar/{tipoLocal?}/{esAccesible?}', [LocalController::class, 'filtrar']);
+Route::get('/chats/{id}', [ClienteController::class, 'obtenerChats']);
+Route::get('/mensajes/{idUsuario1}/{idUsuario2}', [ClienteController::class, 'obtenerMensajesEntreUsuarios']);
+Route::post('/mensajes', [ClienteController::class, 'enviarMensaje']);
+Route::post('/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil']);
