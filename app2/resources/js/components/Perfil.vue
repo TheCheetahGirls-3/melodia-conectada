@@ -11,7 +11,11 @@
             :es-usuario-autenticado="esUsuarioAutenticado"
         />
 
-        <!-- Muestra la galería de multimedia para todos los usuarios -->
+        <!-- <eventos v-if="usuario.id_tipo_usuario === 3"
+            :eventos="usuario.clientes.locales.eventos"
+            :es-usuario-autenticado="esUsuarioAutenticado"
+        /> -->
+
         <galeria-multimedia
             :multimedias="usuario.clientes.multimedias"
             :es-usuario-autenticado="esUsuarioAutenticado"
