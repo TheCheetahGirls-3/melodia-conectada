@@ -52,9 +52,15 @@ Route::get('/pruebaFiltro', function () {
 });
 
 
+// Ruta para el perfil del usuario autenticado
+Route::get('/perfil', function () {
+    return view('perfilpropio');
+})->middleware('auth')->name('perfilpropio');
+
+// Ruta para el perfil de otros usuarios
 Route::get('/perfil/{id}', function ($id) {
-    return view('perfil', ['id' => $id]);
-});
+    return view('perfilotros', ['id' => $id]);
+})->name('perfilotros');
 
 
 Route::get('/musico', function () {

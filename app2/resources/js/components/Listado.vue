@@ -116,7 +116,6 @@ export default {
             this.textoMensajeSinResultados = `No hay ${tipo} con estos filtros.`;
         },
         irAlPerfil(id_usuarioClicado) {
-            //alert('entrado en irAlPerfil método');
             window.location.href = `${window.location.origin}/melodia-conectada/app2/public/perfil/${id_usuarioClicado}`;
         }
     },
