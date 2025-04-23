@@ -15,7 +15,7 @@
             "name": "Launch Chrome",
             "request": "launch",
             "type": "chrome",
-            "url": "http://localhost:8080/melodia-conectada/app2/public/",
+            "url": "http://localhost:80/melodia-conectada/app2/public/",
             "webRoot": "${workspaceFolder}",
             "sourceMapPathOverrides": {
                 "webpack:///src/*": "${webRoot}/resources/js/*"

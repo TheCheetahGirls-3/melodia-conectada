@@ -81,6 +81,18 @@ class UsuarioController extends Controller
         return $response;
     }
 
+    public function editarPerfil($id) {
+        $usuario = Usuario::with(['clientes', 'clientes.musicos.instrumentos', 'clientes.musicos.generos', 'clientes.locales.tipo_local'])
+                    ->find($id);
+
+        if (!$usuario) {
+            return view('editarperfil')->with('usuario', null);
+        }
+
+        return view('editarperfil')->with('usuario', $usuario);
+    }
+
+
     /**
      * Display the specified resource.
      */

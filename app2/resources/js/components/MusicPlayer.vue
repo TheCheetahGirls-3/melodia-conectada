@@ -49,7 +49,7 @@ export default {
     computed: {
 
         audios() {
-            return this.multimedias.filter(media => media.id_tipo_multimedia === 2);
+            return this.multimedias.filter(media => media.id_tipo_multimedia === 3);
         }
     },
     methods: {

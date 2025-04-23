@@ -16,7 +16,7 @@
                     <h4 v-if="usuario.id_tipo_usuario === 3">{{ usuario.clientes.ubicacion }}</h4>
                 </div>
                 <div class="bannerEnviarMensaje">
-                    <!-- Botón "Enviar mensaje" -->
+
                     <button
                         v-if="!esUsuarioAutenticado" @click="enviarMensaje"
                         id="mensaje-btn"
@@ -27,7 +27,6 @@
                 </div>
             </div>
 
-            <!-- Botón de edición visible solo para el usuario autenticado -->
             <button
                 v-if="esUsuarioAutenticado"
                 @click="editarPerfil"
@@ -94,7 +93,7 @@ export default {
     },
     methods: {
         editarPerfil() {
-            window.location.href = `/melodia-conectada/app2/public/editar-perfil/${this.usuario.id_usuario}`;
+            window.location.href = `/melodia-conectada/app2/public/editarperfil/${this.usuario.id_usuario}`;
         },
         enviarMensaje() {
             const mensaje =
