@@ -5,7 +5,6 @@
             :usuario-autenticado-id="usuarioAutenticadoId"
         />
 
-        <!-- Muestra el reproductor de música solo si el usuario es un músico -->
         <music-player v-if="usuario.id_tipo_usuario === 2"
             :multimedias="usuario.clientes.multimedias"
             :es-usuario-autenticado="esUsuarioAutenticado"
@@ -25,7 +24,7 @@
 
 <script>
 export default {
-    props: ['id', 'usuarioAutenticadoId'], // Recibir el ID del usuario autenticado
+    props: ['id', 'usuarioAutenticadoId'],
     data() {
         return {
             usuario: null
@@ -36,7 +35,7 @@ export default {
     },
     computed: {
         esUsuarioAutenticado() {
-            // Compara el ID del usuario del perfil con el ID del usuario autenticado
+
             return this.usuario?.id_usuario === this.usuarioAutenticadoId;
         }
     },
@@ -44,7 +43,7 @@ export default {
         async obtenerDatosPerfil() {
             try {
                 const response = await axios.get(`/perfil/${this.id}`);
-                this.usuario = response.data; // Asegúrate de que la respuesta tenga la estructura correcta
+                this.usuario = response.data;
             } catch (error) {
                 console.error("Error cargando perfil", error);
             }

@@ -47,14 +47,14 @@ export default {
         }
     },
     computed: {
-        // Filtra solo los audios (id_tipo_multimedia === 2)
+
         audios() {
             return this.multimedias.filter(media => media.id_tipo_multimedia === 2);
         }
     },
     methods: {
         abrirSelectorArchivos() {
-            // Abre el selector de archivos
+
             this.$refs.archivoInput.click();
         },
         async subirArchivo(event) {
@@ -68,7 +68,7 @@ export default {
             formData.append('archivo', archivo);
 
             try {
-                // Envía el archivo al servidor
+
                 const response = await axios.post('/api/multimedia', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -77,7 +77,6 @@ export default {
 
                 console.log("Audio subido correctamente:", response.data);
 
-                // Notifica al padre para actualizar los datos
                 this.$emit('audio-subido', response.data);
             } catch (error) {
                 console.error("Error subiendo audio:", error);
