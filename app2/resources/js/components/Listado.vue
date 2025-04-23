@@ -44,7 +44,7 @@
                         <p> {{ user.cliente.telefono }}</p>
                         <p> {{ user.horario }}</p>
                         <div class="tipo-local">
-                            <p> {{ user.tipo_local.nombre }}</p>
+                            <p> {{ user.tipo_local?.nombre }}</p>
                         </div>
 
                     </div>

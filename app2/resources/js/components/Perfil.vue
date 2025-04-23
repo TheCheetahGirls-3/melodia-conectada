@@ -2,6 +2,7 @@
     <div v-if="usuario">
         <banner-perfil :usuario="usuario"
             :es-usuario-autenticado="esUsuarioAutenticado"
+            :usuario-autenticado-id="usuarioAutenticadoId"
         />
 
         <music-player v-if="usuario.id_tipo_usuario === 2"
