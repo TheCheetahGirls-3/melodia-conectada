@@ -8,6 +8,7 @@
         <music-player v-if="usuario.id_tipo_usuario === 2"
             :multimedias="usuario.clientes.multimedias"
             :es-usuario-autenticado="esUsuarioAutenticado"
+            :usuario="usuario.id_usuario"
         />
 
         <eventos v-if="usuario.id_tipo_usuario === 3"

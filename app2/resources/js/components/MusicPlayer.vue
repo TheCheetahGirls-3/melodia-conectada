@@ -6,10 +6,10 @@
             <div v-if="audios.length > 0">
                 <div v-for="(audio, index) in audios" :key="index" class="musicPlayer rounded-pill">
                     <div class="songTitle">
-                        <p>{{ audio.ruta }}</p>
+                        <p>Canción: {{ audio.id_multimedia }}</p>
                     </div>
                     <audio controls>
-                        <source :src="'/melodia-conectada/app2/public/audio/' + audio.ruta" type="audio/mpeg">
+                        <source :src="audio.ruta" type="audio/mpeg">
                         Tu navegador no es compatible con el reproductor de música.
                     </audio>
                 </div>
@@ -44,6 +44,10 @@ export default {
         esUsuarioAutenticado: {
             type: Boolean,
             required: true
+        },
+        usuario: {
+            type: Number,
+            required: true
         }
     },
     computed: {
@@ -59,6 +63,8 @@ export default {
         },
         async subirArchivo(event) {
             const archivo = event.target.files[0];
+            console.log("Archivo seleccionado:", archivo);
+
             if (!archivo) {
                 console.error("No se seleccionó ningún archivo.");
                 return;
@@ -66,20 +72,22 @@ export default {
 
             const formData = new FormData();
             formData.append('archivo', archivo);
+            formData.append('id_usuario', this.usuario);
 
             try {
+                console.log("Enviando archivo al servidor...");
 
-                const response = await axios.post('/api/multimedia', formData, {
+                const response = await axios.post('/multimedia', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
 
-                console.log("Audio subido correctamente:", response.data);
+                console.log("Archivo subido correctamente:", response.data);
 
-                this.$emit('audio-subido', response.data);
+                this.$emit('archivo-subido', response.data);
             } catch (error) {
-                console.error("Error subiendo audio:", error);
+                console.error("Error subiendo archivo:", error);
             }
         }
     }

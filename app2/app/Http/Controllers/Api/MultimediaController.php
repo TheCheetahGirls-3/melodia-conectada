@@ -26,14 +26,14 @@ class MultimediaController extends Controller
     {
 
         $request->validate([
-            'archivo' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mov|max:10240',
+            'archivo' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mp3,mov',
         ]);
 
         $archivo = $request->file('archivo');
 
-        $ruta = $archivo->store('images/imagenes_perfil', 'public');
+        $ruta = $archivo->store('multimedia/multimedia_perfil', 'public');
 
-        $rutaPublica = "/storage/{$ruta}";
+        $rutaPublica = "storage/{$ruta}";
 
         $tipoMultimedia = $this->determinarTipoMultimedia($archivo);
 
@@ -55,7 +55,9 @@ class MultimediaController extends Controller
         if (strpos($mime, 'image') !== false) {
             return 1; // Imagen
         } elseif (strpos($mime, 'video') !== false) {
-            return 3; // Video
+            return 2; // Video
+        } elseif (strpos($mime, 'audio') !== false) {
+            return 3; // Audio
         }
 
         return null;
