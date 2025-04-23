@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\MultimediaResource;
 use App\Models\Multimedia;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\MultimediaResource;
 
 class MultimediaController extends Controller
 {
@@ -24,27 +25,23 @@ class MultimediaController extends Controller
     public function store(Request $request)
     {
 
-        // Validar el archivo
         $request->validate([
-            'archivo' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mov|max:10240', // Máximo 10MB
+            'archivo' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,mov|max:10240',
         ]);
 
-        // Obtener el archivo
         $archivo = $request->file('archivo');
 
-        // Guardar el archivo en la carpeta pública
-        $ruta = $archivo->store('images/imagenes_perfil', 'public'); // Ruta relativa al disco público
+        $ruta = $archivo->store('images/imagenes_perfil', 'public');
 
-        // Agregar el prefijo '/storage' para que sea accesible desde el navegador
         $rutaPublica = "/storage/{$ruta}";
 
-        // Determinar el tipo de multimedia (imagen o video)
         $tipoMultimedia = $this->determinarTipoMultimedia($archivo);
 
-        // Crear un registro en la base de datos
         $multimedia = Multimedia::create([
-            'id_usuario' => auth()->id(), // ID del usuario autenticado
-            'ruta' => $rutaPublica, // Guarda la ruta accesible desde el navegador
+            'id_usuario' => $request->input('id_usuario'),
+            // 'id_usuario' => Auth::id(),
+            // 'id_usuario' => auth()->id(),
+            'ruta' => $rutaPublica,
             'id_tipo_multimedia' => $tipoMultimedia,
         ]);
 

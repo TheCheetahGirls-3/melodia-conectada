@@ -39,7 +39,7 @@ class UsuarioController extends Controller
                 'clientes.musicos.instrumentos',
                 'clientes.musicos.generos',
                 'clientes.locales.tipo_local',
-                // 'clientes.locales.eventos'
+                'clientes.locales.eventos'
             ])->findOrFail($id);
 
             return new UsuarioResource($usuario);

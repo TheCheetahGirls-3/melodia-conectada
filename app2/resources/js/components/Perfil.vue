@@ -1,5 +1,5 @@
 <template>
-    <div v-if="usuario">
+    <div v-if="usuario && usuario.id_usuario">
         <banner-perfil :usuario="usuario"
             :es-usuario-autenticado="esUsuarioAutenticado"
             :usuario-autenticado-id="usuarioAutenticadoId"
@@ -10,14 +10,15 @@
             :es-usuario-autenticado="esUsuarioAutenticado"
         />
 
-        <!-- <eventos v-if="usuario.id_tipo_usuario === 3"
+        <eventos v-if="usuario.id_tipo_usuario === 3"
             :eventos="usuario.clientes.locales.eventos"
             :es-usuario-autenticado="esUsuarioAutenticado"
-        /> -->
+        />
 
         <galeria-multimedia
             :multimedias="usuario.clientes.multimedias"
             :es-usuario-autenticado="esUsuarioAutenticado"
+            :usuario="usuario.id_usuario"
         />
     </div>
 </template>

@@ -4,7 +4,7 @@
 
         <div class="eventosDiv">
 
-            <div v-if="audios.length > 0">
+            <div v-if="eventos.length > 0">
                 <div v-for="(evento, index) in eventos" :key="index" class="eventoDiv mb-4 col-12">
                     <div class="eventTitleDiv col-6">
                         <p class="eventTitle">{{ evento.nombre }}</p>
