@@ -7,14 +7,14 @@
                 <figure v-for="(media, index) in imagenesYVideos" :key="index">
                     <img
                         v-if="media.id_tipo_multimedia === 1"
-                        :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + media.ruta"
+                        :src="media.ruta"
                         width="700"
                         height="700"
                         :alt="media.ruta"
                     />
                     <video
                         v-else-if="media.id_tipo_multimedia === 2"
-                        :src="'/melodia-conectada/app2/public/images/videos_perfil/' + media.ruta"
+                        :src="media.ruta"
                         width="700"
                         height="700"
                         controls
