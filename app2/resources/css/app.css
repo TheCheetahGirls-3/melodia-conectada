@@ -228,6 +228,10 @@ body {
     text-shadow: 2px 2px 8px var(--red);
 }
 
+#mensaje-btn {
+    border: 2.5px solid var(--green);
+}
+
 .bannerEnviarMensaje {
     margin-left: 10rem;
 }
@@ -291,6 +295,40 @@ body {
 
 .musicPlayer audio {
     width: 95%;
+}
+
+/* Estilo de los eventos */
+
+.eventosDiv {
+    width: 100%;
+    padding: 1rem;
+    height: auto;
+}
+
+.eventosDiv span {
+    font-weight: 700;
+}
+
+.eventoDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    height: auto;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px solid var(--beige);
+    box-shadow: 10px 5px 5px var(--gray);
+}
+
+.eventTitleDiv {
+    flex: 1;
+    text-align: left;
+}
+
+.eventDescriptionDiv {
+    flex: 1;
+    text-align: right;
 }
 
 /* ESTADÍSTICAS */

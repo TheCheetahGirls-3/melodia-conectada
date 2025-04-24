@@ -1,44 +1,44 @@
 <template>
-    <h5 class="mt-5 redText">Galería</h5>
+    <div>
+        <h5 class="mt-5 redText">Galería</h5>
 
-    <div v-if="imagenesYVideos.length > 0" id="mz-gallery-container">
-        <div id="mz-gallery">
-            <figure v-for="(media, index) in imagenesYVideos" :key="index">
-                <img
-                    v-if="media.id_tipo_multimedia === 1"
-                    :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + media.ruta"
-                    width="700"
-                    height="700"
-                    :alt="media.ruta"
-                />
-                <video
-                    v-else-if="media.id_tipo_multimedia === 3"
-                    :src="'/melodia-conectada/app2/public/images/videos_perfil/' + media.ruta"
-                    width="700"
-                    height="700"
-                    controls
-                >
-                    Tu navegador no soporta la reproducción de videos.
-                </video>
-            </figure>
+        <div v-if="imagenesYVideos.length > 0" id="mz-gallery-container">
+            <div id="mz-gallery">
+                <figure v-for="(media, index) in imagenesYVideos" :key="index">
+                    <img
+                        v-if="media.id_tipo_multimedia === 1"
+                        :src="media.ruta"
+                        width="700"
+                        height="700"
+                        :alt="media.ruta"
+                    />
+                    <video
+                        v-else-if="media.id_tipo_multimedia === 2"
+                        :src="media.ruta"
+                        width="700"
+                        height="700"
+                        controls
+                    >
+                        Tu navegador no soporta la reproducción de videos.
+                    </video>
+                </figure>
+            </div>
         </div>
+
+        <p v-else>No hay multimedia disponible.</p>
+
+        <button v-if="esUsuarioAutenticado" @click="abrirSelectorArchivos" class="btn btn-primary mt-3">
+            Añadir foto/video
+        </button>
+
+        <input
+            type="file"
+            ref="archivoInput"
+            style="display: none;"
+            @change="subirArchivo"
+            accept="image/*, video/*"
+        />
     </div>
-
-    <p v-else>No hay multimedia disponible.</p>
-
-    <!-- Botón para subir nuevos archivos si el perfil pertenece al usuario autenticado -->
-    <button v-if="esUsuarioAutenticado" @click="abrirSelectorArchivos" class="btn btn-primary mt-3">
-        Añadir foto/video
-    </button>
-
-    <!-- Input oculto para seleccionar archivos -->
-    <input
-        type="file"
-        ref="archivoInput"
-        style="display: none;"
-        @change="subirArchivo"
-        accept="image/*, video/*"
-    />
 </template>
 
 <script>
@@ -51,17 +51,21 @@ export default {
         esUsuarioAutenticado: {
             type: Boolean,
             required: true
+        },
+        usuario: {
+            type: Number,
+            required: true
         }
     },
     computed: {
         imagenesYVideos() {
-            // Filtra solo imágenes (id_tipo_multimedia === 1) y videos (id_tipo_multimedia === 3)
-            return this.multimedias.filter(media => [1, 3].includes(media.id_tipo_multimedia));
+
+            return this.multimedias.filter(media => [1, 2].includes(media.id_tipo_multimedia));
         }
     },
     methods: {
         abrirSelectorArchivos() {
-            // Abre el selector de archivos
+
             this.$refs.archivoInput.click();
         },
         async subirArchivo(event) {
@@ -75,10 +79,11 @@ export default {
 
             const formData = new FormData();
             formData.append('archivo', archivo);
+            formData.append('id_usuario', this.usuario);
 
             try {
                 console.log("Enviando archivo al servidor...");
-                // Envía el archivo al servidor
+
                 const response = await axios.post('/multimedia', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -87,8 +92,7 @@ export default {
 
                 console.log("Archivo subido correctamente:", response.data);
 
-                // Actualiza la lista de multimedias
-                this.$emit('archivo-subido', response.data); // Notifica al padre para actualizar los datos
+                this.$emit('archivo-subido', response.data);
             } catch (error) {
                 console.error("Error subiendo archivo:", error);
             }

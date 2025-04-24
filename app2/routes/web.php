@@ -52,12 +52,11 @@ Route::get('/pruebaFiltro', function () {
 });
 
 
-// Ruta para el perfil del usuario autenticado
+
 Route::get('/perfil', function () {
     return view('perfilpropio');
 })->middleware('auth')->name('perfilpropio');
 
-// Ruta para el perfil de otros usuarios
 Route::get('/perfil/{id}', function ($id) {
     return view('perfilotros', ['id' => $id]);
 })->name('perfilotros');
@@ -71,8 +70,6 @@ Route::get('/local', function () {
     return view('index');
 });
 
-Route::get('/editar-perfil/{id}', function ($id) {
-    return view('editarPerfil', ['id' => $id]);
-})->middleware('auth'); // Solo accesible para usuarios autenticados
+Route::get('/editarperfil/{id}', [UsuarioController::class, 'editarPerfil']);
 
 Route::post('/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil'])->middleware('auth');

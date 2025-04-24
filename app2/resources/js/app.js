@@ -11,9 +11,10 @@ import MapaRegCliente from './components/MapaRegCliente.vue';
 import MapIndex from './components/MapIndex.vue';
 import Chats from './components/Chats.vue';
 import Perfil from './components/Perfil.vue';
-import BannerPerfil from './components/BannerPerfil.vue';  
-import MusicPlayer from './components/MusicPlayer.vue'; 
-import GaleriaMultimedia from './components/GaleriaMultimedia.vue';   
+import BannerPerfil from './components/BannerPerfil.vue';
+import MusicPlayer from './components/MusicPlayer.vue';
+import GaleriaMultimedia from './components/GaleriaMultimedia.vue';
+import Eventos from './components/Eventos.vue';
 
 
 const app = createApp({});
@@ -27,6 +28,7 @@ app.component('perfil', Perfil);
 app.component('banner-perfil', BannerPerfil);
 app.component('music-player', MusicPlayer);
 app.component('galeria-multimedia', GaleriaMultimedia);
+app.component('eventos', Eventos);
 
 app.mount('#app');
 
