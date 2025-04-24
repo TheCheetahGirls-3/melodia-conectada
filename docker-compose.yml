@@ -5,7 +5,7 @@ services:
         image: mysql:latest
         container_name: server
         environment:
-            MYSQL_ROOT_PASSWORD: mysql
+            MYSQL_ROOT_PASSWORD: root1234
             MYSQL_DATABASE: db_chillgig
             MYSQL_USER: chillgig
             MYSQL_PASSWORD: mysql
@@ -22,8 +22,7 @@ services:
         container_name: phpmyadmin
         environment:
             PMA_HOST: db
-            MYSQL_ROOT_PASSWORD: mysql
-            PMA_ABSOLUTE_URI: http://localhost:5050/
+            MYSQL_ROOT_PASSWORD: root1234
         ports:
             - "5050:80"
         depends_on:
@@ -33,7 +32,7 @@ services:
 
     app:
         build:
-            context: 'app2'
+            context: './app2'
             dockerfile: '.Dockerfile'
         container_name: chillgig_app
         ports:
@@ -45,7 +44,7 @@ services:
     
     nginx:
         build:
-            context: 'nginx'
+            context: './nginx'
             dockerfile: '.Dockerfile'
         container_name: nginx_proxy
         ports:
