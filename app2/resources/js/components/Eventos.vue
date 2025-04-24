@@ -34,6 +34,10 @@
 <script>
 export default {
     props: {
+        usuario: {
+            type: Object,
+            required: true
+        },
         eventos: {
             type: Array,
             required: true
@@ -43,6 +47,11 @@ export default {
             required: true
         }
     },
+    methods: {
+        abrirFormularioEvento() {
+            window.location.href = `/melodia-conectada/app2/public/nuevoevento/${this.usuario.id_usuario}`;
+        },
+    }
 
 };
 </script>
