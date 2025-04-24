@@ -29,7 +29,8 @@ RUN composer install --no-dev --optimize-autoloader
 # Instalar Node.js y dependencias de frontend
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs && \
-    npm install --production
+    npm install && \
+    npm run build
 
 # Asignar permisos a Laravel
 RUN chown -R www-data:www-data /var/www && \
@@ -39,5 +40,5 @@ RUN chown -R www-data:www-data /var/www && \
 # Exponer el puerto 9000
 EXPOSE 9000
 
-# Ejecutar PHP-FPM
-CMD ["php-fpm"]
+# Ejecutar ambos procesos: npm run dev y php-fpm
+CMD ["sh", "-c", "npm run dev & php-fpm"]
