@@ -128,7 +128,7 @@ export default {
                                     .setHTML(`
                                 <div>
                                     <strong>${musico.nombre_artistico}</strong><br>
-                                    <a href="http://localhost:80/melodia-conectada/app2/public/perfil/${musico.id_usuario}" target="_blank">Ver perfil</a>
+                                    <a href="http://localhost:8080/melodia-conectada/app2/public/perfil/${musico.id_usuario}" target="_blank">Ver perfil</a>
                                 </div>
                             `);
 
@@ -199,11 +199,37 @@ export default {
                                 })
                                     .setLngLat(feature.center)
                                     .addTo(this.map);
-                                const popup = new mapboxgl.Popup({ offset: 25 })
-                                    .setHTML(`
+                                const popup = new mapboxgl.Popup({
+                                    offset: 25,
+                                    maxWidth: "600px",
+                                }).setHTML(`
+    <div style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        padding: 15px;
+        max-width: 100%;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    ">
+        <div style="flex: 1; padding-right: 10px;">
+            <strong style="display: block; margin-bottom: 8px;">
+                ${local?.cliente?.nombre}
+            </strong>
+            <a href="http://localhost:8080/melodia-conectada/app2/public/perfil/${
+                local.id_usuario
+            }"
+               target="_blank"
+               style="color: #7C0023; text-decoration: none; font-weight: bold;">
+                Ver perfil
+            </a>
+        </div>
         <div>
             <strong>${local.id_usuario}</strong><br>
-            <a href="http://localhost:80/melodia-conectada/app2/public/perfil/${local.id_usuario}" target="_blank">Ver perfil</a>
+            <a href="http://localhost:8080/melodia-conectada/app2/public/perfil/${local.id_usuario}" target="_blank">Ver perfil</a>
         </div>
     `);
 
