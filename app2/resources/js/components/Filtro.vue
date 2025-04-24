@@ -129,7 +129,7 @@ export default {
                 })
         },
         fetchEsAccesible() {
-            axios.get(`/api/locales?es_accesible=${this.selectedEsAccesible}`)
+            axios.get(`/locales?es_accesible=${this.selectedEsAccesible}`)
                 .then((response) => {
                     this.locales = response.data;
                     console.log("Locales filtrados:", this.locales);

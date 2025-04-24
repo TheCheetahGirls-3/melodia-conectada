@@ -66,7 +66,7 @@ export default {
                 // Luego de obtener el último usuario, hacemos el POST para guardar el nuevo cliente
                 axios
                     .post(
-                        "http://localhost:8080/melodia-conectada/app2/public/api/cliente",
+                        "/cliente",
                         {
                             id_usuario: me.usuarioId, // ID del usuario actual
                             latitud: me.latitud,
@@ -77,13 +77,13 @@ export default {
                         // Si el usuario es músico, creamos también su entrada en la tabla músico
                         if (me.usuario.id_tipo_usuario === 2) {
                             axios.post(
-                                "http://localhost:8080/melodia-conectada/app2/public/api/musico",
+                                "/musico",
                                 {
                                     id_usuario: me.usuario.id_usuario,
                                 }
                             );
                         } else if (me.usuario.id_tipo_usuario === 3) {
-                            axios.post('http://localhost:8080/melodia-conectada/app2/public/api/local', {
+                            axios.post('/local', {
                                     id_usuario: me.usuario.id_usuario,
                             });
 
@@ -91,7 +91,7 @@ export default {
 
                         alert("Cliente registrado exitosamente!");
                         window.location.href =
-                            "http://localhost:8080/melodia-conectada/app2/public/index";
+                            "/melodia-conectada/app2/public/index";
                     })
                     .catch((error) => {
                         console.error("Error al registrar el cliente:", error);

@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
+    nodejs \
+    npm \
     && docker-php-ext-configure gd \
     && docker-php-ext-install gd pdo pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
@@ -26,19 +28,16 @@ COPY . .
 # Instalar dependencias PHP y Node.js
 RUN composer install --no-dev --optimize-autoloader
 
-# Instalar Node.js y dependencias de frontend
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install && \
-    npm run build
-
 # Asignar permisos a Laravel
 RUN chown -R www-data:www-data /var/www && \
     chmod -R 755 /var/www && \
     chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
+# Instalar dependencias frontend y compilar Vite
+RUN npm install && npm run build
+
 # Exponer el puerto 9000
 EXPOSE 9000
 
 # Ejecutar ambos procesos: npm run dev y php-fpm
-CMD ["sh", "-c", "npm run dev & php-fpm"]
+CMD ["php-fpm"]

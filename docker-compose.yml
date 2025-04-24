@@ -56,8 +56,7 @@ services:
             - app
             - phpmyadmin
         networks:
-            - my_network
-    
+            - my_network  
     
 
 networks:
