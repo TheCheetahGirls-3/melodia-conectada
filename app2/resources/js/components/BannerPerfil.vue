@@ -132,4 +132,8 @@ export default {
     top: 20px;
     right: 20px;
 }
+
+.btn-primary {
+    margin-right: 50px;
+}
 </style>
