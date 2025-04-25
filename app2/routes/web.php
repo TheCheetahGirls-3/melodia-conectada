@@ -72,4 +72,4 @@ Route::get('/local', function () {
 
 Route::get('/editarperfil/{id}', [UsuarioController::class, 'editarPerfil']);
 
-Route::post('/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil'])->middleware('auth');
+Route::post('/api/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil']);
