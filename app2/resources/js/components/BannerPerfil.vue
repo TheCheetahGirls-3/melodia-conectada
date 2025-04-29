@@ -1,11 +1,11 @@
 <template>
     <div>
         <div v-if="usuario" class="banner">
-            <img class="bannerPic" :src="'/melodia-conectada/app2/public/images/bannerMusico.png'" alt="foto del banner">
+            <img class="bannerPic" :src="'/images/bannerMusico.png'" alt="foto del banner">
             <div class="bannerContent">
                 <div class="profilePicDivBg m-5 rounded-circle">
                     <div class="profilePicDiv rounded-circle">
-                        <img class="profilePic" :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + usuario.clientes.foto_perfil" alt="foto de perfil">
+                        <img class="profilePic" :src="'/images/imagenes_perfil/' + usuario.clientes.foto_perfil" alt="foto de perfil">
                     </div>
                 </div>
                 <div class="bannerText ms-2">
@@ -94,7 +94,7 @@ export default {
     },
     methods: {
         editarPerfil() {
-            window.location.href = `/melodia-conectada/app2/public/editar-perfil/${this.usuario.id_usuario}`;
+            window.location.href = `/editar-perfil/${this.usuario.id_usuario}`;
         },
         enviarMensaje() {
             const mensaje =
@@ -117,7 +117,7 @@ export default {
             axios.post(`/mensajes`, insertMensaje)
                 .then((response) => {
                     console.log('Mensaje enviado:', response.data);
-                    window.location.href = '/melodia-conectada/app2/public/chat';
+                    window.location.href = '/chat';
                 })
                 .catch((error) => {
                     console.error("Error al enviar el mensaje:", error);

@@ -32,7 +32,7 @@ export default {
         // Hacer la llamada a la API para obtener la ubicación del cliente
         axios
             .get(
-                `/melodia-conectada/app2/public/api/cliente/${this.usuarioId}`
+                `/cliente/${this.usuarioId}`
             )
             .then((response) => {
                 const cliente = response.data;
@@ -92,7 +92,7 @@ export default {
         mostrarMarkerMusico() {
             axios
                 .get(
-                    "/melodia-conectada/app2/public/api/musico/"
+                    "/musico/"
                 )
                 .then((response) => {
                     const musicos = response.data;
@@ -128,7 +128,7 @@ export default {
                                     .setHTML(`
                                 <div>
                                     <strong>${musico.nombre_artistico}</strong><br>
-                                    <a href="/melodia-conectada/app2/public/perfil/${musico.id_usuario}" target="_blank">Ver perfil</a>
+                                    <a href="/perfil/${musico.id_usuario}" target="_blank">Ver perfil</a>
                                 </div>
                             `);
 
@@ -155,7 +155,7 @@ export default {
         mostrarMarkerLocal() {
             axios
                 .get(
-                    "/melodia-conectada/app2/public/api/local/"
+                    "/local/"
                 )
                 .then((response) => {
                     const locales = response.data;
@@ -203,7 +203,7 @@ export default {
                                     .setHTML(`
         <div>
             <strong>${local.id_usuario}</strong><br>
-            <a href="/melodia-conectada/app2/public/perfil/${local.id_usuario}" target="_blank">Ver perfil</a>
+            <a href="/perfil/${local.id_usuario}" target="_blank">Ver perfil</a>
         </div>
     `);
 

@@ -16,7 +16,7 @@
         <div class="div-general">
             <div v-for="user in resultado" :key="user.id_usuario" @click="irAlPerfil(user.id_usuario)" class="usuario-card">
                 <div class="foto-perfil-container">
-                    <img :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + user.cliente.foto_perfil"
+                    <img :src="'/images/imagenes_perfil/' + user.cliente.foto_perfil"
                         alt="Foto de perfil" class="foto-perfil">
                 </div>
 
@@ -116,7 +116,7 @@ export default {
             this.textoMensajeSinResultados = `No hay ${tipo} con estos filtros.`;
         },
         irAlPerfil(id_usuarioClicado) {
-            window.location.href = `${window.location.origin}/melodia-conectada/app2/public/perfil/${id_usuarioClicado}`;
+            window.location.href = `${window.location.origin}/perfil/${id_usuarioClicado}`;
         }
     },
 

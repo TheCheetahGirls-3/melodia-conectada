@@ -34,7 +34,7 @@ document.getElementById('editar-perfil-form').addEventListener('submit', async f
     const formData = new FormData(this);
 
     try {
-        const response = await fetch('/api/actualizar-perfil', {
+        const response = await fetch('/actualizar-perfil', {
             method: 'POST',
             body: formData,
         });

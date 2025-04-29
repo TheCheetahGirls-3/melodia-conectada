@@ -9,7 +9,7 @@
                         <p>{{ audio.ruta }}</p>
                     </div>
                     <audio controls>
-                        <source :src="'/melodia-conectada/app2/public/audio/' + audio.ruta" type="audio/mpeg">
+                        <source :src="'/audio/' + audio.ruta" type="audio/mpeg">
                         Tu navegador no es compatible con el reproductor de música.
                     </audio>
                 </div>
@@ -69,7 +69,7 @@ export default {
 
             try {
                 // Envía el archivo al servidor
-                const response = await axios.post('/api/multimedia', formData, {
+                const response = await axios.post('/multimedia', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

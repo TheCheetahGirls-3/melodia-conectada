@@ -91,7 +91,7 @@ export default {
 
                         alert("Cliente registrado exitosamente!");
                         window.location.href =
-                            "/melodia-conectada/app2/public/index";
+                            "/index";
                     })
                     .catch((error) => {
                         console.error("Error al registrar el cliente:", error);
