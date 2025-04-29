@@ -24,29 +24,6 @@
 </div>
 
 <script>
-// document.getElementById('editar-perfil-form').addEventListener('submit', async function (event) {
-//     event.preventDefault();
 
-//     const formData = new FormData(this);
-
-//     try {
-//         const response = await fetch('/api/actualizar-perfil', {
-//             method: 'POST',
-//             body: formData,
-//         });
-
-//         const result = await response.json();
-
-//         if (response.ok) {
-//             alert(result.message);
-//             window.location.href = `/perfil/${result.usuario.id_usuario}`;
-//         } else {
-//             alert('Error al actualizar el perfil.');
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//         alert('Ocurrió un error al procesar la solicitud.');
-//     }
-// });
 </script>
 @endsection

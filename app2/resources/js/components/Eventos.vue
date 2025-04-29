@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="usuario">
         <h5 class="mt-5 redText">Eventos</h5>
 
         <div class="eventosDiv">
@@ -42,16 +42,31 @@ export default {
             type: Array,
             required: true
         },
+        usuarioAutenticadoId: {
+            type: Number,
+            required: true
+        },
         esUsuarioAutenticado: {
             type: Boolean,
             required: true
         }
+
+    },
+    mounted() {
+        console.log("usuarioAutenticadoId:", this.usuarioAutenticadoId);
     },
     methods: {
         abrirFormularioEvento() {
-            window.location.href = `/melodia-conectada/app2/public/nuevoevento/${this.usuario.id_usuario}`;
-        },
-    }
+            console.log("usuarioAutenticadoId:", this.usuarioAutenticadoId);
+            console.log("Tipo de dato:", typeof this.usuarioAutenticadoId);
 
+            if (!this.usuarioAutenticadoId) {
+                alert('Error: No se pudo obtener la información del usuario.');
+                return;
+            }
+
+            window.location.href = `/melodia-conectada/app2/public/evento/${this.usuario.id_usuario}`;
+        }
+    }
 };
 </script>
