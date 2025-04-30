@@ -5,7 +5,7 @@
             <div class="bannerContent">
                 <div class="profilePicDivBg m-5 rounded-circle">
                     <div class="profilePicDiv rounded-circle">
-                        <img class="profilePic" :src="'/melodia-conectada/app2/public/images/imagenes_perfil/' + usuario.clientes.foto_perfil" alt="foto de perfil">
+                        <img class="profilePic" :src="url + usuario.clientes.foto_perfil" alt="foto de perfil">
                     </div>
                 </div>
                 <div class="bannerText ms-2">
@@ -85,6 +85,11 @@ export default {
             type: Number,
             required: true
         }
+    },
+    data() {
+        return {
+            url: import.meta.env.VITE_PROFILEIMGURL,
+        };
     },
     mounted() {
         console.log('Prop usuario:', this.usuario);

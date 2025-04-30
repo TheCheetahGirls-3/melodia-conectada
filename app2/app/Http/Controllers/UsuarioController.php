@@ -108,18 +108,32 @@ class UsuarioController extends Controller
 
     public function actualizarPerfil(Request $request)
     {
-        $request->validate([
-            'id_usuario' => 'required|exists:usuarios,id_usuario',
+        $usuario = Usuario::findOrFail($request->id_usuario);
+
+        $rules = [
+            'id_usuario' => 'required|exists:usuario,id_usuario',
             'nombre' => 'required|string',
             'descripcion' => 'nullable|string',
             'telefono' => 'nullable|string',
-            'nombre_artistico' => 'nullable|string',
-            'id_instrumento' => 'required|exists:instrumentos,id_instrumento',
-            'id_genero' => 'required|exists:generos,id_genero',
             'foto_perfil' => 'nullable|image',
-        ]);
+        ];
 
-        $usuario = Usuario::findOrFail($request->id_usuario);
+        // Si el usuario es músico (tipo 2)
+        if ($usuario->id_tipo_usuario == 2) {
+            $rules['nombre_artistico'] = 'nullable|string';
+            $rules['id_instrumento'] = 'required|exists:instrumento,id_instrumento';
+            $rules['id_genero'] = 'required|exists:genero,id_genero';
+        }
+
+        // Si es un local (tipo 3)
+        if ($usuario->id_tipo_usuario == 3) {
+            $rules['ubicacion'] = 'nullable|string';
+            $rules['horario'] = 'nullable|string';
+            $rules['id_tipo_local'] = 'nullable|exists:tipo_local,id_tipo_local';
+        }
+
+        $request->validate($rules);
+
         $cliente = $usuario->clientes;
 
         $cliente->nombre = $request->nombre;
@@ -128,15 +142,15 @@ class UsuarioController extends Controller
 
         if ($request->hasFile('foto_perfil')) {
             $foto = $request->file('foto_perfil');
-            $path = $foto->store('public/perfiles');
+            $path = $foto->store('multimedia/multimedia_perfil/foto_perfil', 'public');
             $cliente->foto_perfil = basename($path);
         }
 
         $cliente->save();
 
-        $musico = $cliente->musicos;
-
-        if ($musico) {
+        // Si es músico, actualiza su información específica
+        if ($usuario->id_tipo_usuario == 2 && $cliente->musicos) {
+            $musico = $cliente->musicos;
             $musico->nombre_artistico = $request->nombre_artistico;
             $musico->save();
 
@@ -144,10 +158,18 @@ class UsuarioController extends Controller
             $musico->generos()->sync([$request->id_genero]);
         }
 
-        return response()->json([
-            'message' => 'Perfil actualizado correctamente.',
-            'usuario' => $usuario
-        ]);
+        // Si es local, actualiza su información específica
+        if ($usuario->id_tipo_usuario == 3 && $cliente->locales) {
+            $local = $cliente->locales;
+            $cliente->ubicacion = $request->ubicacion;
+            $local->horario = $request->horario;
+            $local->id_tipo_local = $request->id_tipo_local;
+            $local->save();
+        }
+
+        $response = redirect('/perfil');
+
+        return $response;
     }
 
     /**

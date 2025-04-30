@@ -4,7 +4,7 @@
 <div class="container mt-5 pt-5">
     <h2>Editar perfil</h2>
     @if(isset($usuario))
-        <form id="editar-perfil-form" method="POST" enctype="multipart/form-data">
+        <form id="editar-perfil-form" method="POST" enctype="multipart/form-data" action="{{ url('/api/actualizar-perfil') }}">
             @csrf
 
             <input type="hidden" name="id_usuario" value="{{ $usuario->id_usuario }}">
