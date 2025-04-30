@@ -5,7 +5,7 @@
             <h1 class="titulo-chat">Contactos</h1>
             <div v-if="chats.length > 0">
                 <div v-for="chat in chats" :key="chat.id_contacto" class="item-chat" @click="openChat(chat.id_contacto)">
-                    <img :src="`images/imagenes_perfil/${chat.contacto_foto}`" alt="Foto de perfil" class="avatar-chat" />
+                    <img :src="url + chat.contacto_foto" alt="Foto de perfil" class="avatar-chat" />
                     <div class="contenido-chat">
                         <div class="cabecera-chat">
                             <h3 class="nombre-chat">{{ chat.contacto_nombre }}</h3>
@@ -66,6 +66,7 @@ export default {
             selectedChat: null,
             mensajes: [],
             nuevoMensaje: "",
+            url: import.meta.env.VITE_PROFILEIMGURL,
         };
     },
     mounted() {

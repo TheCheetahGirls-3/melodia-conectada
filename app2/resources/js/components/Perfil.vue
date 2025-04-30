@@ -1,6 +1,7 @@
 <template>
     <div v-if="usuario && usuario.id_usuario">
-        <banner-perfil :usuario="usuario"
+        <banner-perfil
+            :usuario="usuario"
             :es-usuario-autenticado="esUsuarioAutenticado"
             :usuario-autenticado-id="usuarioAutenticadoId"
         />
@@ -11,15 +12,17 @@
             :usuario="usuario.id_usuario"
         />
 
-        <eventos v-if="usuario.id_tipo_usuario === 3"
+        <eventos v-if="usuario && usuario.clientes && usuario.clientes.locales && usuario.id_tipo_usuario === 3"
+            :usuario="usuario"
             :eventos="usuario.clientes.locales.eventos"
+            :usuario-autenticado-id="usuarioAutenticadoId"
             :es-usuario-autenticado="esUsuarioAutenticado"
         />
 
         <galeria-multimedia
             :multimedias="usuario.clientes.multimedias"
             :es-usuario-autenticado="esUsuarioAutenticado"
-            :usuario="usuario.id_usuario"
+            :usuario-autenticado-id="usuarioAutenticadoId"
         />
     </div>
 </template>
@@ -37,7 +40,6 @@ export default {
     },
     computed: {
         esUsuarioAutenticado() {
-
             return this.usuario?.id_usuario === this.usuarioAutenticadoId;
         }
     },
@@ -45,6 +47,7 @@ export default {
         async obtenerDatosPerfil() {
             try {
                 const response = await axios.get(`/perfil/${this.id}`);
+                console.log('Datos del usuario desde API:', response.data);
                 this.usuario = response.data;
             } catch (error) {
                 console.error("Error cargando perfil", error);

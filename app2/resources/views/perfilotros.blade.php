@@ -34,7 +34,6 @@
 </div>
 
 
-
 <h5 class="mt-5 redText">Estadísticas</h5>
 <div class="estadisticasDiv">
     <div class="estadistica">Estadística 1</div>

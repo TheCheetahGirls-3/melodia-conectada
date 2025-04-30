@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\EventoController;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Route;
 
@@ -71,5 +72,9 @@ Route::get('/local', function () {
 });
 
 Route::get('/editarperfil/{id}', [UsuarioController::class, 'editarPerfil']);
+Route::post('/api/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil']);
 
-Route::post('/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil'])->middleware('auth');
+Route::get('/nuevoevento/{id}', [EventoController::class, 'crearEvento']);
+Route::post('/api/crear-evento', [EventoController::class, 'crearEvento']);
+
+Route::get('/evento/{id}', [EventoController::class, 'evento']);
