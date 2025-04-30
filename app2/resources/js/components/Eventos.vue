@@ -7,13 +7,10 @@
             <div v-if="eventos.length > 0">
                 <div v-for="(evento, index) in eventos" :key="index" class="eventoDiv mb-4 col-12">
                     <div class="eventTitleDiv col-6">
-                        <p class="eventTitle">{{ evento.nombre }}</p>
+                        <h4 class="eventTitle mb-0">{{ evento.nombre }}</h4>
                     </div>
                     <div class="eventDescriptionDiv col-6">
-                        <p class="eventDescription">
-                            <span>{{evento.fecha_inicio}}</span>
-                            <span>{{evento.fecha_fin}}</span>
-                        </p>
+                        <h5 class="eventDescription mb-0">{{evento.descripcion}}</h5>
                     </div>
                 </div>
             </div>

@@ -72,9 +72,9 @@ Route::get('/local', function () {
 });
 
 Route::get('/editarperfil/{id}', [UsuarioController::class, 'editarPerfil']);
-
 Route::post('/api/actualizar-perfil', [UsuarioController::class, 'actualizarPerfil']);
 
 Route::get('/nuevoevento/{id}', [EventoController::class, 'crearEvento']);
+Route::post('/api/crear-evento', [EventoController::class, 'crearEvento']);
 
 Route::get('/evento/{id}', [EventoController::class, 'evento']);

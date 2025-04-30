@@ -27,6 +27,19 @@ class EventoController extends Controller
         return view('nuevoevento', compact('usuario'));
     }
 
+    public function crearEvento(Request $request)
+    {
+        $evento = new Evento();
+
+        $evento->nombre = $request->input('nombre');
+        $evento->descripcion = $request->input('descripcion');
+        $evento->id_usuario = $request->input('id_usuario');
+
+        $evento->save();
+
+        return redirect('/perfil');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
