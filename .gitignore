@@ -4,7 +4,7 @@
 /app2/public/hot
 /app2/public/storage
 /app2/storage/*.key
-/app2/.env
+#/app2/.env
 /app2/.env.backup
 /app2/.env.production
 /app2/.env.example
