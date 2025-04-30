@@ -15,6 +15,7 @@ import BannerPerfil from './components/BannerPerfil.vue';
 import MusicPlayer from './components/MusicPlayer.vue';
 import GaleriaMultimedia from './components/GaleriaMultimedia.vue';
 import Eventos from './components/Eventos.vue';
+import Estadisticas from './components/Estadisticas.vue';
 
 
 const app = createApp({});
@@ -29,6 +30,7 @@ app.component('banner-perfil', BannerPerfil);
 app.component('music-player', MusicPlayer);
 app.component('galeria-multimedia', GaleriaMultimedia);
 app.component('eventos', Eventos);
+app.component('estadisticas', Estadisticas);
 
 app.mount('#app');
 

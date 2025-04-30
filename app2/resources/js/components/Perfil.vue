@@ -1,29 +1,19 @@
 <template>
     <div v-if="usuario && usuario.id_usuario">
-        <banner-perfil
-            :usuario="usuario"
-            :es-usuario-autenticado="esUsuarioAutenticado"
-            :usuario-autenticado-id="usuarioAutenticadoId"
-        />
+        <banner-perfil :usuario="usuario" :es-usuario-autenticado="esUsuarioAutenticado"
+            :usuario-autenticado-id="usuarioAutenticadoId" />
 
-        <music-player v-if="usuario.id_tipo_usuario === 2"
-            :multimedias="usuario.clientes.multimedias"
-            :es-usuario-autenticado="esUsuarioAutenticado"
-            :usuario="usuario.id_usuario"
-        />
+        <music-player v-if="usuario.id_tipo_usuario === 2" :multimedias="usuario.clientes.multimedias"
+            :es-usuario-autenticado="esUsuarioAutenticado" :usuario="usuario.id_usuario" />
 
         <eventos v-if="usuario && usuario.clientes && usuario.clientes.locales && usuario.id_tipo_usuario === 3"
-            :usuario="usuario"
-            :eventos="usuario.clientes.locales.eventos"
-            :usuario-autenticado-id="usuarioAutenticadoId"
-            :es-usuario-autenticado="esUsuarioAutenticado"
-        />
+            :usuario="usuario" :eventos="usuario.clientes.locales.eventos"
+            :usuario-autenticado-id="usuarioAutenticadoId" :es-usuario-autenticado="esUsuarioAutenticado" />
 
-        <galeria-multimedia
-            :multimedias="usuario.clientes.multimedias"
-            :es-usuario-autenticado="esUsuarioAutenticado"
-            :usuario-autenticado-id="usuarioAutenticadoId"
-        />
+        <galeria-multimedia :multimedias="usuario.clientes.multimedias" :es-usuario-autenticado="esUsuarioAutenticado"
+            :usuario-autenticado-id="usuarioAutenticadoId" />
+
+        <estadisticas :usuario="usuario" :usuario-autenticado-id="usuarioAutenticadoId" />
     </div>
 </template>
 

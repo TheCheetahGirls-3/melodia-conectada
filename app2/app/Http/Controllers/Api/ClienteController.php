@@ -100,7 +100,35 @@ class ClienteController extends Controller
 
         return response()->json($chats);
     }
+    public function obtenerMensajeEstadistica($idUsuario, $esMusico){
 
+        $esMusico = filter_var($esMusico, FILTER_VALIDATE_BOOLEAN);
+        $estadisticas = \DB::table('mensaje')
+            ->where(function ($query) use ($idUsuario, $esMusico) {
+                if ($esMusico) {
+                    // Si es músico
+                    $query->where(function ($q) use ($idUsuario) {
+                        $q->where('contenido', 'LIKE' , '%Me gustaría contratarte para algún evento futuro%')
+                        ->where('id_receptor', $idUsuario);
+                    })->orWhere(function ($q) use ($idUsuario) {
+                        $q->where('contenido', 'LIKE' , '%Me gustaría participar en tu evento publicado%')
+                        ->where('id_emisor', $idUsuario);
+                    });
+                } else {
+                    // Si es local
+                    $query->where(function ($q) use ($idUsuario) {
+                        $q->where('contenido', 'LIKE' , '%Me gustaría contratarte para algún evento futuro%')
+                        ->where('id_emisor', $idUsuario);
+                    })->orWhere(function ($q) use ($idUsuario) {
+                        $q->where('contenido', 'LIKE' , '%Me gustaría participar en tu evento publicado%')
+                        ->where('id_receptor', $idUsuario);
+                    });
+                }
+            })
+            ->get();
+
+        return response()->json($estadisticas);
+    }
 
     public function obtenerMensajesEntreUsuarios($idUsuario1, $idUsuario2)
     {

@@ -331,21 +331,4 @@ body {
     text-align: right;
 }
 
-/* ESTADÍSTICAS */
-.estadisticasDiv {
-    background-color: pink;
-    height: 30rem;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 300px;
-}
-
-.estadistica {
-    background-color: #444;
-    height: 20rem;
-    width: 20rem;
-    margin: 2rem;
-}
