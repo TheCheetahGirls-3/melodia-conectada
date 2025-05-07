@@ -7,14 +7,14 @@
                 <figure v-for="(media, index) in imagenesYVideos" :key="index">
                     <img
                         v-if="media.id_tipo_multimedia === 1"
-                        :src="media.ruta"
+                        :src="url + media.ruta"
                         width="700"
                         height="700"
                         :alt="media.ruta"
                     />
                     <video
                         v-else-if="media.id_tipo_multimedia === 2"
-                        :src="media.ruta"
+                        :src="url + media.ruta"
                         width="700"
                         height="700"
                         controls
@@ -56,6 +56,11 @@ export default {
             type: Number,
             required: true
         }
+    },
+    data() {
+        return {
+            url: import.meta.env.VITE_URL,
+        };
     },
     computed: {
         imagenesYVideos() {

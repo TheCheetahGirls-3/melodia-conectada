@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evento;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
 class EventoController extends Controller
@@ -13,6 +14,30 @@ class EventoController extends Controller
     public function index()
     {
         //
+    }
+
+    public function evento($idUsuario)
+    {
+        $usuario = Usuario::with('clientes')->find($idUsuario);
+
+        if (!$usuario) {
+            return redirect()->back()->with('error', 'Usuario no encontrado.');
+        }
+
+        return view('nuevoevento', compact('usuario'));
+    }
+
+    public function crearEvento(Request $request)
+    {
+        $evento = new Evento();
+
+        $evento->nombre = $request->input('nombre');
+        $evento->descripcion = $request->input('descripcion');
+        $evento->id_usuario = $request->input('id_usuario');
+
+        $evento->save();
+
+        return redirect('/perfil');
     }
 
     /**

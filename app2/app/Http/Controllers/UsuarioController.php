@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Hash;
 use App\Models\Usuario;
+use App\Models\Cliente;
+use App\Models\Musico;
+use App\Models\Instrumento;
+use App\Models\Genero;
+use App\Models\TipoLocal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -82,16 +87,90 @@ class UsuarioController extends Controller
     }
 
     public function editarPerfil($id) {
-        $usuario = Usuario::with(['clientes', 'clientes.musicos.instrumentos', 'clientes.musicos.generos', 'clientes.locales.tipo_local'])
-                    ->find($id);
+        $usuario = Usuario::with([
+            'clientes',
+            'clientes.musicos.instrumentos',
+            'clientes.musicos.generos',
+            'clientes.locales.tipo_local'
+        ])->find($id);
 
-        if (!$usuario) {
-            return view('editarperfil')->with('usuario', null);
-        }
+        $instrumentos = Instrumento::all();
+        $generos = Genero::all();
+        $tipos_local = TipoLocal::all();
 
-        return view('editarperfil')->with('usuario', $usuario);
+        return view('editarperfil', [
+            'usuario' => $usuario,
+            'instrumentos' => $instrumentos,
+            'generos' => $generos,
+            'tipos_local' => $tipos_local,
+        ]);
     }
 
+    public function actualizarPerfil(Request $request)
+    {
+        $usuario = Usuario::findOrFail($request->id_usuario);
+
+        $rules = [
+            'id_usuario' => 'required|exists:usuario,id_usuario',
+            'nombre' => 'required|string',
+            'descripcion' => 'nullable|string',
+            'telefono' => 'nullable|string',
+            'foto_perfil' => 'nullable|image',
+        ];
+
+        // Si el usuario es músico (tipo 2)
+        if ($usuario->id_tipo_usuario == 2) {
+            $rules['nombre_artistico'] = 'nullable|string';
+            $rules['id_instrumento'] = 'required|exists:instrumento,id_instrumento';
+            $rules['id_genero'] = 'required|exists:genero,id_genero';
+        }
+
+        // Si es un local (tipo 3)
+        if ($usuario->id_tipo_usuario == 3) {
+            $rules['ubicacion'] = 'nullable|string';
+            $rules['horario'] = 'nullable|string';
+            $rules['id_tipo_local'] = 'nullable|exists:tipo_local,id_tipo_local';
+        }
+
+        $request->validate($rules);
+
+        $cliente = $usuario->clientes;
+
+        $cliente->nombre = $request->nombre;
+        $cliente->descripcion = $request->descripcion;
+        $cliente->telefono = $request->telefono;
+
+        if ($request->hasFile('foto_perfil')) {
+            $foto = $request->file('foto_perfil');
+            $path = $foto->store('multimedia/multimedia_perfil/foto_perfil', 'public');
+            $cliente->foto_perfil = basename($path);
+        }
+
+        $cliente->save();
+
+        // Si es músico, actualiza su información específica
+        if ($usuario->id_tipo_usuario == 2 && $cliente->musicos) {
+            $musico = $cliente->musicos;
+            $musico->nombre_artistico = $request->nombre_artistico;
+            $musico->save();
+
+            $musico->instrumentos()->sync([$request->id_instrumento]);
+            $musico->generos()->sync([$request->id_genero]);
+        }
+
+        // Si es local, actualiza su información específica
+        if ($usuario->id_tipo_usuario == 3 && $cliente->locales) {
+            $local = $cliente->locales;
+            $cliente->ubicacion = $request->ubicacion;
+            $local->horario = $request->horario;
+            $local->id_tipo_local = $request->id_tipo_local;
+            $local->save();
+        }
+
+        $response = redirect('/perfil');
+
+        return $response;
+    }
 
     /**
      * Display the specified resource.

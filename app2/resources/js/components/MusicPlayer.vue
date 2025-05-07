@@ -9,7 +9,7 @@
                         <p>Canción: {{ audio.id_multimedia }}</p>
                     </div>
                     <audio controls>
-                        <source :src="audio.ruta" type="audio/mpeg">
+                        <source :src="url + audio.ruta" type="audio/mpeg">
                         Tu navegador no es compatible con el reproductor de música.
                     </audio>
                 </div>
@@ -49,6 +49,11 @@ export default {
             type: Number,
             required: true
         }
+    },
+    data() {
+        return {
+            url: import.meta.env.VITE_URL,
+        };
     },
     computed: {
 
