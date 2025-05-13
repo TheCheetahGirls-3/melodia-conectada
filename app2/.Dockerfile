@@ -39,5 +39,5 @@ RUN npm install && npm run build
 # Exponer el puerto 9000
 EXPOSE 9000
 
-# Ejecutar ambos procesos: npm run dev y php-fpm
+# Ejecutar php-fpm
 CMD ["php-fpm"]
